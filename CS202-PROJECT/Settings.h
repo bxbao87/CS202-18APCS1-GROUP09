@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SETTINGS_H
+#define _SETTINGS_H
 #include <iostream>
 #include <string>
 #include <vector>
@@ -7,25 +8,8 @@
 #include <time.h>
 #include <thread>
 
-void FixConsoleWindow() {
-	HWND consoleWindow = GetConsoleWindow();
-	LONG style = GetWindowLong(consoleWindow, GWL_STYLE);
-	style = style & ~(WS_MAXIMIZEBOX) & ~(WS_THICKFRAME);
-	SetWindowLong(consoleWindow, GWL_STYLE, style);
-}
+void FixConsoleWindow();
+void go(int column, int line);
+void color(const int& k);
 
-void go(int column, int line)
-{
-	COORD coord;
-	coord.X = column;
-	coord.Y = line;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
-
-void color(const int& k)
-{
-	HANDLE  hConsole;
-	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, k);
-}
-
+#endif 
