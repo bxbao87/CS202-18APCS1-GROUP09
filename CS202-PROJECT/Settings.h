@@ -7,6 +7,7 @@
 #include <conio.h>
 #include <time.h>
 #include <thread>
+#include <fstream>
 
 void FixConsoleWindow();
 void go(int column, int line);

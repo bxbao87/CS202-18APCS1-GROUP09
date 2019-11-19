@@ -88,50 +88,109 @@ void DRAW::split()
 	}
 }
 
+void DRAW::l_light(int y, bool s)
+{
+	if (s)
+	{
+		go(0, y+2);
+		color(34); //green background
+		cout << ' ';
+		color(15);
+		go(0, y + 1);
+		cout << ' ';
+	}
+	else
+	{
+		go(0, y+1);
+		color(68); //red blackground
+		cout << ' ';
+		color(15);
+		go(0, y + 2);
+		cout << ' ';
+	}
+}
+
+void DRAW::r_light(int y, bool s)
+{
+	if (s)
+	{
+		go(159, y + 2);
+		color(34); //green background
+		cout << ' ';
+		color(15);
+		go(159, y + 1);
+		cout << ' ';
+	}
+	else
+	{
+		go(159, y + 1);
+		color(68); //red blackground
+		cout << ' ';
+		color(15);
+		go(159, y + 2);
+		cout << ' ';
+	}
+}
+
 OBJECT::OBJECT()
 {
 	n = 0; d = 0; closeness = 0; x = 0; y = 0;
 }
 
 //class DOLPHIN
-DOLPHIN::DOLPHIN(int y)
+LDOLPHIN::LDOLPHIN(int y)
 {
 	this->y = y;
 	bool** map = new bool* [15];
 	for (int i = 0; i < 15; ++i)
 		map[i] = new bool[4];
-
+	ifstream in;
+	in.open("DOLPHIN.txt");
+	if (in.is_open())
+	{
+		string g;
+		for (int i = 0; i < 4; ++i)
+		{
+			in.ignore();
+			getline(in, g);
+			int n = g.length();
+			for (int j = 0; j < n; ++j)
+				if (g[j] == ' ') map[i][j] = false;
+				else map[i][j] = true;
+		}
+		in.close();
+	}
 }
 
-DOLPHIN::~DOLPHIN()
+LDOLPHIN::~LDOLPHIN()
 {
 	for (int i = 0; i < 15; ++i)
 		delete[] map[i];
 	delete[]map;
 }
 
-void DOLPHIN::makeSound()
+void LDOLPHIN::makeSound()
 {
 	//do something
 }
 
-void DOLPHIN::spawn_rate(int n, int d)
+void LDOLPHIN::spawn_rate(int n, int d)
 {
 	this->n = n; this->d = d;
 }
 
-bool DOLPHIN::spawn()
+bool LDOLPHIN::spawn()
 {
 	if (rand() % d <= n) return true;
 	return false;
 }
 
-void DOLPHIN::close(int closeness)
+void LDOLPHIN::close(int closeness)
 {
 	this->closeness = closeness;
 }
 
-void DOLPHIN::display()
+void LDOLPHIN::display()
 {
 	draw.erline(y);
 	if (arr.size() == 0)
@@ -160,6 +219,75 @@ void DOLPHIN::display()
 	}
 }
 
+void LDOLPHIN::get_map(bool**& map, int& x, int& y)
+{
+	map = new bool* [15];
+	for (int i = 0; i < 15; ++i)
+		map[i] = new bool[4];
+	x = this->x; y = this->y;
+	for (int i = 0; i < 15; ++i)
+		for (int j = 0; j < 4; ++j)
+			map[i][j] = this->map[i][j];
+}
+
+void LDOLPHIN::switch_light()
+{
+	if (light == 0)
+	{
+		if (rand() % 13 < 6)
+		{
+			light = 2;
+			red += (rand() % 5) * 1000;
+		}
+		else
+		{
+			light = 1;
+			green += (rand() % 5) * 1000;
+		}
+	}
+}
+
+bool LDOLPHIN::done(int second) //check if is there any light on
+{
+	if (light == 1)
+	{
+		green -= second;
+		if (green < 0)
+		{
+			green = 0;
+			light = 0;
+			return false;
+		}
+		return true;
+	}
+	else if (light == 2)
+	{
+		red -= second;
+		if (red < 0)
+		{
+			red = 0;
+			light = 0;
+			return false;
+		}
+		return true;
+	}
+	else if (light == 0) return false;
+}
+
+bool LDOLPHIN::turn()
+{
+	if (light == 1)
+	{
+		draw.r_light(y, true);
+		return true;
+	}
+	else if (light == 2)
+	{
+		draw.r_light(y, false);
+		return false;
+	}
+}
+
 LEVEL::~LEVEL()
 {
 	int n = arr.size();
@@ -171,16 +299,25 @@ LEVEL::LEVEL(int choice)
 {
 	if (choice == 1)
 	{
-		OBJECT* a = new DOLPHIN(4);
+		OBJECT* a = new LDOLPHIN(4);
 		a->spawn_rate(5, 10);
-		a->close(50);
+		a->close(30);
 		arr.push_back(a);
-		a = new DOLPHIN(9);
+		a = new LDOLPHIN(9);
 		a->spawn_rate(2, 10);
-		a->close(25);
+		a->close(45);
+		arr.push_back(a);
+		a = new LDOLPHIN(14);
+		a->spawn_rate(4, 10);
+		a->close(35);
+		arr.push_back(a);
+		a = new LDOLPHIN(19);
+		a->spawn_rate(8, 10);
+		a->close(50);
 		arr.push_back(a);
 	}
 	stop = false; tmp_stop = false;
+	now = clock();
 }
 
 void LEVEL::pause()
@@ -203,6 +340,7 @@ void LEVEL::run()
 	int n = arr.size();
 	while (!stop)
 	{
+		now = clock() - now;
 		if (tmp_stop)
 		{
 			//do nothing
@@ -210,7 +348,11 @@ void LEVEL::run()
 		else
 		{
 			for (int i = 0; i < n; ++i)
-				arr[i]->display();
+			{
+				if (!arr[i]->done(now)) arr[i]->switch_light();
+				if (arr[i]->turn()) arr[i]->display();
+			}
+			now = clock();
 			Sleep(100);
 		}
 	}
