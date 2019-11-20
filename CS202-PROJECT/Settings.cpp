@@ -1,7 +1,6 @@
 #include "Settings.h"
 
-void FixConsoleWindow() 
-{
+void FixConsoleWindow() {
 	HWND hwnd = GetConsoleWindow(); //fullscreen mode
 	ShowWindow(hwnd, SW_SHOWMAXIMIZED);
 	HWND consoleWindow = GetConsoleWindow(); //fix screen
@@ -10,16 +9,14 @@ void FixConsoleWindow()
 	SetWindowLong(consoleWindow, GWL_STYLE, style);
 }
 
-void go(int column, int line)
-{
+void go(int column, int row) {
 	COORD coord;
 	coord.X = column;
-	coord.Y = line;
+	coord.Y = row;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-void color(const int& k)
-{
+void color(const int& k) {
 	HANDLE  hConsole;
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, k);
