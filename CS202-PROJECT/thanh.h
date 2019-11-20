@@ -23,10 +23,13 @@ class OBJECT
 {
 protected:
 	DRAW draw;
+	bool traffic;
 	int n, d, x, y, closeness, red, green;
 	int light = 0; // 0 is neutral, 1 is green, 2 is red
 public:
 	OBJECT();
+	virtual void first_spawn() = 0; //initialize first map
+	virtual void set_traffic(bool s) = 0; //if it needs traffic light
 	virtual void makeSound() = 0; //incoming feature
 	virtual void display() = 0; //thread loop
 	virtual void spawn_rate(int n, int d) = 0; //n is succeed rate, d is event
@@ -46,6 +49,8 @@ private:
 public:
 	LDOLPHIN(int y); //initialize at line..
 	~LDOLPHIN();
+	void first_spawn();
+	void set_traffic(bool s);
 	void makeSound();
 	void display();
 	void spawn_rate(int n, int d);
