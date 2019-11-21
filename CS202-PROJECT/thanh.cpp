@@ -489,6 +489,7 @@ bool RDOLPHIN::turn()
 	return true;
 }
 
+//class LEVEL
 LEVEL::~LEVEL()
 {
 	int n = arr.size();

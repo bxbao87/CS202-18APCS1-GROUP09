@@ -1,5 +1,5 @@
 #include "People.h"
-#include"thanh.h"
+#include "thanh.h"
 
 People::People() {
 	pY = 45;
