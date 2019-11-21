@@ -24,11 +24,11 @@ int main()
 		{
 			exitThread(&t, test);
 		}
-		else if (k == 'p')
+		else if (k == 'p' || k == 'P')
 		{
 			test.pause();
 		}
-		else if (k == 'r')
+		else if (k == 'r' || k == 'R')
 		{
 			test.resume();
 		}
