@@ -9,14 +9,15 @@ class DRAW
 public:
 	void human(int x,int y); //size 3x3
 	void erhuman(int x,int y);
-	void dolphin(int x,int y); //size 4x16
+	void ldolphin(int x,int y); //size 4x15
 	void erdolphin(int x,int y);
+	void rdolphin(int x, int y); //size 4x15
 	void duck(int x,int y); //size 4x10
 	void erduck(int x,int y); //size 4x10
-	void l_light(int y, bool s);
-	void r_light(int y, bool s);
+	void l_light(int y, bool s); //left traffic light
+	void r_light(int y, bool s); //right traffic light
 	void erline(int y);
-	void split();
+	void split(); //split screen
 };
 
 class OBJECT
@@ -47,7 +48,7 @@ private:
 	bool** map;
 	vector <int> arr;
 public:
-	LDOLPHIN(int y); //initialize at line..
+	LDOLPHIN(int y,int n, int d,int closeness,bool traffic); //line, spawn rate, closeness, traffic
 	~LDOLPHIN();
 	void first_spawn();
 	void set_traffic(bool s);
@@ -61,6 +62,27 @@ public:
 	bool done(int second);
 	bool turn();
  };
+
+class RDOLPHIN :public OBJECT
+{
+private:
+	bool** map;
+	vector <int> arr;
+public:
+	RDOLPHIN(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
+	~RDOLPHIN();
+	void first_spawn();
+	void set_traffic(bool s);
+	void makeSound();
+	void display();
+	void spawn_rate(int n, int d);
+	bool spawn();
+	void close(int closeness);
+	void get_map(bool**& map, int& x, int& y);
+	void switch_light();
+	bool done(int second);
+	bool turn();
+};
 
 class LEVEL
 {

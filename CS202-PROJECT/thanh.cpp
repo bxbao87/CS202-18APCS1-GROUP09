@@ -20,7 +20,7 @@ void DRAW::erhuman(int x,int y)
 	}
 }
 
-void DRAW::dolphin(int x,int y)
+void DRAW::ldolphin(int x,int y)
 {
 	go(x, y);
 	cout << "        ,     ";
@@ -39,6 +39,18 @@ void DRAW::erdolphin(int x,int y)
 		go(x, y + i);
 		cout << "              ";
 	}
+}
+
+void DRAW::rdolphin(int x, int y)
+{
+	go(x, y);
+	cout << "     ,        ";
+	go(x, y + 1);
+	cout << "   _/(__      ";
+	go(x, y + 2);
+	cout << ".-`a    '-._/)";
+	go(x, y + 3);
+	cout << "`^^~(/````~~\\)";
 }
 
 void DRAW::duck(int x,int y)
@@ -92,20 +104,20 @@ void DRAW::l_light(int y, bool s)
 {
 	if (s)
 	{
-		go(0, y+2);
+		go(1, y+2);
 		color(34); //green background
 		cout << ' ';
 		color(15);
-		go(0, y + 1);
+		go(1, y + 1);
 		cout << ' ';
 	}
 	else
 	{
-		go(0, y+1);
+		go(1, y+1);
 		color(68); //red blackground
 		cout << ' ';
 		color(15);
-		go(0, y + 2);
+		go(1, y + 2);
 		cout << ' ';
 	}
 }
@@ -137,15 +149,15 @@ OBJECT::OBJECT()
 	n = 0; d = 0; closeness = 0; x = 0; y = 0;
 }
 
-//class DOLPHIN
-LDOLPHIN::LDOLPHIN(int y)
+//class LDOLPHIN
+LDOLPHIN::LDOLPHIN(int y,int n,int d,int closeness,bool traffic)
 {
 	this->y = y;
 	bool** map = new bool* [15];
 	for (int i = 0; i < 15; ++i)
 		map[i] = new bool[4];
 	ifstream in;
-	in.open("DOLPHIN.txt");
+	in.open("LDOLPHIN.txt");
 	if (in.is_open())
 	{
 		string g;
@@ -160,6 +172,8 @@ LDOLPHIN::LDOLPHIN(int y)
 		}
 		in.close();
 	}
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic;
+	first_spawn();
 }
 
 LDOLPHIN::~LDOLPHIN()
@@ -177,7 +191,7 @@ void LDOLPHIN::first_spawn()
 		arr.push_back(s);
 		s -= closeness;
 	}
-	light = 1; green = 5000;
+	light = 1; green = 1000;
 }
 
 void LDOLPHIN::makeSound()
@@ -210,6 +224,8 @@ void LDOLPHIN::set_traffic(bool s)
 void LDOLPHIN::display()
 {
 	draw.erline(y);
+	if (light == 1) draw.r_light(y, true);
+	else if (light == 2) draw.r_light(y, false);
 	int n = arr.size();
 	if (spawn() && arr[n - 1] > closeness) //random appearance
 	{
@@ -237,7 +253,7 @@ void LDOLPHIN::display()
 		}
 	}
 	for (int i = 0; i < n; ++i)
-		draw.dolphin(arr[i], y);
+		draw.ldolphin(arr[i], y);
 }
 
 void LDOLPHIN::get_map(bool**& map, int& x, int& y)
@@ -299,16 +315,176 @@ bool LDOLPHIN::done(int second) //check if is there any light on
 bool LDOLPHIN::turn()
 {
 	if (!traffic) return true;
+	return true;
+}
+
+//class RDOLPHIN
+RDOLPHIN::RDOLPHIN(int y, int n, int d, int closeness, bool traffic)
+{
+	this->y = y;
+	bool** map = new bool* [15];
+	for (int i = 0; i < 15; ++i)
+		map[i] = new bool[4];
+	ifstream in;
+	in.open("RDOLPHIN.txt");
+	if (in.is_open())
+	{
+		string g;
+		for (int i = 0; i < 4; ++i)
+		{
+			in.ignore();
+			getline(in, g);
+			int n = g.length();
+			for (int j = 0; j < n; ++j)
+				if (g[j] == ' ') map[i][j] = false;
+				else map[i][j] = true;
+		}
+		in.close();
+	}
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic;
+	first_spawn();
+}
+
+RDOLPHIN::~RDOLPHIN()
+{
+	for (int i = 0; i < 15; ++i)
+		delete[] map[i];
+	delete[]map;
+}
+
+void RDOLPHIN::first_spawn()
+{
+	int s = 0;
+	while (s < 160-15)
+	{
+		arr.push_back(s);
+		s += closeness;
+	}
+	light = 1; green = 1000;
+}
+
+void RDOLPHIN::makeSound()
+{
+	//do something
+}
+
+void RDOLPHIN::spawn_rate(int n, int d)
+{
+	this->n = n; this->d = d;
+}
+
+bool RDOLPHIN::spawn()
+{
+	if (rand() % d <= n) return true;
+	return false;
+}
+
+void RDOLPHIN::close(int closeness)
+{
+	this->closeness = closeness;
+}
+
+void RDOLPHIN::set_traffic(bool s)
+{
+	if (s) traffic = true;
+	else traffic = false;
+}
+
+void RDOLPHIN::display()
+{
+	draw.erline(y);
+	if (light == 1) draw.l_light(y, true);
+	else if (light == 2) draw.l_light(y, false);
+	int n = arr.size();
+	if (spawn() && 160 - arr[n - 1] > closeness + 15) //random appearance
+	{
+		arr.push_back(160 - 15);
+		++n;
+	}
+	for (int i = 0; i < n; ++i)
+	{
+		--arr[i];//move to the left
+		if (i == 0)
+		{
+			if (arr[i] <= 1) //out of range
+			{
+				if (light == 1)
+				{
+					arr.erase(arr.begin() + i);
+					--n;
+				}
+				else if (light == 2) ++arr[i]; //stop at red light
+			}
+		}
+		else
+		{
+			if (abs(arr[i] - arr[i - 1]) < closeness) ++arr[i];
+		}
+	}
+	for (int i = 0; i < n; ++i)
+		draw.rdolphin(arr[i], y);
+}
+
+void RDOLPHIN::get_map(bool**& map, int& x, int& y)
+{
+	map = new bool* [15];
+	for (int i = 0; i < 15; ++i)
+		map[i] = new bool[4];
+	x = this->x; y = this->y;
+	for (int i = 0; i < 15; ++i)
+		for (int j = 0; j < 4; ++j)
+			map[i][j] = this->map[i][j];
+}
+
+void RDOLPHIN::switch_light()
+{
+	if (light == 0)
+	{
+		if (rand() % 13 < 6)
+		{
+			light = 2;
+			red += (rand() % 5) * 1000;
+		}
+		else
+		{
+			light = 1;
+			green += (rand() % 5) * 1000;
+		}
+	}
+}
+
+bool RDOLPHIN::done(int second) //check if is there any light on
+{
+	if (!traffic) return true;
 	if (light == 1)
 	{
-		draw.r_light(y, true);
+		green -= second;
+		if (green < 0)
+		{
+			green = 0;
+			light = 0;
+			return false;
+		}
 		return true;
 	}
 	else if (light == 2)
 	{
-		draw.r_light(y, false);
+		red -= second;
+		if (red < 0)
+		{
+			red = 0;
+			light = 0;
+			return false;
+		}
 		return true;
 	}
+	else if (light == 0) return false;
+}
+
+bool RDOLPHIN::turn()
+{
+	if (!traffic) return true;
+	return true;
 }
 
 LEVEL::~LEVEL()
@@ -322,29 +498,14 @@ LEVEL::LEVEL(int choice)
 {
 	if (choice == 1)
 	{
-		OBJECT* a = new LDOLPHIN(4); //choose object
-		a->spawn_rate(5, 10);        //choose spawn rate
-		a->close(30);                //choose closeness
-		a->first_spawn();            //first initialize
-		a->set_traffic(true);        //choose traffic light status
+		OBJECT* a;
+		a = new LDOLPHIN(4, 5, 10, 30, true);
 		arr.push_back(a);
-		a = new LDOLPHIN(9);
-		a->spawn_rate(2, 10);
-		a->close(45);
-		a->first_spawn();
-		a->set_traffic(false);
+		a = new RDOLPHIN(9, 2, 10, 45, true);
 		arr.push_back(a);
-		a = new LDOLPHIN(14);
-		a->spawn_rate(4, 10);
-		a->close(35);
-		a->first_spawn();
-		a->set_traffic(true);
+		a = new LDOLPHIN(14, 4, 10, 35, true);
 		arr.push_back(a);
-		a = new LDOLPHIN(19);
-		a->spawn_rate(8, 10);
-		a->close(50);
-		a->first_spawn();
-		a->set_traffic(false);
+		a = new RDOLPHIN(19, 8, 10, 50, true);
 		arr.push_back(a);
 	}
 	stop = false; tmp_stop = false;
@@ -384,7 +545,7 @@ void LEVEL::run()
 				if (arr[i]->turn()) arr[i]->display();
 			}
 			now = clock();
-			Sleep(80);
+			Sleep(100);
 		}
 	}
 }
