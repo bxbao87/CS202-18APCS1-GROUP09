@@ -1,5 +1,5 @@
 #include "thanh.h"
-#include"People.h"
+#include "People.h"
 
 void exitThread(thread* t,LEVEL& a)
 {
@@ -9,8 +9,6 @@ void exitThread(thread* t,LEVEL& a)
 
 int main()
 {
-	/*system("chcp 437");
-	system("cls");
 	DRAW screen;
 	
 	screen.split();
@@ -34,8 +32,11 @@ int main()
 		{
 			test.resume();
 		}
-	}*/
-	system("pause");
+		else
+		{
+			p.move(k);
+		}
+	}
 	return 0;
 }
 

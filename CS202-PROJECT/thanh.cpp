@@ -223,10 +223,11 @@ void LDOLPHIN::set_traffic(bool s)
 
 void LDOLPHIN::display()
 {
-	draw.erline(y);
+	int n = arr.size();
+	for (int i = 0; i < n; ++i)
+		draw.erdolphin(arr[i], y);
 	if (light == 1) draw.r_light(y, true);
 	else if (light == 2) draw.r_light(y, false);
-	int n = arr.size();
 	if (spawn() && arr[n - 1] > closeness) //random appearance
 	{
 		arr.push_back(0);
@@ -392,10 +393,11 @@ void RDOLPHIN::set_traffic(bool s)
 
 void RDOLPHIN::display()
 {
-	draw.erline(y);
+	int n = arr.size();
+	for (int i = 0; i < n; ++i)
+		draw.erdolphin(arr[i], y);
 	if (light == 1) draw.l_light(y, true);
 	else if (light == 2) draw.l_light(y, false);
-	int n = arr.size();
 	if (spawn() && 160 - arr[n - 1] > closeness + 15) //random appearance
 	{
 		arr.push_back(160 - 15);
