@@ -8,8 +8,8 @@ void exitThread(thread* t,LEVEL& a)
 }
 
 int main()
-{
-	/*system("chcp 437");
+{/*
+	system("chcp 437");
 	system("cls");
 	DRAW screen;
 	
@@ -34,7 +34,9 @@ int main()
 		{
 			test.resume();
 		}
-	}*/
+		else p.move(k);
+	}
+	*/
 	system("pause");
 	return 0;
 }

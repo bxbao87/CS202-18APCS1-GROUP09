@@ -33,14 +33,26 @@ void People::draw() {
 }
 
 void People::move(int key) {
-	if (key == 'a' || key == 'A' || key == 75)
+	if (key == 'a' || key == 'A')
 		LEFT();
-	else if (key == 'd' || key == 'D' || key == 77)
+	else if (key == 'd' || key == 'D')
 		RIGHT();
-	else if (key == 'w' || key == 'W' || key == 72)
+	else if (key == 'w' || key == 'W')
 		UP();
-	else if (key == 's' || key == 'S' || key == 80)
+	else if (key == 's' || key == 'S')
 		DOWN();
+	else if (key == 224)
+	{
+		key = _getch();
+		if (key == 75)
+			LEFT();
+		else if (key == 77)
+			RIGHT();
+		else if (key == 72)
+			UP();
+		else if (key == 80)
+			DOWN();
+	}
 }
 
 void People::UP() {
@@ -71,7 +83,7 @@ void People::LEFT() {
 }
 
 void People::RIGHT() {
-	if (pX < 160)
+	if (pX < 157)
 	{
 		delDraw();
 		pX += 1;
