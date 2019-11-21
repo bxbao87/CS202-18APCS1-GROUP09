@@ -8,8 +8,10 @@ class People {
 private:
 	int pX, pY;
 	bool state;
+	bool** map;//true for existance of body part
 public:
 	People();
+	~People();
 	void delDraw();
 	void draw();
 	void move(int key);
