@@ -5,7 +5,21 @@ People::People() {
 	pY = 45;
 	pX = 80;
 	state = true;
+	map = new bool*[3];
+	for (int i = 0; i < 3; ++i) {
+		map[i] = new bool[3];
+		for (int j = 0; j < 3; ++j)
+			map[i][j] = true;
+	}
+	map[0][0] = map[0][2] = map[2][1] = false;
+	
 	draw();
+}
+
+People::~People() {
+	for (int i = 0; i < 3; ++i)
+		delete[] map[i];
+	delete[] map;
 }
 
 void People::delDraw() {
@@ -19,13 +33,13 @@ void People::draw() {
 }
 
 void People::move(int key) {
-	if (key == 'a' || key == 'A')
+	if (key == 'a' || key == 'A' || key == 75)
 		LEFT();
-	else if (key == 'd' || key == 'D')
+	else if (key == 'd' || key == 'D' || key == 77)
 		RIGHT();
-	else if (key == 'w' || key == 'W')
+	else if (key == 'w' || key == 'W' || key == 72)
 		UP();
-	else if (key == 's' || key == 'S')
+	else if (key == 's' || key == 'S' || key == 80)
 		DOWN();
 }
 
