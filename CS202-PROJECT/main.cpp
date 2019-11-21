@@ -10,9 +10,7 @@ void exitThread(thread* t,LEVEL& a)
 int main()
 {
 	DRAW screen;
-	
 	screen.split();
-	
 	LEVEL test(1);
 	People p;
 	int k = 0;
