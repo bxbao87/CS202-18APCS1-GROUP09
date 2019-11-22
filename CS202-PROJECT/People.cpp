@@ -1,5 +1,4 @@
 #include "People.h"
-#include "thanh.h"
 
 People::People() {
 	pY = 45;
@@ -13,7 +12,7 @@ People::People() {
 	}
 	map[0][0] = map[0][2] = map[2][1] = false;
 	
-	draw();
+	Draw();
 }
 
 People::~People() {
@@ -23,16 +22,27 @@ People::~People() {
 }
 
 void People::delDraw() {
-	DRAW d;
-	d.erhuman(pX, pY);
+	draw.erhuman(pX, pY);
 }
 
-void People::draw() {
-	DRAW d;
-	d.human(pX, pY);
+void People::Draw() {
+	draw.human(pX, pY);
+}
+
+void People::loop(int key)
+{
+	if (key == 'p' || key == 'P')
+	{
+		//do nothing
+	}
+	else
+	{
+		move(key);
+	}
 }
 
 void People::move(int key) {
+	mtx.lock();
 	if (key == 'a' || key == 'A')
 		LEFT();
 	else if (key == 'd' || key == 'D')
@@ -53,6 +63,7 @@ void People::move(int key) {
 		else if (key == 80)
 			DOWN();
 	}
+	mtx.unlock();
 }
 
 void People::UP() {
@@ -60,7 +71,7 @@ void People::UP() {
 	{
 		delDraw();
 		pY -= 5;
-		draw();
+		Draw();
 	}
 }
 
@@ -69,7 +80,7 @@ void People::DOWN() {
 	{
 		delDraw();
 		pY += 5;
-		draw();
+		Draw();
 	}
 }
 
@@ -78,7 +89,7 @@ void People::LEFT() {
 	{
 		delDraw();
 		pX -= 1;
-		draw();
+		Draw();
 	}
 }
 
@@ -87,7 +98,7 @@ void People::RIGHT() {
 	{
 		delDraw();
 		pX += 1;
-		draw();
+		Draw();
 	}
 }
 

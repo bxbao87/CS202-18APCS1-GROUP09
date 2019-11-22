@@ -7,6 +7,7 @@ using namespace std;
 class DRAW
 {
 public:
+	//input functions
 	void human(int x,int y); //size 3x3
 	void erhuman(int x,int y);
 	void ldolphin(int x,int y); //size 4x15
@@ -100,4 +101,3 @@ public:
 };
 
 #endif
-

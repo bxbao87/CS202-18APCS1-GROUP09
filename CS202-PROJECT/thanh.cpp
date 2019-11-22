@@ -146,7 +146,7 @@ void DRAW::r_light(int y, bool s)
 
 OBJECT::OBJECT()
 {
-	n = 0; d = 0; closeness = 0; x = 0; y = 0;
+	n = 0; d = 0; closeness = 0; x = 0; y = 0; green = 0; red = 0; traffic = false;
 }
 
 //class LDOLPHIN
@@ -532,6 +532,7 @@ void LEVEL::kill()
 
 void LEVEL::run()
 {
+	setcursor(0, 0);
 	int n = arr.size();
 	while (!stop)
 	{
@@ -542,11 +543,13 @@ void LEVEL::run()
 		}
 		else
 		{
+			mtx.lock();
 			for (int i = 0; i < n; ++i)
 			{
 				if (!arr[i]->done(now)) arr[i]->switch_light();
 				if (arr[i]->turn()) arr[i]->display();
 			}
+			mtx.unlock();
 			now = clock();
 			Sleep(100);
 		}

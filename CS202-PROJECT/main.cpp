@@ -1,7 +1,7 @@
 #include "thanh.h"
 #include "People.h"
 
-void exitThread(thread* t,LEVEL& a)
+void exitLEVEL(thread* t,LEVEL& a)
 {
 	a.kill();
 	t->join();
@@ -9,18 +9,18 @@ void exitThread(thread* t,LEVEL& a)
 
 int main()
 {
-	DRAW screen;
-	screen.split();
+	DRAW draw;
+	draw.split();
 	LEVEL test(1);
 	People p;
 	int k = 0;
-	thread t(&LEVEL::run, &test);
+	thread t1(&LEVEL::run, &test);
 	while (k != 27)
 	{
 		k = _getch();
 		if (k == 27)
 		{
-			exitThread(&t, test);
+			exitLEVEL(&t1, test);
 		}
 		else if (k == 'p' || k == 'P')
 		{
@@ -30,10 +30,9 @@ int main()
 		{
 			test.resume();
 		}
-		else
-		{
-			p.move(k);
-		}
+
+			thread t2(&People::move, &p, k);
+			t2.join();
 	}
 	return 0;
 }
