@@ -39,7 +39,7 @@ int main()
 	*/
 
 	FixConsoleWindow();
-	//Nocursortype();
+	Nocursortype();
 
 	DRAW screen;
 	screen.split();
