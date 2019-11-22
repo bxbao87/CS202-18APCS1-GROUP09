@@ -19,12 +19,14 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Settings.cpp">
+    <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="People.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
+    <ClCompile Include="Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="thanh.cpp">
@@ -36,12 +38,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Settings.h">
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="People.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
+    <ClInclude Include="Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="thanh.h">

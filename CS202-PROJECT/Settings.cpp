@@ -27,4 +27,14 @@ void Nocursortype() {
 	Info.bVisible = FALSE;
 	Info.dwSize = 20;
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Info);
+void setcursor(bool x, DWORD size) // x = 0 : invisible, x = 1 : visible, usually size of a cursor is 10
+{
+	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	if (size == 0)
+		size = 20;	// default cursor size Changing to numbers from 1 to 20, decreases cursor width
+	CONSOLE_CURSOR_INFO lpCursor;
+	lpCursor.bVisible = x;
+	lpCursor.dwSize = size;
+	SetConsoleCursorInfo(console, &lpCursor);
 }

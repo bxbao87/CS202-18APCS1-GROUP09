@@ -12,7 +12,7 @@ People::People() {
 	}
 	map[0][0] = map[0][2] = map[2][1] = false;
 	
-	draw();
+	Draw();
 }
 
 People::~People() {
@@ -22,14 +22,27 @@ People::~People() {
 }
 
 void People::delDraw() {
-	DRAW::erhuman(pX, pY);
+	draw.erhuman(pX, pY);
 }
 
-void People::draw() {
-	DRAW::human(pX, pY);
+void People::Draw() {
+	draw.human(pX, pY);
+}
+
+void People::loop(int key)
+{
+	if (key == 'p' || key == 'P')
+	{
+		//do nothing
+	}
+	else
+	{
+		move(key);
+	}
 }
 
 void People::move(int key) {
+	mtx.lock();
 	if (key == 'a' || key == 'A')
 		LEFT();
 	else if (key == 'd' || key == 'D')
@@ -50,6 +63,7 @@ void People::move(int key) {
 		else if (key == 80)
 			DOWN();
 	}
+	mtx.unlock();
 }
 
 void People::UP() {
