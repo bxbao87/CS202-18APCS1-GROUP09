@@ -86,7 +86,6 @@ void DRAW::erline(int y)
 
 void DRAW::split()
 {
-	FixConsoleWindow();
 	string t = "---------------------------------------------------------------------------------------------------------------------------------------------------------------";
 	for (int i = 0; i < 9; ++i)
 	{
@@ -185,7 +184,7 @@ LDOLPHIN::~LDOLPHIN()
 
 void LDOLPHIN::first_spawn()
 {
-	int s = 159;
+	int s = 159-15;
 	while (s > 0)
 	{
 		arr.push_back(s);
@@ -311,12 +310,6 @@ bool LDOLPHIN::done(int second) //check if is there any light on
 		return true;
 	}
 	else if (light == 0) return false;
-}
-
-bool LDOLPHIN::turn()
-{
-	if (!traffic) return true;
-	return true;
 }
 
 //class RDOLPHIN
@@ -483,12 +476,6 @@ bool RDOLPHIN::done(int second) //check if is there any light on
 	else if (light == 0) return false;
 }
 
-bool RDOLPHIN::turn()
-{
-	if (!traffic) return true;
-	return true;
-}
-
 //class LEVEL
 LEVEL::~LEVEL()
 {
@@ -510,9 +497,18 @@ LEVEL::LEVEL(int choice)
 		arr.push_back(a);
 		a = new RDOLPHIN(19, 8, 10, 50, true);
 		arr.push_back(a);
+		/*
+		a = new LDOLPHIN(24, 5, 10, 30, true);
+		arr.push_back(a);
+		a = new RDOLPHIN(29, 2, 10, 45, true);
+		arr.push_back(a);
+		a = new LDOLPHIN(34, 4, 10, 35, true);
+		arr.push_back(a);
+		a = new RDOLPHIN(39, 8, 10, 50, true);
+		arr.push_back(a);*/
 	}
 	stop = false; tmp_stop = false;
-	now = clock();
+	now = clock(); ok = true;
 }
 
 void LEVEL::pause()
@@ -532,26 +528,31 @@ void LEVEL::kill()
 
 void LEVEL::run()
 {
-	setcursor(0, 0);
 	int n = arr.size();
 	while (!stop)
 	{
-		now = clock() - now;
 		if (tmp_stop)
 		{
 			//do nothing
 		}
 		else
 		{
-			mtx.lock();
+			ok = false;
+			now = clock() - now;
 			for (int i = 0; i < n; ++i)
 			{
 				if (!arr[i]->done(now)) arr[i]->switch_light();
-				if (arr[i]->turn()) arr[i]->display();
+				arr[i]->display();
 			}
-			mtx.unlock();
+			ok = true;
 			now = clock();
 			Sleep(100);
 		}
 	}
+}
+
+bool LEVEL::oktowrite()
+{
+	if (ok) return true;
+	return false;
 }

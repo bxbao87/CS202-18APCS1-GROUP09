@@ -40,7 +40,6 @@ public:
 	virtual void get_map(bool**& map, int& x, int& y) = 0; //get map of object
 	virtual void switch_light() = 0; //switch between 2 signals
 	virtual bool done(int second) = 0; //check if any light is on
-	virtual bool turn() = 0; //display signal , true is green, false is red
 };
 
 class LDOLPHIN :public OBJECT
@@ -61,7 +60,6 @@ public:
 	void get_map(bool**& map, int& x, int& y);
 	void switch_light();
 	bool done(int second);
-	bool turn();
  };
 
 class RDOLPHIN :public OBJECT
@@ -82,18 +80,19 @@ public:
 	void get_map(bool**& map, int& x, int& y);
 	void switch_light();
 	bool done(int second);
-	bool turn();
 };
 
 class LEVEL
 {
 private:
+	bool ok;
 	time_t now;
 	vector <OBJECT*> arr;
 	bool stop, tmp_stop;
 public:
 	~LEVEL();
 	LEVEL(int choice);
+	bool oktowrite();
 	void kill();
 	void run();
 	void pause();
