@@ -1,23 +1,9 @@
 #ifndef _THANH_H
 #define _THANH_H
-#include "Settings.h"
+//#include "Settings.h"
+#include "Draw.h"
 
 using namespace std;
-
-class DRAW
-{
-public:
-	void human(int x,int y); //size 3x3
-	void erhuman(int x,int y);
-	void dolphin(int x,int y); //size 4x16
-	void erdolphin(int x,int y);
-	void duck(int x,int y); //size 4x10
-	void erduck(int x,int y); //size 4x10
-	void l_light(int y, bool s);
-	void r_light(int y, bool s);
-	void erline(int y);
-	void split();
-};
 
 class OBJECT
 {

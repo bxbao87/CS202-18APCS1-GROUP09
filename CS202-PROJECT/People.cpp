@@ -1,5 +1,4 @@
 #include "People.h"
-#include"thanh.h"
 
 People::People() {
 	pY = 45;
@@ -23,13 +22,11 @@ People::~People() {
 }
 
 void People::delDraw() {
-	DRAW d;
-	d.erhuman(pX, pY);
+	DRAW::erhuman(pX, pY);
 }
 
 void People::draw() {
-	DRAW d;
-	d.human(pX, pY);
+	DRAW::human(pX, pY);
 }
 
 void People::move(int key) {
@@ -56,42 +53,44 @@ void People::move(int key) {
 }
 
 void People::UP() {
-	if (pY - 5 >= 0)
+	if (pY - 5 >= Top_bound)
 	{
 		delDraw();
-		pY -= 5;
+		pY -= Y_MOVE;
 		draw();
 	}
 }
 
 void People::DOWN() {
-	if (pY + 5 <= 45)
+	if (pY + 5 <= Bot_bound)
 	{
 		delDraw();
-		pY += 5;
+		pY += Y_MOVE;
 		draw();
 	}
 }
 
 void People::LEFT() {
-	if (pX - 1 >= 0)
+	if (pX - 1 >= Left_bound)
 	{
 		delDraw();
-		pX -= 1;
+		pX -= X_MOVE;
 		draw();
 	}
 }
 
 void People::RIGHT() {
-	if (pX < 157)
+	if (pX < Right_bound)
 	{
 		delDraw();
-		pX += 1;
+		pX += X_MOVE;
 		draw();
 	}
 }
 
-bool People::isImpact() {
+bool People::isImpact(OBJECT* object) {
+
+
 	return false;//do sth with this
 }
 
@@ -101,8 +100,8 @@ bool People::isFinish() {
 	return false;
 }
 
-bool People::isDead() {
-	if (isImpact())// wait for impact function
+bool People::isDead(OBJECT* object) {
+	if (isImpact(object))// wait for impact function
 		return true;
 	return false;
 }

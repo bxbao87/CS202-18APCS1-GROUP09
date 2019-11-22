@@ -9,8 +9,11 @@
 #include <thread>
 #include <fstream>
 
+const int  BORDER = 140;
+
 void FixConsoleWindow();
 void go(int column, int line);
 void color(const int& k);
+void Nocursortype();				// hide the cursor
 
 #endif 

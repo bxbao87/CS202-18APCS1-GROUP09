@@ -37,6 +37,31 @@ int main()
 		else p.move(k);
 	}
 	*/
-	system("pause");
+
+	FixConsoleWindow();
+	//Nocursortype();
+
+	DRAW screen;
+	screen.split();
+	LEVEL test(1);
+	People p;
+	int k = 0;
+	thread t(&LEVEL::run, &test);
+	while (k != 27)
+	{
+		k = _getch();
+		if (k == 27) {
+			exitThread(&t, test);
+		}
+		else if (k == 'p' || k == 'P') {
+			test.pause();
+		}
+		else if (k == 'r' || k == 'R') {
+			test.resume();
+		}
+		else {
+			p.move(k);
+		}
+	}
 	return 0;
 }
