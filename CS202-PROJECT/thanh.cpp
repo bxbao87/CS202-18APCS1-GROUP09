@@ -1,148 +1,5 @@
 #include "thanh.h"
 
-//class DRAW
-void DRAW::human(int x,int y)
-{
-	go(x, y);
-	cout << " @ ";
-	go(x, y + 1);
-	cout << "-|-";
-	go(x, y + 2);
-	cout << "/ \\";
-}
-
-void DRAW::erhuman(int x,int y)
-{
-	for (int i = 0; i < 3; ++i)
-	{
-		go(x, y + i);
-		cout << "   ";
-	}
-}
-
-void DRAW::ldolphin(int x,int y)
-{
-	go(x, y);
-	cout << "        ,     ";
-	go(x, y + 1);
-	cout << "      __)\\_   ";
-	go(x, y + 2);
-	cout << "(\\_.-'    a`-.";
-	go(x, y + 3);
-	cout << "(/~~````(/~^^`";
-}
-
-void DRAW::erdolphin(int x,int y)
-{
-	for (int i = 0; i < 4; ++i)
-	{
-		go(x, y + i);
-		cout << "              ";
-	}
-}
-
-void DRAW::rdolphin(int x, int y)
-{
-	go(x, y);
-	cout << "     ,        ";
-	go(x, y + 1);
-	cout << "   _/(__      ";
-	go(x, y + 2);
-	cout << ".-`a    '-._/)";
-	go(x, y + 3);
-	cout << "`^^~(/````~~\\)";
-}
-
-void DRAW::duck(int x,int y)
-{
-	go(x, y);
-	cout << "  __     ";
-	go(x, y + 1);
-	cout << "<(o )___ ";
-	go(x, y + 2);
-	cout << " ( ._> / ";
-	go(x, y + 3);
-	cout << "  `---'  ";
-}
-
-void DRAW::erduck(int x,int y)
-{
-	for (int i = 0; i < 4; ++i)
-	{
-		go(x, y + i);
-		cout << "         ";
-	}
-}
-
-void DRAW::erline(int y)
-{
-	string t = "                                                                                                                                                               ";
-	for (int i = 0; i < 4; ++i)
-	{
-		go(0, y + i);
-		cout << t;
-	}
-}
-
-void DRAW::split()
-{
-	string t = "---------------------------------------------------------------------------------------------------------------------------------------------------------------";
-	for (int i = 0; i < 9; ++i)
-	{
-		go(0, 3 + i * 5);
-		cout << t;
-	}
-	for (int i = 0; i < 48; ++i)
-	{
-		go(160, i);
-		cout << char(179); // |
-	}
-}
-
-void DRAW::l_light(int y, bool s)
-{
-	if (s)
-	{
-		go(1, y+2);
-		color(34); //green background
-		cout << ' ';
-		color(15);
-		go(1, y + 1);
-		cout << ' ';
-	}
-	else
-	{
-		go(1, y+1);
-		color(68); //red blackground
-		cout << ' ';
-		color(15);
-		go(1, y + 2);
-		cout << ' ';
-	}
-}
-
-void DRAW::r_light(int y, bool s)
-{
-	if (s)
-	{
-		go(159, y + 2);
-		color(34); //green background
-		cout << ' ';
-		color(15);
-		go(159, y + 1);
-		cout << ' ';
-	}
-	else
-	{
-		go(159, y + 1);
-		color(68); //red blackground
-		cout << ' ';
-		color(15);
-		go(159, y + 2);
-		cout << ' ';
-	}
-}
-
 OBJECT::OBJECT()
 {
 	n = 0; d = 0; closeness = 0; x = 0; y = 0; green = 0; red = 0; traffic = false;
@@ -180,6 +37,49 @@ LDOLPHIN::~LDOLPHIN()
 	for (int i = 0; i < 15; ++i)
 		delete[] map[i];
 	delete[]map;
+}
+
+void LDOLPHIN::draw(int x, int y)
+{
+	go(x, y);
+	cout << "        ,     ";
+	go(x, y + 1);
+	cout << "      __)\\_   ";
+	go(x, y + 2);
+	cout << "(\\_.-'    a`-.";
+	go(x, y + 3);
+	cout << "(/~~````(/~^^`";
+}
+
+void LDOLPHIN::erase(int x, int y)
+{
+	for (int i = 0; i < 4; ++i)
+	{
+		go(x, y + i);
+		cout << "              ";
+	}
+}
+
+void LDOLPHIN::traffic_light()
+{
+	if (light == 1)
+	{
+		go(159, y + 2);
+		color(34); //green background
+		cout << ' ';
+		color(15);
+		go(159, y + 1);
+		cout << ' ';
+	}
+	else if (light == 2)
+	{
+		go(159, y + 1);
+		color(68); //red blackground
+		cout << ' ';
+		color(15);
+		go(159, y + 2);
+		cout << ' ';
+	}
 }
 
 void LDOLPHIN::first_spawn()
@@ -223,10 +123,9 @@ void LDOLPHIN::set_traffic(bool s)
 void LDOLPHIN::display()
 {
 	int n = arr.size();
-	for (int i = 0; i < n; ++i)
-		draw.erdolphin(arr[i], y);
-	if (light == 1) draw.r_light(y, true);
-	else if (light == 2) draw.r_light(y, false);
+	for (int i = 0; i < n; ++i) 
+		erase(arr[i], y);
+	traffic_light();
 	if (spawn() && arr[n - 1] > closeness) //random appearance
 	{
 		arr.push_back(0);
@@ -252,8 +151,10 @@ void LDOLPHIN::display()
 			if (abs(arr[i] - arr[i - 1]) < closeness) --arr[i];
 		}
 	}
+	color(3);
 	for (int i = 0; i < n; ++i)
-		draw.ldolphin(arr[i], y);
+		draw(arr[i], y);
+	color(15);
 }
 
 void LDOLPHIN::get_map(bool**& map, int& x, int& y)
@@ -346,6 +247,49 @@ RDOLPHIN::~RDOLPHIN()
 	delete[]map;
 }
 
+void RDOLPHIN::draw(int x, int y)
+{
+	go(x, y);
+	cout << "     ,        ";
+	go(x, y + 1);
+	cout << "   _/(__      ";
+	go(x, y + 2);
+	cout << ".-`a    '-._/)";
+	go(x, y + 3);
+	cout << "`^^~(/````~~\\)";
+}
+
+void RDOLPHIN::erase(int x, int y)
+{
+	for (int i = 0; i < 4; ++i)
+	{
+		go(x, y + i);
+		cout << "              ";
+	}
+}
+
+void RDOLPHIN::traffic_light()
+{
+	if (light == 1)
+	{
+		go(1, y + 2);
+		color(34); //green background
+		cout << ' ';
+		color(15);
+		go(1, y + 1);
+		cout << ' ';
+	}
+	else if (light == 2)
+	{
+		go(1, y + 1);
+		color(68); //red blackground
+		cout << ' ';
+		color(15);
+		go(1, y + 2);
+		cout << ' ';
+	}
+}
+
 void RDOLPHIN::first_spawn()
 {
 	int s = 0;
@@ -388,9 +332,8 @@ void RDOLPHIN::display()
 {
 	int n = arr.size();
 	for (int i = 0; i < n; ++i)
-		draw.erdolphin(arr[i], y);
-	if (light == 1) draw.l_light(y, true);
-	else if (light == 2) draw.l_light(y, false);
+		erase(arr[i], y);
+	traffic_light();
 	if (spawn() && 160 - arr[n - 1] > closeness + 15) //random appearance
 	{
 		arr.push_back(160 - 15);
@@ -416,8 +359,10 @@ void RDOLPHIN::display()
 			if (abs(arr[i] - arr[i - 1]) < closeness) ++arr[i];
 		}
 	}
+	color(3);
 	for (int i = 0; i < n; ++i)
-		draw.rdolphin(arr[i], y);
+		draw(arr[i], y);
+	color(15);
 }
 
 void RDOLPHIN::get_map(bool**& map, int& x, int& y)
@@ -509,6 +454,22 @@ LEVEL::LEVEL(int choice)
 	}
 	stop = false; tmp_stop = false;
 	now = clock(); ok = true;
+	split();
+}
+
+void LEVEL::split()
+{
+	string t = "---------------------------------------------------------------------------------------------------------------------------------------------------------------";
+	for (int i = 0; i < 9; ++i)
+	{
+		go(0, 3 + i * 5);
+		cout << t;
+	}
+	for (int i = 0; i < 48; ++i)
+	{
+		go(160, i);
+		cout << char(179); // |
+	}
 }
 
 void LEVEL::pause()
@@ -524,6 +485,12 @@ void LEVEL::resume()
 void LEVEL::kill()
 {
 	stop = true;
+}
+
+bool LEVEL::oktowrite()
+{
+	if (ok) return true;
+	return false;
 }
 
 void LEVEL::run()
@@ -546,13 +513,7 @@ void LEVEL::run()
 			}
 			ok = true;
 			now = clock();
-			Sleep(100);
+			Sleep(50);
 		}
 	}
-}
-
-bool LEVEL::oktowrite()
-{
-	if (ok) return true;
-	return false;
 }

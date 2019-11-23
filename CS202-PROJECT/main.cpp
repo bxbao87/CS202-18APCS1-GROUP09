@@ -11,8 +11,6 @@ int main()
 {
 	FixConsoleWindow();
 	setcursor(0, 0);
-	DRAW draw;
-	draw.split();
 	LEVEL test(1);
 	People p;
 	int k = 0;

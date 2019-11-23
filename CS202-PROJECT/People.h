@@ -4,7 +4,6 @@
 
 class People {
 private:
-	DRAW draw;
 	int pX, pY;
 	bool state;
 	bool** map;//true for existance of body part

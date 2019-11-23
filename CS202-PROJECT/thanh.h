@@ -4,32 +4,17 @@
 
 using namespace std;
 
-class DRAW
-{
-public:
-	//input functions
-	void human(int x,int y); //size 3x3
-	void erhuman(int x,int y);
-	void ldolphin(int x,int y); //size 4x15
-	void erdolphin(int x,int y);
-	void rdolphin(int x, int y); //size 4x15
-	void duck(int x,int y); //size 4x10
-	void erduck(int x,int y); //size 4x10
-	void l_light(int y, bool s); //left traffic light
-	void r_light(int y, bool s); //right traffic light
-	void erline(int y);
-	void split(); //split screen
-};
-
 class OBJECT
 {
 protected:
-	DRAW draw;
 	bool traffic;
 	int n, d, x, y, closeness, red, green;
 	int light = 0; // 0 is neutral, 1 is green, 2 is red
 public:
 	OBJECT();
+	virtual void draw(int x, int y) = 0; //draw object
+	virtual void erase(int x, int y) = 0; //erase object
+	virtual void traffic_light() = 0;
 	virtual void first_spawn() = 0; //initialize first map
 	virtual void set_traffic(bool s) = 0; //if it needs traffic light
 	virtual void makeSound() = 0; //incoming feature
@@ -50,6 +35,9 @@ private:
 public:
 	LDOLPHIN(int y,int n, int d,int closeness,bool traffic); //line, spawn rate, closeness, traffic
 	~LDOLPHIN();
+	void draw(int x, int y);
+	void erase(int x, int y);
+	void traffic_light();
 	void first_spawn();
 	void set_traffic(bool s);
 	void makeSound();
@@ -70,6 +58,9 @@ private:
 public:
 	RDOLPHIN(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
 	~RDOLPHIN();
+	void draw(int x, int y);
+	void erase(int x, int y);
+	void traffic_light();
 	void first_spawn();
 	void set_traffic(bool s);
 	void makeSound();
@@ -92,6 +83,7 @@ private:
 public:
 	~LEVEL();
 	LEVEL(int choice);
+	void split();
 	bool oktowrite();
 	void kill();
 	void run();

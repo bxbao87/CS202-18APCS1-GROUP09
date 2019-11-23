@@ -22,11 +22,22 @@ People::~People() {
 }
 
 void People::delDraw() {
-	draw.erhuman(pX, pY);
+	int x = pX, y = pY;
+	for (int i = 0; i < 3; ++i)
+	{
+		go(x, y + i);
+		cout << "   ";
+	}
 }
 
 void People::Draw() {
-	draw.human(pX, pY);
+	int x = pX, y = pY;
+	go(x, y);
+	cout << " @ ";
+	go(x, y + 1);
+	cout << "-|-";
+	go(x, y + 2);
+	cout << "/ \\";
 }
 
 void People::move(int key) {
