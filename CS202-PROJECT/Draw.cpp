@@ -9,14 +9,17 @@ void DRAW::human(int x, int y) {
 	cout << "/ \\";
 }
 
-void DRAW::erhuman(int x, int y) {
-	for (int i = 0; i < 3; ++i) {
+void DRAW::erhuman(int x, int y)
+{
+	for (int i = 0; i < 3; ++i)
+	{
 		go(x, y + i);
 		cout << "   ";
 	}
 }
 
-void DRAW::dolphin(int x, int y) {
+void DRAW::ldolphin(int x, int y)
+{
 	go(x, y);
 	cout << "        ,     ";
 	go(x, y + 1);
@@ -27,14 +30,29 @@ void DRAW::dolphin(int x, int y) {
 	cout << "(/~~````(/~^^`";
 }
 
-void DRAW::erdolphin(int x, int y) {
-	for (int i = 0; i < 4; ++i) {
+void DRAW::erdolphin(int x, int y)
+{
+	for (int i = 0; i < 4; ++i)
+	{
 		go(x, y + i);
 		cout << "              ";
 	}
 }
 
-void DRAW::duck(int x, int y) {
+void DRAW::rdolphin(int x, int y)
+{
+	go(x, y);
+	cout << "     ,        ";
+	go(x, y + 1);
+	cout << "   _/(__      ";
+	go(x, y + 2);
+	cout << ".-`a    '-._/)";
+	go(x, y + 3);
+	cout << "`^^~(/````~~\\)";
+}
+
+void DRAW::duck(int x, int y)
+{
 	go(x, y);
 	cout << "  __     ";
 	go(x, y + 1);
@@ -45,7 +63,8 @@ void DRAW::duck(int x, int y) {
 	cout << "  `---'  ";
 }
 
-void DRAW::erduck(int x, int y) {
+void DRAW::erduck(int x, int y)
+{
 	for (int i = 0; i < 4; ++i)
 	{
 		go(x, y + i);
@@ -53,47 +72,58 @@ void DRAW::erduck(int x, int y) {
 	}
 }
 
-void DRAW::erline(int y) {
+void DRAW::erline(int y)
+{
 	string t = "                                                                                                                                           ";
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 4; ++i)
+	{
 		go(0, y + i);
 		cout << t;
 	}
 }
 
-void DRAW::split() {
+void DRAW::split()
+{
+	FixConsoleWindow();
 	string t = "-------------------------------------------------------------------------------------------------------------------------------------------";
-	for (int i = 0; i < 9; ++i) {
+	for (int i = 0; i < 9; ++i)
+	{
 		go(0, 3 + i * 5);
 		cout << t;
 	}
-	for (int i = 0; i < 48; ++i) {
+	for (int i = 0; i < 48; ++i)
+	{
 		go(BORDER, i);
 		cout << char(179); // |
 	}
 }
 
-void DRAW::l_light(int y, bool s) {
-	if (s) {
-		go(0, y + 2);
+void DRAW::l_light(int y, bool s)
+{
+	if (s)
+	{
+		go(1, y + 2);
 		color(34); //green background
 		cout << ' ';
 		color(15);
-		go(0, y + 1);
+		go(1, y + 1);
 		cout << ' ';
 	}
-	else {
-		go(0, y + 1);
+	else
+	{
+		go(1, y + 1);
 		color(68); //red blackground
 		cout << ' ';
 		color(15);
-		go(0, y + 2);
+		go(1, y + 2);
 		cout << ' ';
 	}
 }
 
-void DRAW::r_light(int y, bool s) {
-	if (s) {
+void DRAW::r_light(int y, bool s)
+{
+	if (s)
+	{
 		go(BORDER - 1, y + 2);
 		color(34); //green background
 		cout << ' ';
@@ -101,7 +131,8 @@ void DRAW::r_light(int y, bool s) {
 		go(BORDER - 1, y + 1);
 		cout << ' ';
 	}
-	else {
+	else
+	{
 		go(BORDER - 1, y + 1);
 		color(68); //red blackground
 		cout << ' ';

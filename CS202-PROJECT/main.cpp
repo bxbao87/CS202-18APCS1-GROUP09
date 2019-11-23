@@ -7,8 +7,9 @@ void exitLEVEL(thread* t,LEVEL& a)
 	t->join();
 }
 
-int main()
-{
+
+
+int main() {
 	FixConsoleWindow();
 	Nocursortype();
 
@@ -22,7 +23,7 @@ int main()
 	{
 		k = _getch();
 		if (k == 27) {
-			exitThread(&t, test);
+			exitLEVEL(&t, test);
 		}
 		else if (k == 'p' || k == 'P') {
 			test.pause();
@@ -36,8 +37,6 @@ int main()
 	}
 	return 0;
 }
-	return 0;
-
 /* flip object
 int main()
 {

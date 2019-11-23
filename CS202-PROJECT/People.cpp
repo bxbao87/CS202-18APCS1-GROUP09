@@ -51,8 +51,7 @@ void People::move(int key) {
 		UP();
 	else if (key == 's' || key == 'S')
 		DOWN();
-	else if (key == 224)
-	{
+	else if (key == 224) {
 		key = _getch();
 		if (key == 75)
 			LEFT();
@@ -71,7 +70,7 @@ void People::UP() {
 	{
 		delDraw();
 		pY -= Y_MOVE;
-		draw();
+		Draw();
 	}
 }
 
@@ -80,7 +79,7 @@ void People::DOWN() {
 	{
 		delDraw();
 		pY += Y_MOVE;
-		draw();
+		Draw();
 	}
 }
 
@@ -89,7 +88,7 @@ void People::LEFT() {
 	{
 		delDraw();
 		pX -= X_MOVE;
-		draw();
+		Draw();
 	}
 }
 
@@ -98,7 +97,7 @@ void People::RIGHT() {
 	{
 		delDraw();
 		pX += X_MOVE;
-		draw();
+		Draw();
 	}
 }
 
