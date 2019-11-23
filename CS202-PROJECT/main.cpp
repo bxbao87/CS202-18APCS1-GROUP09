@@ -1,7 +1,7 @@
 #include "thanh.h"
 #include "People.h"
 
-void exitLEVEL(thread* t,LEVEL& a)
+void exitLEVEL(thread *t,LEVEL& a)
 {
 	a.kill();
 	t->join();
@@ -31,10 +31,15 @@ int main() {
 		else if (k == 'r' || k == 'R') {
 			test.resume();
 		}
-		else {
+		else
+		{
+			test.pause();
+			while (test.oktowrite() == false);
 			p.move(k);
+			test.resume();
 		}
 	}
+	setcursor(1, 10);
 	return 0;
 }
 /* flip object

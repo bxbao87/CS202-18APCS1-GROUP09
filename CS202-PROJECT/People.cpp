@@ -29,20 +29,7 @@ void People::Draw() {
 	draw.human(pX, pY);
 }
 
-void People::loop(int key)
-{
-	if (key == 'p' || key == 'P')
-	{
-		//do nothing
-	}
-	else
-	{
-		move(key);
-	}
-}
-
 void People::move(int key) {
-	mtx.lock();
 	if (key == 'a' || key == 'A')
 		LEFT();
 	else if (key == 'd' || key == 'D')
@@ -62,7 +49,6 @@ void People::move(int key) {
 		else if (key == 80)
 			DOWN();
 	}
-	mtx.unlock();
 }
 
 void People::UP() {

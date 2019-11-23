@@ -20,7 +20,6 @@ private:
 public:
 	People();
 	~People();
-	void loop(int key);
 	void delDraw();
 	void Draw();
 	void move(int key);
