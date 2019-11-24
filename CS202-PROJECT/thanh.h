@@ -2,8 +2,6 @@
 #define _THANH_H
 #include "Settings.h"
 
-using namespace std;
-
 class DRAW
 {
 public:
@@ -19,6 +17,7 @@ public:
 	void r_light(int y, bool s); //right traffic light
 	void erline(int y);
 	void split(); //split screen
+
 };
 
 class OBJECT

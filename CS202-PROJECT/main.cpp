@@ -1,5 +1,6 @@
 #include "thanh.h"
 #include "People.h"
+#include "Game.h"
 
 void exitLEVEL(thread *t,LEVEL& a)
 {
@@ -9,9 +10,11 @@ void exitLEVEL(thread *t,LEVEL& a)
 
 int main()
 {
+	system("chcp 437");
+	system("cls");
 	FixConsoleWindow();
 	setcursor(0, 0);
-	DRAW draw;
+	/*DRAW draw;
 	draw.split();
 	LEVEL test(1);
 	People p;
@@ -40,7 +43,10 @@ int main()
 			test.resume();
 		}
 	}
-	setcursor(1, 10);
+	setcursor(1, 10);*/
+	Game g;
+	g.menu();
+
 	return 0;
 }
 

@@ -1,6 +1,7 @@
 #include "People.h"
 
 People::People() {
+	live = 3;
 	pY = 45;
 	pX = 80;
 	state = true;
@@ -94,12 +95,19 @@ bool People::isImpact() {
 
 bool People::isFinish() {
 	if (pY == 0)
+	{
+		if(live<3)
+			live++;
 		return true;
+	}
 	return false;
 }
 
 bool People::isDead() {
 	if (isImpact())// wait for impact function
+	{
+		live--;
 		return true;
+	}
 	return false;
 }

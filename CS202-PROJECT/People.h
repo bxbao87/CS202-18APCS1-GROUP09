@@ -8,6 +8,7 @@ private:
 	int pX, pY;
 	bool state;
 	bool** map;//true for existance of body part
+	int live;
 public:
 	People();
 	~People();
