@@ -1,5 +1,6 @@
 #include "thanh.h"
 #include "People.h"
+#include "Game.h"
 
 void exitLEVEL(thread *t,LEVEL*& a)
 {
@@ -18,6 +19,8 @@ thread switchLEVEL(thread* t, LEVEL*& a, int level, int delay, int x, int y)
 
 int main()
 {
+	system("chcp 437");
+	system("cls");
 	FixConsoleWindow();
 	setcursor(0, 0);
 	LEVEL* test = new LEVEL(1, 100);
@@ -53,6 +56,7 @@ int main()
 	}
 	if (test != nullptr) delete test;
 	setcursor(1, 10);
+
 	return 0;
 }
 

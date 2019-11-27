@@ -6,7 +6,8 @@ class People {
 private:
 	int pX, pY;
 	bool state;
-	bool** map;//true for existance of body part
+	vector<string> map;//true for existance of body part
+	int live;
 public:
 	People();
 	~People();
@@ -20,6 +21,9 @@ public:
 	bool isImpact();		// pass Object
 	bool isFinish();
 	bool isDead();
+	pair<int, int> getCor();
+	bool** getImpactMap();
+	void spawn();
 };
 
 #endif

@@ -9,10 +9,12 @@
 #include <thread>
 #include <fstream>
 #include <mutex>
+using namespace std;
 
 void FixConsoleWindow();
 void go(int column, int line);
 void color(const int& k);
 void setcursor(bool x, DWORD size);
+
 
 #endif 
