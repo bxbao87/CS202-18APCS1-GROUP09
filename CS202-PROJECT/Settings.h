@@ -9,6 +9,7 @@
 #include <thread>
 #include <fstream>
 #include <mutex>
+using namespace std;
 
 const int  BORDER = 140;
 
@@ -17,5 +18,6 @@ void go(int column, int line);
 void color(const int& k);
 void Nocursortype();				// hide the cursor
 void setcursor(bool x, DWORD size);
+
 
 #endif 

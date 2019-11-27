@@ -12,10 +12,10 @@ const int Left_bound = 0, Right_bound = 137;
 
 class People {
 private:
-	DRAW draw;
 	int pX, pY;
 	bool state;
-	bool** map;//true for existance of body part
+	vector<string> map;//true for existance of body part
+	int live;
 public:
 	People();
 	~People();
@@ -28,7 +28,10 @@ public:
 	void RIGHT();
 	//bool isImpact(OBJECT* object);		// pass Object
 	bool isFinish();
-	//bool isDead(OBJECT* object);
+	bool isDead();
+	pair<int, int> getCor();
+	bool** getImpactMap();
+	void spawn();
 };
 
 #endif

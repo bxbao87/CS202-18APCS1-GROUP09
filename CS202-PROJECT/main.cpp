@@ -1,45 +1,63 @@
 #include "thanh.h"
 #include "People.h"
+#include "Game.h"
 
-void exitLEVEL(thread *t,LEVEL& a)
+void exitLEVEL(thread *t,LEVEL*& a)
 {
-	a.kill();
+	a->kill();
 	t->join();
 }
 
+thread switchLEVEL(thread* t, LEVEL*& a, int level, int delay, People p)
+{
+	exitLEVEL(t, a);
+	delete a;
+	a = new LEVEL(level, delay);
+	p.spawn();
+	thread t1(&LEVEL::run, a);
+	return t1;
+}
 
-
-int main() {
+int main()
+{
 	FixConsoleWindow();
-	Nocursortype();
-
-	DRAW screen;
-	screen.split();
-	LEVEL test(1);
+	setcursor(0, 0);
+	LEVEL* test = new LEVEL(1, 100);
 	People p;
-	int k = 0;
-	thread t(&LEVEL::run, &test);
+	int k = 0, x = 0, y = 0;
+	thread t1(&LEVEL::run, test);
 	while (k != 27)
 	{
 		k = _getch();
 		if (k == 27) {
 			exitLEVEL(&t, test);
 		}
-		else if (k == 'p' || k == 'P') {
-			test.pause();
+		else if (k == 'p' || k == 'P')
+		{
+			test->pause();
 		}
-		else if (k == 'r' || k == 'R') {
-			test.resume();
+		else if (k == 'r' || k == 'R')
+		{
+			test->resume();
+		}
+		else if (k == 'n')
+		{
+			t1 = switchLEVEL(&t1, test, 10, 100, p);
 		}
 		else
 		{
-			test.pause();
-			while (test.oktowrite() == false);
+			test->pause();
+			while (test->oktowrite() == false);
 			p.move(k);
-			test.resume();
+			pair<int, int > tmp = p.getCor();
+			x = tmp.first; y = tmp.second;
+			test->passCoor(x, y);
+			test->resume();
 		}
 	}
+	if (test != nullptr) delete test;
 	setcursor(1, 10);
+
 	return 0;
 }
 /* flip object
