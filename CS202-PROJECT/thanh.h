@@ -2,6 +2,8 @@
 #define _THANH_H
 //#include "Settings.h"
 #include "Draw.h"
+#include "People.h"
+#include <math.h>
 
 using namespace std;
 
@@ -25,6 +27,9 @@ public:
 	virtual void get_map(bool**& map, int& x, int& y) = 0; //get map of object
 	virtual void switch_light() = 0; //switch between 2 signals
 	virtual bool done(int second) = 0; //check if any light is on
+
+	virtual bool isImpact(int px, int py, bool** pMap) = 0;
+	
 };
 
 class LDOLPHIN :public OBJECT
@@ -45,6 +50,8 @@ public:
 	void get_map(bool**& map, int& x, int& y);
 	void switch_light();
 	bool done(int second);
+
+	bool isImpact(int px, int py, bool** pMap);
  };
 
 class RDOLPHIN :public OBJECT
@@ -65,6 +72,9 @@ public:
 	void get_map(bool**& map, int& x, int& y);
 	void switch_light();
 	bool done(int second);
+
+	bool isImpact(int px, int py, bool** pMap);
+	
 };
 
 class LEVEL

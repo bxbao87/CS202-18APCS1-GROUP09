@@ -2,7 +2,6 @@
 #define _PEOPLE_H
 
 #include "Draw.h"
-#include "thanh.h"
 
 using namespace std;
 
@@ -27,9 +26,9 @@ public:
 	void DOWN();
 	void LEFT();
 	void RIGHT();
-	bool isImpact(OBJECT* object);		// pass Object
+	//bool isImpact(OBJECT* object);		// pass Object
 	bool isFinish();
-	bool isDead(OBJECT* object);
+	//bool isDead(OBJECT* object);
 };
 
 #endif

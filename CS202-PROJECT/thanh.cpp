@@ -1,76 +1,5 @@
 #include "thanh.h"
 
-//class DRAW
-
-void DRAW::erline(int y)
-{
-	string t = "                                                                                                                                                               ";
-	for (int i = 0; i < 4; ++i)
-	{
-		go(0, y + i);
-		cout << t;
-	}
-}
-
-void DRAW::split()
-{
-	string t = "---------------------------------------------------------------------------------------------------------------------------------------------------------------";
-	for (int i = 0; i < 9; ++i)
-	{
-		go(0, 3 + i * 5);
-		cout << t;
-	}
-	for (int i = 0; i < 48; ++i)
-	{
-		go(160, i);
-		cout << char(179); // |
-	}
-}
-
-void DRAW::l_light(int y, bool s)
-{
-	if (s)
-	{
-		go(1, y+2);
-		color(34); //green background
-		cout << ' ';
-		color(15);
-		go(1, y + 1);
-		cout << ' ';
-	}
-	else
-	{
-		go(1, y+1);
-		color(68); //red blackground
-		cout << ' ';
-		color(15);
-		go(1, y + 2);
-		cout << ' ';
-	}
-}
-
-void DRAW::r_light(int y, bool s)
-{
-	if (s)
-	{
-		go(159, y + 2);
-		color(34); //green background
-		cout << ' ';
-		color(15);
-		go(159, y + 1);
-		cout << ' ';
-	}
-	else
-	{
-		go(159, y + 1);
-		color(68); //red blackground
-		cout << ' ';
-		color(15);
-		go(159, y + 2);
-		cout << ' ';
-	}
-}
-
 OBJECT::OBJECT()
 {
 	n = 0; d = 0; closeness = 0; x = 0; y = 0; green = 0; red = 0; traffic = false;
@@ -482,5 +411,67 @@ void LEVEL::run()
 bool LEVEL::oktowrite()
 {
 	if (ok) return true;
+	return false;
+}
+
+bool LDOLPHIN::isImpact(int px, int py, bool** pMap) {
+	for (int i = 0; i < arr.size(); i++) {
+		x = arr[i];
+		int BRx = x + sizeof(*map) / sizeof(bool);
+		int BRy = y + sizeof(map) / sizeof(*map);
+
+		int pBRx = px + sizeof(*pMap) / sizeof(bool);
+		int pBRy = py + sizeof(pMap) / sizeof(*pMap);
+		
+		// gives top-left point 
+		int x1 = max(x, px);
+		int y1 = max(y, py);
+
+		// gives bottom-right point  
+		int x2 = min(BRx, pBRx);
+		int y2 = min(BRy, pBRy);
+
+		// no intersection 
+		if (x1 > x2 || y1 > y2)
+			continue;
+		
+		// check impact 
+		for (int i = x1; i <= x2; i++)
+			for (int j = y1; j <= y2; j++)
+				if (map[abs(x - i)][abs(y - j)] == true &&
+					pMap[abs(px - i)][abs(py - j)] == true)
+					return true;
+	}
+	return false;
+}
+
+bool RDOLPHIN::isImpact(int px, int py, bool** pMap) {
+	for (int i = 0; i < arr.size(); i++) {
+		x = arr[i];
+		int BRx = x + sizeof(*map) / sizeof(bool);
+		int BRy = y + sizeof(map) / sizeof(*map);
+
+		int pBRx = px + sizeof(*pMap) / sizeof(bool);
+		int pBRy = py + sizeof(pMap) / sizeof(*pMap);
+
+		// gives top-left point 
+		int x1 = max(x, px);
+		int y1 = max(y, py);
+
+		// gives bottom-right point  
+		int x2 = min(BRx, pBRx);
+		int y2 = min(BRy, pBRy);
+
+		// no intersection 
+		if (x1 > x2 || y1 > y2)
+			continue;
+
+		// check impact 
+		for (int i = x1; i <= x2; i++)
+			for (int j = y1; j <= y2; j++)
+				if (map[abs(x - i)][abs(y - j)] == true &&
+					pMap[abs(px - i)][abs(py - j)] == true)
+					return true;
+	}
 	return false;
 }

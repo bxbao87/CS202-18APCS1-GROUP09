@@ -87,11 +87,11 @@ void People::RIGHT() {
 	}
 }
 
-bool People::isImpact(OBJECT* object) {
-
-
-	return false;//do sth with this
-}
+//bool People::isImpact(OBJECT* object) {
+//
+//
+//	return false;//do sth with this
+//}
 
 bool People::isFinish() {
 	if (pY == 0)
@@ -99,8 +99,8 @@ bool People::isFinish() {
 	return false;
 }
 
-bool People::isDead(OBJECT* object) {
-	if (isImpact(object))// wait for impact function
-		return true;
-	return false;
-}
+//bool People::isDead(OBJECT* object) {
+//	if (isImpact(object))// wait for impact function
+//		return true;
+//	return false;
+//}
