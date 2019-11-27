@@ -5,29 +5,44 @@ People::People() {
 	pY = 45;
 	pX = 80;
 	state = true;
-	map = new bool*[3];
-	for (int i = 0; i < 3; ++i) {
-		map[i] = new bool[3];
-		for (int j = 0; j < 3; ++j)
-			map[i][j] = true;
+	ifstream fin("human.txt");
+	if (fin.is_open()) {
+		map.clear();
+		while(!fin.eof()){
+			string line;
+			getline(fin, line, '\n');
+			map.push_back(line);
+		}
 	}
-	map[0][0] = map[0][2] = map[2][1] = false;
-	
-	Draw();
+	fin.close();
+	spawn();
 }
 
 People::~People() {
-	for (int i = 0; i < 3; ++i)
-		delete[] map[i];
-	delete[] map;
 }
 
 void People::delDraw() {
-	draw.erhuman(pX, pY);
+	int n = map.size();
+	if (n > 0)
+	{
+		int len = map[0].length();
+		string str = "";
+		for (int i = 0; i < len; ++i)
+			str += " ";
+		for (int i = 0; i < n; ++i) {
+			go(pX, pY + i);
+			cout << str;
+		}
+	}
 }
 
 void People::Draw() {
-	draw.human(pX, pY);
+	int n = map.size();
+	for (int i = 0; i < n; ++i) {
+		go(pX, pY+i);
+		cout << map[i];
+	}
+	
 }
 
 void People::move(int key) {
@@ -110,4 +125,35 @@ bool People::isDead() {
 		return true;
 	}
 	return false;
+}
+
+pair<int, int> People::getCor()
+{
+	return make_pair(pX,pY);
+}
+
+bool** People::getImpactMap()
+{
+	int r = map.size();
+	if (r > 0) {
+		int c = map[0].length();
+		bool** impact = new bool* [r];
+		for (int i = 0; i < r; ++i) {
+			impact[i] = new bool[c];
+			for (int j = 0; j < c; ++j)
+			{
+				if (map[i][j] != ' ')
+					impact[i][j] = true;
+				else impact[i][j] = false;
+			}
+		}
+		return impact;
+	}
+	return nullptr;
+}
+
+void People::spawn() {
+	pY = 45;
+	pX = 80;
+	Draw();
 }

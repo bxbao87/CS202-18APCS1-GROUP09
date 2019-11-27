@@ -14,7 +14,7 @@ int main()
 	system("cls");
 	FixConsoleWindow();
 	setcursor(0, 0);
-	/*DRAW draw;
+	DRAW draw;
 	draw.split();
 	LEVEL test(1);
 	People p;
@@ -43,9 +43,7 @@ int main()
 			test.resume();
 		}
 	}
-	setcursor(1, 10);*/
-	Game g;
-	g.menu();
+	setcursor(1, 10);
 
 	return 0;
 }

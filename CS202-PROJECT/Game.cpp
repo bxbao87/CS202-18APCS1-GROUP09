@@ -5,9 +5,10 @@ Game::Game() {
 }
 
 void Game::menu() {
-	
+	crossyZoo();
 
-	int y = 20;
+	int t = 23;
+	int y = t+3;
 	int cursorColor = 176;
 	int colour = 11;
 	vector<std::string> command;
@@ -18,9 +19,8 @@ void Game::menu() {
 	command.push_back("        Exit        ");
 	for (int i = 0; i < 5; ++i)
 	{
-		stringCentralization(command[i], y += 3, colour);
+		stringCentralization(command[i], t += 3, colour);
 	}
-	y = 23;
 	int line = 0;
 	stringCentralization(command[line], line*3+y, cursorColor);
 	int k = _getch();
@@ -125,4 +125,22 @@ void Game::updatePosPeople(char) {
 
 void Game::updatePosObject() {
 
+}
+
+void Game::crossyZoo()
+{
+	ifstream fin("crossyZoo.txt");
+	if (fin.is_open()) {
+		int n;
+		fin >> n;
+		int x = 50, y = 5;
+		color(14);
+		for (int i = 0; i < n; ++i) {
+			string str;
+			getline(fin, str, '\n');
+			go(x, y++);
+			cout << str;
+		}
+	}
+	fin.close();
 }

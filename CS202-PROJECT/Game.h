@@ -19,5 +19,7 @@ public:
 	void resumeGame(HANDLE);		// resume thread
 	void updatePosPeople(char);		// eo biet lam gi luon :)))))
 	void updatePosObject();			//
+
+	void crossyZoo();
 };
 #endif
