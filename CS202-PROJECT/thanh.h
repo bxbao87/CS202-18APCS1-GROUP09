@@ -113,7 +113,8 @@ public:
 	void split();
 	bool oktowrite();
 	void kill();
-	void run(int x, int y);
+	void run();
+	void passCoor(int x, int y);
 	void pause();
 	void resume();
 };

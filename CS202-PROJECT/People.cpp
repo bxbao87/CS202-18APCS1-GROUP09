@@ -33,6 +33,7 @@ void People::delDraw() {
 			go(pX, pY + i);
 			cout << str;
 		}
+	}
 }
 
 void People::Draw() {

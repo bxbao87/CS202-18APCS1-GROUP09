@@ -8,8 +8,8 @@ OBJECT::OBJECT()
 
 void OBJECT::human(int x,int y)
 {
-	this->x = x;
-	this->y = y;
+	this->hx = x;
+	this->hy = y;
 }
 
 //class LDOLPHIN
@@ -478,7 +478,7 @@ bool BOSS::spawn()
 	else steps = 3;
 	int ix, iy; //inaccurate moves
 	ix = rand() % 23, iy = rand() % 5;
-	ix -= 11; iy -= 3;
+	ix -= 9; iy -= 1;
 	if (xx <= hxx) xx = xx + steps + ix;
 	else xx = xx - steps - ix;
 	if (yy <= hyy) yy = yy + steps + iy;
@@ -517,6 +517,7 @@ LEVEL::~LEVEL()
 
 LEVEL::LEVEL(int choice,int delay)
 {
+	system("cls");
 	if (choice == 1)
 	{
 		split();
@@ -541,7 +542,6 @@ LEVEL::LEVEL(int choice,int delay)
 	}
 	else if (choice == 10)
 	{
-		system("cls");
 		boss_split();
 		OBJECT* a;
 		a = new BOSS(1, 1, 1, 1, true);
@@ -600,7 +600,13 @@ bool LEVEL::oktowrite()
 	return false;
 }
 
-void LEVEL::run(int x,int y)
+void LEVEL::passCoor(int x, int y)
+{
+	if (arr.size() == 1) //applied for boss only
+		arr[0]->human(x, y);
+}
+
+void LEVEL::run()
 {
 	int n = arr.size();
 	while (!stop)

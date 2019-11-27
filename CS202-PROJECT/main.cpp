@@ -8,25 +8,24 @@ void exitLEVEL(thread *t,LEVEL*& a)
 	t->join();
 }
 
-thread switchLEVEL(thread* t, LEVEL*& a, int level, int delay, int x, int y)
+thread switchLEVEL(thread* t, LEVEL*& a, int level, int delay, People p)
 {
 	exitLEVEL(t, a);
 	delete a;
 	a = new LEVEL(level, delay);
-	thread t1(&LEVEL::run, a, x, y);
+	p.spawn();
+	thread t1(&LEVEL::run, a);
 	return t1;
 }
 
 int main()
 {
-	system("chcp 437");
-	system("cls");
 	FixConsoleWindow();
 	setcursor(0, 0);
 	LEVEL* test = new LEVEL(1, 100);
 	People p;
 	int k = 0, x = 0, y = 0;
-	thread t1(&LEVEL::run, test, x, y);
+	thread t1(&LEVEL::run, test);
 	while (k != 27)
 	{
 		k = _getch();
@@ -44,13 +43,16 @@ int main()
 		}
 		else if (k == 'n')
 		{
-			t1 = switchLEVEL(&t1, test, 10, 100, x, y);
+			t1 = switchLEVEL(&t1, test, 10, 100, p);
 		}
 		else
 		{
 			test->pause();
 			while (test->oktowrite() == false);
 			p.move(k);
+			pair<int, int > tmp = p.getCor();
+			x = tmp.first; y = tmp.second;
+			test->passCoor(x, y);
 			test->resume();
 		}
 	}
