@@ -5,6 +5,8 @@
 #include "People.h"
 #include <math.h>
 
+#define BORDER 160
+
 using namespace std;
 
 class OBJECT
@@ -107,6 +109,8 @@ public:
 	//void get_map(bool**& map, int& x, int& y);
 	void switch_light() {}; // none
 	bool done(int second) { return true; } //none
+
+	bool isImpact(int px, int py, bool** pMap);
 };
 
 class LEVEL

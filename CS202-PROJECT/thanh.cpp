@@ -61,27 +61,27 @@ void LDOLPHIN::traffic_light()
 {
 	if (light == 1)
 	{
-		go(159, y + 2);
+		go(BORDER - 1, y + 2);
 		color(34); //green background
 		cout << ' ';
 		color(15);
-		go(159, y + 1);
+		go(BORDER - 1, y + 1);
 		cout << ' ';
 	}
 	else if (light == 2)
 	{
-		go(159, y + 1);
+		go(BORDER - 1, y + 1);
 		color(68); //red blackground
 		cout << ' ';
 		color(15);
-		go(159, y + 2);
+		go(BORDER - 1, y + 2);
 		cout << ' ';
 	}
 }
 
 void LDOLPHIN::first_spawn()
 {
-	int s = 159-15;
+	int s = BORDER - 1-15;
 	while (s > 0)
 	{
 		arr.push_back(s);
@@ -322,7 +322,7 @@ void RDOLPHIN::display()
 	for (int i = 0; i < n; ++i)
 		erase(arr[i], y);
 	traffic_light();
-	if (spawn() && 160 - arr[n - 1] > closeness + 15) //random appearance
+	if (spawn() && BORDER - arr[n - 1] > closeness + 15) //random appearance
 	{
 		arr.push_back(BORDER - 15);
 		++n;
@@ -447,7 +447,7 @@ void BOSS::erase(int x, int y)
 	for (int i = 0; i < n; ++i)
 	{
 		go(x, y + i);
-		cout << "                                                               ";
+		cout << "                                                                                 ";
 	}
 }
 
@@ -485,7 +485,7 @@ bool BOSS::spawn()
 	else yy = yy - steps - iy;
 	x = xx - 32;
 	if (x < 0) x = 0;
-	else if (x >= 159 - 64) x = 159 - 64;
+	else if (x >= BORDER - 1 - 64) x = BORDER - 1 - 64;
 	y = yy - 5;
 	if (y < 4) y = 4;
 	else if (y >= 43 - 11) y = 43 - 11;
@@ -560,7 +560,7 @@ void LEVEL::split()
 	}
 	for (int i = 0; i < 48; ++i)
 	{
-		go(160, i);
+		go(BORDER, i);
 		cout << char(179); // |
 	}
 }
@@ -574,7 +574,7 @@ void LEVEL::boss_split()
 	cout << t;
 	for (int i = 0; i < 48; ++i)
 	{
-		go(160, i);
+		go(BORDER, i);
 		cout << char(179); // |
 	}
 }
@@ -623,6 +623,12 @@ void LEVEL::run()
 			{
 				if (!arr[i]->done(now)) arr[i]->switch_light();
 				arr[i]->display();
+
+				/*int px = p.getCor().first;
+				int py = p.getCor().second;
+				if (arr[i]->isImpact(px, py, p.getImpactMap()))
+					Sleep(2000);*/
+
 			}
 			ok = true;
 			now = clock();
@@ -631,17 +637,11 @@ void LEVEL::run()
 	}
 }
 
-bool LEVEL::oktowrite()
-{
-	if (ok) return true;
-	return false;
-}
-
 bool LDOLPHIN::isImpact(int px, int py, bool** pMap) {
 	for (int i = 0; i < arr.size(); i++) {
 		x = arr[i];
-		int BRx = x + sizeof(*map) / sizeof(bool);
-		int BRy = y + sizeof(map) / sizeof(*map);
+		int BRx = x + map[0].size();		// length of rectangle
+		int BRy = y + map.size();			// width of rectangle
 
 		int pBRx = px + sizeof(*pMap) / sizeof(bool);
 		int pBRy = py + sizeof(pMap) / sizeof(*pMap);
@@ -661,7 +661,7 @@ bool LDOLPHIN::isImpact(int px, int py, bool** pMap) {
 		// check impact 
 		for (int i = x1; i <= x2; i++)
 			for (int j = y1; j <= y2; j++)
-				if (map[abs(x - i)][abs(y - j)] == true &&
+				if (map[abs(x - i)][abs(y - j)] != 32 &&
 					pMap[abs(px - i)][abs(py - j)] == true)
 					return true;
 	}
@@ -671,8 +671,8 @@ bool LDOLPHIN::isImpact(int px, int py, bool** pMap) {
 bool RDOLPHIN::isImpact(int px, int py, bool** pMap) {
 	for (int i = 0; i < arr.size(); i++) {
 		x = arr[i];
-		int BRx = x + sizeof(*map) / sizeof(bool);
-		int BRy = y + sizeof(map) / sizeof(*map);
+		int BRx = x + map[0].size();		// length of rectangle
+		int BRy = y + map.size();			// width of rectangle
 
 		int pBRx = px + sizeof(*pMap) / sizeof(bool);
 		int pBRy = py + sizeof(pMap) / sizeof(*pMap);
@@ -692,9 +692,37 @@ bool RDOLPHIN::isImpact(int px, int py, bool** pMap) {
 		// check impact 
 		for (int i = x1; i <= x2; i++)
 			for (int j = y1; j <= y2; j++)
-				if (map[abs(x - i)][abs(y - j)] == true &&
+				if (map[abs(x - i)][abs(y - j)] != 32 &&
 					pMap[abs(px - i)][abs(py - j)] == true)
 					return true;
 	}
+	return false;
+}
+
+bool BOSS::isImpact(int px, int py, bool** pMap) {
+	int BRx = x + map[0].size();		// length of rectangle
+	int BRy = y + map.size();			// width of rectangle
+
+	int pBRx = px + sizeof(*pMap) / sizeof(bool);
+	int pBRy = py + sizeof(pMap) / sizeof(*pMap);
+
+	// gives top-left point 
+	int x1 = max(x, px);
+	int y1 = max(y, py);
+
+	// gives bottom-right point  
+	int x2 = min(BRx, pBRx);
+	int y2 = min(BRy, pBRy);
+
+	// no intersection 
+	if (x1 > x2 || y1 > y2)
+		return false;
+
+	// check impact 
+	for (int i = x1; i <= x2; i++)
+		for (int j = y1; j <= y2; j++)
+			if (map[abs(x - i)][abs(y - j)] != 32 &&
+				pMap[abs(px - i)][abs(py - j)] == true)
+				return true;
 	return false;
 }

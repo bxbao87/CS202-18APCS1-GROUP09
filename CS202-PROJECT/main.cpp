@@ -18,19 +18,20 @@ thread switchLEVEL(thread* t, LEVEL*& a, int level, int delay, People p)
 	return t1;
 }
 
-int main()
-{
+int main() {
 	FixConsoleWindow();
-	setcursor(0, 0);
-	LEVEL* test = new LEVEL(1, 100);
+	Nocursortype();
+
 	People p;
+	LEVEL* test = new LEVEL(1, 100);
+	//People p;
 	int k = 0, x = 0, y = 0;
 	thread t1(&LEVEL::run, test);
 	while (k != 27)
 	{
 		k = _getch();
 		if (k == 27) {
-			exitLEVEL(&t, test);
+			exitLEVEL(&t1, test);
 		}
 		else if (k == 'p' || k == 'P')
 		{

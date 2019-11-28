@@ -119,11 +119,11 @@ bool People::isFinish() {
 }
 
 bool People::isDead() {
-	if (isImpact())// wait for impact function
-	{
-		live--;
-		return true;
-	}
+	//if (isImpact())// wait for impact function
+	//{
+	//	live--;
+	//	return true;
+	//}
 	return false;
 }
 

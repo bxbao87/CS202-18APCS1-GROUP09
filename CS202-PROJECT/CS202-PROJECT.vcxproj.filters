@@ -52,5 +52,20 @@
     <Text Include="DOLPHIN.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="BOSS.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="crossyZoo.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="LDOLPHIN.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="RDOLPHIN.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="RDUCK.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

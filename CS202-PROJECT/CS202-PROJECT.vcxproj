@@ -138,7 +138,12 @@
     <ClInclude Include="thanh.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="BOSS.txt" />
+    <Text Include="crossyZoo.txt" />
     <Text Include="DOLPHIN.txt" />
+    <Text Include="LDOLPHIN.txt" />
+    <Text Include="RDOLPHIN.txt" />
+    <Text Include="RDUCK.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
