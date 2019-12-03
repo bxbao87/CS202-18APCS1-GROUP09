@@ -22,7 +22,10 @@ int main()
 {
 	FixConsoleWindow();
 	setcursor(0, 0);
+	Game g;
+	system("chcp 437");
 	LEVEL* test = new LEVEL(1, 100);
+	g.instructor();
 	People p;
 	int k = 0, x = 0, y = 0;
 	thread t1(&LEVEL::run, test);

@@ -21,5 +21,6 @@ public:
 	void updatePosObject();			//
 
 	void crossyZoo();
+	void instructor();
 };
 #endif
