@@ -11,7 +11,7 @@
 #include <mutex>
 using namespace std;
 
-const int  BORDER = 140;
+const int BORDER = 160;
 
 void FixConsoleWindow();
 void go(int column, int line);

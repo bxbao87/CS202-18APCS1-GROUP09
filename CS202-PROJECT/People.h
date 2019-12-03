@@ -1,7 +1,7 @@
 #ifndef _PEOPLE_H
 #define _PEOPLE_H
 
-#include "Draw.h"
+#include "thanh.h"
 
 using namespace std;
 
@@ -14,7 +14,7 @@ class People {
 private:
 	int pX, pY;
 	bool state;
-	vector<string> map;//true for existance of body part
+	vector<string> map;			//true for existance of body part
 	int live;
 public:
 	People();
@@ -26,11 +26,10 @@ public:
 	void DOWN();
 	void LEFT();
 	void RIGHT();
-	//bool isImpact(OBJECT* object);		// pass Object
+	bool isImpact(int objY, vector<int> objCoordX, vector<string> objMap);		// pass Object
 	bool isFinish();
+	void decreaseLife();
 	bool isDead();
-	pair<int, int> getCor();
-	bool** getImpactMap();
 	void spawn();
 };
 
