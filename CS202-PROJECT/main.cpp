@@ -1,4 +1,4 @@
-#include "thanh.h"
+#include "Objects.h"
 #include "People.h"
 #include "Game.h"
 #include "Level.h"
