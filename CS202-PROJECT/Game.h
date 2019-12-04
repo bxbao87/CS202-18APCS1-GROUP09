@@ -29,5 +29,6 @@ public:
 	People getPeople();
 
 	void crossyZoo();
+	void instructor();
 };
 #endif
