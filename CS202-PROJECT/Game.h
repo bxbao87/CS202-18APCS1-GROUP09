@@ -13,6 +13,9 @@ private:
 	void moveCursor(int key, int& y);
 	void stringCentralization(std::string str, int r, int colour);
 	string inputFileName();
+	bool loadGame(string fileName);
+	bool saveGame(string fileName);
+
 public:
 	Game();
 	void menu();
@@ -20,9 +23,7 @@ public:
 	void exitGame(HANDLE);			// exit thread
 	void startGame();
 	void loadOption();
-	void loadGame(string fileName);
 	void saveOption();
-	void saveGame(string fileName);
 	void pauseGame(HANDLE);			// pause thread
 	void resumeGame(HANDLE);		// resume thread
 

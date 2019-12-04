@@ -12,6 +12,8 @@
 #include<iomanip>
 using namespace std;
 
+
+const string path = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\MAP\\";
 const int BORDER = 160;
 
 void FixConsoleWindow();

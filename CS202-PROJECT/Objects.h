@@ -5,60 +5,33 @@
 
 using namespace std;
 
-class LDOLPHIN :public OBJECT
-{
-private:
+class OBJECT {
+protected:
+	bool traffic;
+	int n, d, closeness; //spawning
+	int x, y; //line coordinate
+	int red, green; //traffic time
+	int hx, hy; //human coordinate
+	int light = 0; // 0 is neutral, 1 is green, 2 is red
+	vector <string> map;
+	vector <int> arr;
 public:
-	LDOLPHIN(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
-	void draw(int x, int y);
-	void erase(int x, int y);
-	void light_display();
-	void first_spawn();
-	void set_traffic(bool s);
-	void makeSound();
-	void display();
-	void spawn_rate(int n, int d);
-	bool spawn();
-	void close(int closeness);
-	bool done(int second);
-};
-
-class RDOLPHIN :public OBJECT
-{
-private:
-public:
-	RDOLPHIN(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
-	void draw(int x, int y);
-	void erase(int x, int y);
-	void light_display();
-	void first_spawn();
-	void set_traffic(bool s);
-	void makeSound();
-	void display();
-	void spawn_rate(int n, int d);
-	bool spawn();
-	void close(int closeness);
-	bool done(int second);
-};
-
-class BOSS :public OBJECT
-{
-private:
-	int c; //color of boss
-public:
-	BOSS(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
-	void draw(int x, int y);
-	void erase(int x, int y);
-	void light_display(); //change boss color :)
-	void first_spawn(); //at middle screen
-	void set_traffic(bool s); //none
-	void makeSound();
-	void display();
-	void spawn_rate(int n, int d) {}; //none
-	bool spawn(); //where to spawn
-	void close(int closeness) {}; //none
-	void switch_light() {}; // none
-	bool done(int second) { return true; } //none
+	OBJECT();
+	vector <int> getARR();
+	vector <string> getMAP();
+	virtual void draw(int x, int y) = 0; //draw object
+	virtual void erase(int x, int y) = 0; //erase object
+	virtual void light_display() = 0; //draw traffic_light
+	virtual void first_spawn() = 0; //initialize first map
+	virtual void set_traffic(bool s) = 0; //if it needs traffic light
+	virtual void makeSound() = 0; //incoming feature
+	virtual void display() = 0; //thread loop
+	virtual void spawn_rate(int n, int d) = 0; //n is succeed rate, d is event
+	virtual void close(int closeness) = 0; //space between 2 objects
+	virtual bool spawn() = 0; //decide if spawned or not
+	virtual void switch_light(); //switch between 2 signals
+	virtual bool done(int second) = 0; //check if any light is on
+	void human(int x, int y); //get human coordinate
 };
 
 #endif

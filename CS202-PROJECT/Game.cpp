@@ -104,54 +104,66 @@ void Game::startGame() {
 }
 
 string Game::inputFileName() {
+	go(165, 39);
 	cout << "Type file name: ";
-	std::string fileName;
+	/*std::string fileName;
 	getline(cin, fileName, '\n');
-	cin.ignore();
-	/*string path;
-	int k = 0, s = 0;
+	cin.ignore();*/
+	string fileName;
+	int key = 0, length = 0;
 	do {
-		if (k == 27) break;
-		if (k > 31 && k < 127) {
-			std::cout << char(k);
-			path.push_back(k);
-			++s;
+		if (key == 27) break;
+		if (key > 31 && key < 127) {
+			std::cout << char(key);
+			fileName.push_back(key);
+			length++;
 		}
-		else if (k == 8 && s > 0) {
+		else if (key == 8 && length > 0) {
 			std::cout << '\b' << ' ' << '\b';
-			path.pop_back(); --s;
+			fileName.pop_back();
+			length--;
 		}
-		k = _getch();
-	} while (k != 13);*/
+		key = _getch();
+	} while (key != 13);
 	return fileName;
 }
 
 void Game::loadOption() {
-	string fileName = inputFileName();
-	loadGame(fileName);
+	string fileName;
+	do
+		fileName = inputFileName();
+	while(loadGame(fileName));
 }
 
-void Game::loadGame(string fileName) {
+bool Game::loadGame(string fileName) {
 	ifstream file;
 	file.open(fileName + ".bin", ios::binary);
-	// file<<(char*)   -> level
+	if (!file.is_open()) 
+		return false;
 	int life = human.getLife();
+	// file read level 
 	file.read((char*)& life, sizeof(life));
 	file.close();
+	return true;
 }
 
 void Game::saveOption() {
-	string fileName = inputFileName();
-	saveGame(fileName);
+	string fileName;
+	do
+		fileName = inputFileName();
+	while(saveGame(fileName));
 }
 
-void Game::saveGame(string fileName) {
+bool Game::saveGame(string fileName) {
 	ofstream file;
 	file.open(fileName + ".bin", ios::binary);
+	if (!file.is_open())
+		return false;
 	// file<<(char*)   -> level
 	int life = human.getLife();
 	file.write((char*)&life, sizeof(life));
 	file.close();
+	return true;
 }
 
 void Game::pauseGame(HANDLE) {
@@ -216,7 +228,10 @@ void Game::instructor()
 	go(x, y);
 	cout << "LEVEL: " << "//something will be here";
 	go(x, y+=3);
-	cout << "LIVES: " << "//something will be here 2";
+	//cout << "LIVES: " << "//something will be here 2";
+	
+	// Try this
+	//cout << "LIVES: " << human.getLife();
 	
 	go(160, y += 3);
 	cout << (char)195;

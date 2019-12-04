@@ -1,10 +1,11 @@
 #include "Dolphin.h"
 
 //class LDOLPHIN
-LDOLPHIN::LDOLPHIN(int y, int n, int d, int closeness) {
+LDOLPHIN::LDOLPHIN(int y, int n, int d, int closeness, bool traffic)
+{
 	this->y = y;
 	ifstream in;
-	in.open("LDOLPHIN.txt");
+	in.open(path + "LDOLPHIN.txt");
 	if (in.is_open())
 	{
 		string g;
@@ -20,7 +21,7 @@ LDOLPHIN::LDOLPHIN(int y, int n, int d, int closeness) {
 		}
 		in.close();
 	}
-	this->n = n; this->d = d; this->closeness = closeness;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic;
 	first_spawn();
 }
 
@@ -44,37 +45,37 @@ void LDOLPHIN::erase(int x, int y)
 	}
 }
 
-void LDOLPHIN::displayLight()
+void LDOLPHIN::light_display()
 {
 	if (light == 1)
 	{
-		go(BORDER - 1, y + 2);
+		go(159, y + 2);
 		color(34); //green background
 		cout << ' ';
 		color(15);
-		go(BORDER - 1, y + 1);
+		go(159, y + 1);
 		cout << ' ';
 	}
 	else if (light == 2)
 	{
-		go(BORDER - 1, y + 1);
+		go(159, y + 1);
 		color(68); //red blackground
 		cout << ' ';
 		color(15);
-		go(BORDER - 1, y + 2);
+		go(159, y + 2);
 		cout << ' ';
 	}
 }
 
 void LDOLPHIN::first_spawn()
 {
-	int s = BORDER - 1 - 15;
+	int s = 159 - 15;
 	while (s > 0)
 	{
 		arr.push_back(s);
 		s -= closeness;
 	}
-	light = 1; green_time = 1000;
+	light = 1; green = 1000;
 }
 
 void LDOLPHIN::makeSound()
@@ -98,18 +99,18 @@ void LDOLPHIN::close(int closeness)
 	this->closeness = closeness;
 }
 
-//void LDOLPHIN::set_traffic(bool s)
-//{
-//	if (s) traffic = true;
-//	else traffic = false;
-//}
+void LDOLPHIN::set_traffic(bool s)
+{
+	if (s) traffic = true;
+	else traffic = false;
+}
 
 void LDOLPHIN::display()
 {
 	int n = arr.size();
 	for (int i = 0; i < n; ++i)
 		erase(arr[i], y);
-	displayLight();
+	light_display();
 	if (spawn() && arr[n - 1] > closeness) //random appearance
 	{
 		arr.push_back(0);
@@ -120,7 +121,7 @@ void LDOLPHIN::display()
 		++arr[i];//move to the right
 		if (i == 0)
 		{
-			if (arr[i] + 16 >= BORDER - 2) //out of range
+			if (arr[i] + 16 > 160) //out of range
 			{
 				if (light == 1)
 				{
@@ -141,32 +142,15 @@ void LDOLPHIN::display()
 	color(15);
 }
 
-void LDOLPHIN::switch_light()
+bool LDOLPHIN::done(int second) //check if is there any light on
 {
-	if (light == 0)
-	{
-		if (rand() % 13 < 6)
-		{
-			light = 2;
-			red_time += (rand() % 5) * 1000;
-		}
-		else
-		{
-			light = 1;
-			green_time += (rand() % 5) * 1000;
-		}
-	}
-}
-
-bool LDOLPHIN::check(int second) //check if is there any light on
-{
-	//if (!traffic) return true;
+	if (!traffic) return true;
 	if (light == 1)
 	{
-		green_time -= second;
-		if (green_time < 0)
+		green -= second;
+		if (green < 0)
 		{
-			green_time = 0;
+			green = 0;
 			light = 0;
 			return false;
 		}
@@ -174,10 +158,10 @@ bool LDOLPHIN::check(int second) //check if is there any light on
 	}
 	else if (light == 2)
 	{
-		red_time -= second;
-		if (red_time < 0)
+		red -= second;
+		if (red < 0)
 		{
-			red_time = 0;
+			red = 0;
 			light = 0;
 			return false;
 		}
@@ -187,11 +171,11 @@ bool LDOLPHIN::check(int second) //check if is there any light on
 }
 
 //class RDOLPHIN
-RDOLPHIN::RDOLPHIN(int y, int n, int d, int closeness)
+RDOLPHIN::RDOLPHIN(int y, int n, int d, int closeness, bool traffic)
 {
 	this->y = y;
 	ifstream in;
-	in.open("RDOLPHIN.txt");
+	in.open(path + "RDOLPHIN.txt");
 	if (in.is_open())
 	{
 		string g;
@@ -207,7 +191,7 @@ RDOLPHIN::RDOLPHIN(int y, int n, int d, int closeness)
 		}
 		in.close();
 	}
-	this->n = n; this->d = d; this->closeness = closeness;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic;
 	first_spawn();
 }
 
@@ -231,7 +215,8 @@ void RDOLPHIN::erase(int x, int y)
 	}
 }
 
-void RDOLPHIN::displayLight() {
+void RDOLPHIN::light_display()
+{
 	if (light == 1)
 	{
 		go(1, y + 2);
@@ -255,12 +240,12 @@ void RDOLPHIN::displayLight() {
 void RDOLPHIN::first_spawn()
 {
 	int s = 0;
-	while (s < BORDER - 15)
+	while (s < 160 - 15)
 	{
 		arr.push_back(s);
 		s += closeness;
 	}
-	light = 1; green_time = 1000;
+	light = 1; green = 1000;
 }
 
 void RDOLPHIN::makeSound()
@@ -284,21 +269,21 @@ void RDOLPHIN::close(int closeness)
 	this->closeness = closeness;
 }
 
-//void RDOLPHIN::set_traffic(bool s)
-//{
-//	if (s) traffic = true;
-//	else traffic = false;
-//}
+void RDOLPHIN::set_traffic(bool s)
+{
+	if (s) traffic = true;
+	else traffic = false;
+}
 
 void RDOLPHIN::display()
 {
 	int n = arr.size();
 	for (int i = 0; i < n; ++i)
 		erase(arr[i], y);
-	displayLight();
-	if (spawn() && BORDER - arr[n - 1] > closeness + 15) //random appearance
+	light_display();
+	if (spawn() && 160 - arr[n - 1] > closeness + 15) //random appearance
 	{
-		arr.push_back(BORDER - 15);
+		arr.push_back(160 - 15);
 		++n;
 	}
 	for (int i = 0; i < n; ++i)
@@ -327,44 +312,15 @@ void RDOLPHIN::display()
 	color(15);
 }
 
-/*
-void RDOLPHIN::get_map(bool**& map, int& x, int& y)
-{
-	map = new bool* [15];
-	for (int i = 0; i < 15; ++i)
-		map[i] = new bool[4];
-	x = this->x; y = this->y;
-	for (int i = 0; i < 15; ++i)
-		for (int j = 0; j < 4; ++j)
-			map[i][j] = this->map[i][j];
-}*/
-
-void RDOLPHIN::switch_light()
-{
-	if (light == 0)
-	{
-		if (rand() % 13 < 6)
-		{
-			light = 2;
-			red_time += (rand() % 5) * 1000;
-		}
-		else
-		{
-			light = 1;
-			green_time += (rand() % 5) * 1000;
-		}
-	}
-}
-
 bool RDOLPHIN::done(int second) //check if is there any light on
 {
-	//if (!traffic) return true;
+	if (!traffic) return true;
 	if (light == 1)
 	{
-		green_time -= second;
-		if (green_time < 0)
+		green -= second;
+		if (green < 0)
 		{
-			green_time = 0;
+			green = 0;
 			light = 0;
 			return false;
 		}
@@ -372,10 +328,10 @@ bool RDOLPHIN::done(int second) //check if is there any light on
 	}
 	else if (light == 2)
 	{
-		red_time -= second;
-		if (red_time < 0)
+		red -= second;
+		if (red < 0)
 		{
-			red_time = 0;
+			red = 0;
 			light = 0;
 			return false;
 		}

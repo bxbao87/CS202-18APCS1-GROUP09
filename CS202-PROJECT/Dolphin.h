@@ -1,49 +1,42 @@
 #ifndef _DOLPHIN_H
 #define _DOLPHIN_H
 
-#include "thanh.h"
+#include "Settings.h"
+#include "Objects.h"
 
 using namespace std;
 
-class LDOLPHIN :public OBJECT, public LIGHT {
+class LDOLPHIN :public OBJECT {
 private:
-	vector <int> arr;
 public:
-	LDOLPHIN(int y, int n, int d, int closeness); //line, spawn rate, closeness, traffic
-	//~LDOLPHIN();
+	LDOLPHIN(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
 	void draw(int x, int y);
 	void erase(int x, int y);
-	void displayLight();
+	void light_display();
 	void first_spawn();
-	//void set_traffic(bool s);
+	void set_traffic(bool s);
 	void makeSound();
 	void display();
 	void spawn_rate(int n, int d);
 	bool spawn();
 	void close(int closeness);
-	//void get_map(bool**& map, int& x, int& y);
-	void switch_light();
-	bool check(int second);
+	bool done(int second);
 };
 
-class RDOLPHIN :public OBJECT,public LIGHT {
+class RDOLPHIN :public OBJECT {
 private:
-	vector <int> arr;
 public:
-	RDOLPHIN(int y, int n, int d, int closeness); //line, spawn rate, closeness, traffic
-	//~RDOLPHIN();
+	RDOLPHIN(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
 	void draw(int x, int y);
 	void erase(int x, int y);
-	void displayLight();
+	void light_display();
 	void first_spawn();
-	//void set_traffic(bool s);
+	void set_traffic(bool s);
 	void makeSound();
 	void display();
 	void spawn_rate(int n, int d);
 	bool spawn();
 	void close(int closeness);
-	//void get_map(bool**& map, int& x, int& y);
-	void switch_light();
 	bool done(int second);
 };
 

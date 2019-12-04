@@ -1,15 +1,11 @@
 #include "Level.h"
 
 //class LEVEL
-LEVEL::~LEVEL() {
-	int n = arr.size();
-	for (int i = 0; i < n; ++i)
-		if (arr[i] != nullptr) delete arr[i];
-}
-
-LEVEL::LEVEL(int choice, int delay) {
+LEVEL::LEVEL(int choice, int delay)
+{
 	system("cls");
-	if (choice == 1) {
+	if (choice == 1)
+	{
 		split();
 		OBJECT* a;
 		a = new LDOLPHIN(4, 5, 10, 30, true);
@@ -40,7 +36,8 @@ LEVEL::LEVEL(int choice, int delay) {
 	stop = false; tmp_stop = false; now = clock(); ok = true; this->delay = delay;
 }
 
-void LEVEL::split() {
+void LEVEL::split()
+{
 	string t = "---------------------------------------------------------------------------------------------------------------------------------------------------------------";
 	for (int i = 0; i < 9; ++i)
 	{
@@ -49,12 +46,13 @@ void LEVEL::split() {
 	}
 	for (int i = 0; i < 48; ++i)
 	{
-		go(BORDER, i);
+		go(160, i);
 		cout << char(179); // |
 	}
 }
 
-void LEVEL::boss_split() {
+void LEVEL::boss_split()
+{
 	string t = "---------------------------------------------------------------------------------------------------------------------------------------------------------------";
 	go(0, 3); // upper bound
 	cout << t;
@@ -62,52 +60,55 @@ void LEVEL::boss_split() {
 	cout << t;
 	for (int i = 0; i < 48; ++i)
 	{
-		go(BORDER, i);
+		go(160, i);
 		cout << char(179); // |
 	}
 }
 
-void LEVEL::pause() {
+void LEVEL::pause()
+{
 	tmp_stop = true;
 }
 
-void LEVEL::resume() {
+void LEVEL::resume()
+{
 	tmp_stop = false;
 }
 
-void LEVEL::kill() {
+void LEVEL::kill()
+{
 	stop = true;
 }
 
-bool LEVEL::oktowrite() {
+bool LEVEL::oktowrite()
+{
 	if (ok) return true;
 	return false;
 }
 
-void LEVEL::passCoor(int x, int y) {
+void LEVEL::passCoor(int x, int y)
+{
 	if (arr.size() == 1) //applied for boss only
 		arr[0]->human(x, y);
 }
 
-void LEVEL::run() {
+void LEVEL::run()
+{
 	int n = arr.size();
 	while (!stop)
 	{
-		if (tmp_stop) {
+		if (tmp_stop)
+		{
 			//do nothing
 		}
-		else {
+		else
+		{
 			ok = false;
 			now = clock() - now;
-			for (int i = 0; i < n; ++i) {
+			for (int i = 0; i < n; ++i)
+			{
 				if (!arr[i]->done(now)) arr[i]->switch_light();
 				arr[i]->display();
-
-				/*int px = p.getCor().first;
-				int py = p.getCor().second;
-				if (arr[i]->isImpact(px, py, p.getImpactMap()))
-					Sleep(2000);*/
-
 			}
 			ok = true;
 			now = clock();
@@ -115,3 +116,4 @@ void LEVEL::run() {
 		}
 	}
 }
+

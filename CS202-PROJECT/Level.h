@@ -1,7 +1,10 @@
 #ifndef _LEVEL_H
 #define _LEVEL_H
 
+#include "Settings.h"
+#include "Objects.h"
 #include "Dolphin.h"
+#include "Boss.h"
 
 using namespace std;
 
@@ -24,5 +27,6 @@ public:
 	void pause();
 	void resume();
 };
+
 
 #endif
