@@ -22,6 +22,13 @@ void color(const int& k) {
 	SetConsoleTextAttribute(hConsole, k);
 }
 
+void Nocursortype() {
+	CONSOLE_CURSOR_INFO Info;
+	Info.bVisible = FALSE;
+	Info.dwSize = 20;
+	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Info);
+}
+
 void setcursor(bool x, DWORD size) // x = 0 : invisible, x = 1 : visible, usually size of a cursor is 10
 {
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);

@@ -123,7 +123,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Dolphin.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Objects.cpp" />
     <ClCompile Include="People.cpp" />
@@ -131,11 +134,22 @@
     <ClCompile Include="Setups.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="Dolphin.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Objects.h" />
     <ClInclude Include="People.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Setups.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="BOSS.txt" />
+    <Text Include="crossyZoo.txt" />
+    <Text Include="DOLPHIN.txt" />
+    <Text Include="LDOLPHIN.txt" />
+    <Text Include="RDOLPHIN.txt" />
+    <Text Include="RDUCK.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

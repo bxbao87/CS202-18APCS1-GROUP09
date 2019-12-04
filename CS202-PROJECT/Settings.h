@@ -9,11 +9,17 @@
 #include <thread>
 #include <fstream>
 #include <mutex>
+#include<iomanip>
 using namespace std;
+
+
+const string path = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\MAP\\";
+const int BORDER = 160;
 
 void FixConsoleWindow();
 void go(int column, int line);
 void color(const int& k);
+void Nocursortype();				// hide the cursor
 void setcursor(bool x, DWORD size);
 
 

@@ -1,6 +1,7 @@
 #include "Objects.h"
 #include "People.h"
 #include "Game.h"
+#include "Level.h"
 
 void exitLEVEL(thread *t,LEVEL*& a)
 {
@@ -18,19 +19,22 @@ thread switchLEVEL(thread* t, LEVEL*& a, int level, int delay, People p)
 	return t1;
 }
 
-int main()
-{
+int main() {
 	FixConsoleWindow();
 	setcursor(0, 0);
+	Game g;
+	system("chcp 437");
 	LEVEL* test = new LEVEL(1, 100);
+	g.instructor();
 	People p;
+	LEVEL* test = new LEVEL(1, 100);
+	//People p;
 	int k = 0, x = 0, y = 0;
 	thread t1(&LEVEL::run, test);
 	while (k != 27)
 	{
 		k = _getch();
-		if (k == 27)
-		{
+		if (k == 27) {
 			exitLEVEL(&t1, test);
 		}
 		else if (k == 'p' || k == 'P')
@@ -50,9 +54,6 @@ int main()
 			test->pause();
 			while (test->oktowrite() == false);
 			p.move(k);
-			pair<int, int > tmp = p.getCor();
-			x = tmp.first; y = tmp.second;
-			test->passCoor(x, y);
 			test->resume();
 		}
 	}
@@ -61,7 +62,6 @@ int main()
 
 	return 0;
 }
-
 /* flip object
 int main()
 {

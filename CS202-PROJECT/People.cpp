@@ -23,8 +23,7 @@ People::~People() {
 
 void People::delDraw() {
 	int n = map.size();
-	if (n > 0)
-	{
+	if (n > 0) {
 		int len = map[0].length();
 		string str = "";
 		for (int i = 0; i < len; ++i)
@@ -53,8 +52,7 @@ void People::move(int key) {
 		UP();
 	else if (key == 's' || key == 'S')
 		DOWN();
-	else if (key == 224)
-	{
+	else if (key == 224) {
 		key = _getch();
 		if (key == 75)
 			LEFT();
@@ -68,48 +66,71 @@ void People::move(int key) {
 }
 
 void People::UP() {
-	if (pY - 5 >= 0)
-	{
+	if (pY - 5 >= Top_bound) {
 		delDraw();
-		pY -= 5;
+		pY -= Y_MOVE;
 		Draw();
 	}
 }
 
 void People::DOWN() {
-	if (pY + 5 <= 45)
-	{
+	if (pY + 5 <= Bot_bound) {
 		delDraw();
-		pY += 5;
+		pY += Y_MOVE;
 		Draw();
 	}
 }
 
 void People::LEFT() {
-	if (pX - 1 >= 0)
-	{
+	if (pX - 1 >= Left_bound) {
 		delDraw();
-		pX -= 1;
+		pX -= X_MOVE;
 		Draw();
 	}
 }
 
 void People::RIGHT() {
-	if (pX < 157)
-	{
+	if (pX < Right_bound) {
 		delDraw();
-		pX += 1;
+		pX += X_MOVE;
 		Draw();
 	}
 }
 
-bool People::isImpact() {
-	return false;//do sth with this
+bool People::isImpact(int objY, vector<int> objCoordX, vector<string> objMap) {
+	for (int i = 0; i < objCoordX.size(); i++) {
+		int objX = objCoordX[i];
+		int BRx = pX + map[0].size();		// length of rectangle
+		int BRy = pY + map.size();			// width of rectangle
+
+		int pBRx = objX + objMap[0].size();
+		int pBRy = objY + objMap.size();
+
+		// gives top-left point 
+		int x1 = max(pX, objX);
+		int y1 = max(pY, objY);
+
+		// gives bottom-right point  
+		int x2 = min(BRx, pBRx);
+		int y2 = min(BRy, pBRy);
+
+		// no intersection 
+		if (x1 > x2 || y1 > y2)
+			continue;
+
+		// check impact 
+		for (int i = x1; i <= x2; i++)
+			for (int j = y1; j <= y2; j++)
+				if (map[abs(pX - i)][abs(pY - j)] != 32 &&
+					objMap[abs(objX - i)][abs(objY - j)] != 32)
+					return true;
+
+		return false;
+	}
 }
 
 bool People::isFinish() {
-	if (pY == 0)
-	{
+	if (pY == 0) {
 		if(live<3)
 			live++;
 		return true;
@@ -117,38 +138,20 @@ bool People::isFinish() {
 	return false;
 }
 
+void People::decreaseLife() {
+	live--;
+	if (live == 0)
+		state = false;
+}
+
+int People::getLife() {
+	return live;
+}
+
 bool People::isDead() {
-	if (isImpact())// wait for impact function
-	{
-		live--;
+	if (!state)
 		return true;
-	}
 	return false;
-}
-
-pair<int, int> People::getCor()
-{
-	return make_pair(pX,pY);
-}
-
-bool** People::getImpactMap()
-{
-	int r = map.size();
-	if (r > 0) {
-		int c = map[0].length();
-		bool** impact = new bool* [r];
-		for (int i = 0; i < r; ++i) {
-			impact[i] = new bool[c];
-			for (int j = 0; j < c; ++j)
-			{
-				if (map[i][j] != ' ')
-					impact[i][j] = true;
-				else impact[i][j] = false;
-			}
-		}
-		return impact;
-	}
-	return nullptr;
 }
 
 void People::spawn() {
