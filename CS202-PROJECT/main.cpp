@@ -1,6 +1,7 @@
 #include "thanh.h"
 #include "People.h"
 #include "Game.h"
+#include "Level.h"
 
 void exitLEVEL(thread *t,LEVEL*& a)
 {
@@ -50,9 +51,6 @@ int main() {
 			test->pause();
 			while (test->oktowrite() == false);
 			p.move(k);
-			pair<int, int > tmp = p.getCor();
-			x = tmp.first; y = tmp.second;
-			test->passCoor(x, y);
 			test->resume();
 		}
 	}
