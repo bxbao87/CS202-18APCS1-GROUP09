@@ -144,36 +144,15 @@ void People::decreaseLife() {
 		state = false;
 }
 
+int People::getLife() {
+	return live;
+}
+
 bool People::isDead() {
 	if (!state)
 		return true;
 	return false;
 }
-
-/*pair<int, int> People::getCor()
-{
-	return make_pair(pX,pY);
-}
-
-bool** People::getImpactMap()
-{
-	int r = map.size();
-	if (r > 0) {
-		int c = map[0].length();
-		bool** impact = new bool* [r];
-		for (int i = 0; i < r; ++i) {
-			impact[i] = new bool[c];
-			for (int j = 0; j < c; ++j)
-			{
-				if (map[i][j] != ' ')
-					impact[i][j] = true;
-				else impact[i][j] = false;
-			}
-		}
-		return impact;
-	}
-	return nullptr;
-}*/
 
 void People::spawn() {
 	pY = 45;

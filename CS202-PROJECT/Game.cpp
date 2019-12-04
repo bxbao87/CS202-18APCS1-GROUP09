@@ -103,12 +103,55 @@ void Game::startGame() {
 
 }
 
-void Game::loadGame(istream) {
-
+string Game::inputFileName() {
+	cout << "Type file name: ";
+	std::string fileName;
+	getline(cin, fileName, '\n');
+	cin.ignore();
+	/*string path;
+	int k = 0, s = 0;
+	do {
+		if (k == 27) break;
+		if (k > 31 && k < 127) {
+			std::cout << char(k);
+			path.push_back(k);
+			++s;
+		}
+		else if (k == 8 && s > 0) {
+			std::cout << '\b' << ' ' << '\b';
+			path.pop_back(); --s;
+		}
+		k = _getch();
+	} while (k != 13);*/
+	return fileName;
 }
 
-void Game::saveGame(istream) {
+void Game::loadOption() {
+	string fileName = inputFileName();
+	loadGame(fileName);
+}
 
+void Game::loadGame(string fileName) {
+	ifstream file;
+	file.open(fileName + ".bin", ios::binary);
+	// file<<(char*)   -> level
+	int life = human.getLife();
+	file.read((char*)& life, sizeof(life));
+	file.close();
+}
+
+void Game::saveOption() {
+	string fileName = inputFileName();
+	saveGame(fileName);
+}
+
+void Game::saveGame(string fileName) {
+	ofstream file;
+	file.open(fileName + ".bin", ios::binary);
+	// file<<(char*)   -> level
+	int life = human.getLife();
+	file.write((char*)&life, sizeof(life));
+	file.close();
 }
 
 void Game::pauseGame(HANDLE) {
@@ -119,16 +162,12 @@ void Game::resumeGame(HANDLE) {
 
 }
 
-void Game::updatePosPeople(char) {
-
+People Game::getPeople() {
+	return human;
 }
 
-void Game::updatePosObject() {
 
-}
-
-void Game::crossyZoo()
-{
+void Game::crossyZoo() {
 	ifstream fin("crossyZoo.txt");
 	if (fin.is_open()) {
 		int n;

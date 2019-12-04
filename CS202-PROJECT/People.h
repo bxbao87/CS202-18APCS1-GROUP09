@@ -29,6 +29,7 @@ public:
 	bool isImpact(int objY, vector<int> objCoordX, vector<string> objMap);		// pass Object
 	bool isFinish();
 	void decreaseLife();
+	int getLife();
 	bool isDead();
 	void spawn();
 };
