@@ -125,15 +125,17 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Objects.cpp" />
     <ClCompile Include="People.cpp" />
     <ClCompile Include="Settings.cpp" />
-    <ClCompile Include="thanh.cpp" />
+    <ClCompile Include="Setups.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Objects.h" />
     <ClInclude Include="People.h" />
     <ClInclude Include="Settings.h" />
-    <ClInclude Include="thanh.h" />
+    <ClInclude Include="Setups.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
