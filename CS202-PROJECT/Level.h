@@ -10,6 +10,7 @@ using namespace std;
 
 class LEVEL {
 private:
+	int current;
 	bool ok;
 	time_t now;
 	vector <OBJECT*> arr;
@@ -18,6 +19,7 @@ private:
 public:
 	~LEVEL();
 	LEVEL(int choice, int delay);
+	int getLevel();
 	void boss_split();
 	void split();
 	bool oktowrite();

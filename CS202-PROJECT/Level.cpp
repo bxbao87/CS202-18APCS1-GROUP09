@@ -34,6 +34,19 @@ LEVEL::LEVEL(int choice, int delay)
 		arr.push_back(a);
 	}
 	stop = false; tmp_stop = false; now = clock(); ok = true; this->delay = delay;
+	current = choice;
+}
+
+LEVEL::~LEVEL()
+{
+	int n = arr.size();
+	for (int i = 0; i < n; ++i)
+		if (arr[i] != nullptr) delete arr[i];
+}
+
+int LEVEL::getLevel()
+{
+	return current;
 }
 
 void LEVEL::split()
