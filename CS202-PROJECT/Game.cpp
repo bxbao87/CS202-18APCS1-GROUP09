@@ -103,12 +103,67 @@ void Game::startGame() {
 
 }
 
-void Game::loadGame(istream) {
-
+string Game::inputFileName() {
+	go(165, 39);
+	cout << "Type file name: ";
+	/*std::string fileName;
+	getline(cin, fileName, '\n');
+	cin.ignore();*/
+	string fileName;
+	int key = 0, length = 0;
+	do {
+		if (key == 27) break;
+		if (key > 31 && key < 127) {
+			std::cout << char(key);
+			fileName.push_back(key);
+			length++;
+		}
+		else if (key == 8 && length > 0) {
+			std::cout << '\b' << ' ' << '\b';
+			fileName.pop_back();
+			length--;
+		}
+		key = _getch();
+	} while (key != 13);
+	return fileName;
 }
 
-void Game::saveGame(istream) {
+void Game::loadOption() {
+	string fileName;
+	do
+		fileName = inputFileName();
+	while(loadGame(fileName));
+}
 
+bool Game::loadGame(string fileName) {
+	ifstream file;
+	file.open(fileName + ".bin", ios::binary);
+	if (!file.is_open()) 
+		return false;
+	int life = human.getLife();
+	// file read level 
+	file.read((char*)& life, sizeof(life));
+	file.close();
+	return true;
+}
+
+void Game::saveOption() {
+	string fileName;
+	do
+		fileName = inputFileName();
+	while(saveGame(fileName));
+}
+
+bool Game::saveGame(string fileName) {
+	ofstream file;
+	file.open(fileName + ".bin", ios::binary);
+	if (!file.is_open())
+		return false;
+	// file<<(char*)   -> level
+	int life = human.getLife();
+	file.write((char*)&life, sizeof(life));
+	file.close();
+	return true;
 }
 
 void Game::pauseGame(HANDLE) {
@@ -119,16 +174,12 @@ void Game::resumeGame(HANDLE) {
 
 }
 
-void Game::updatePosPeople(char) {
-
+People Game::getPeople() {
+	return human;
 }
 
-void Game::updatePosObject() {
 
-}
-
-void Game::crossyZoo()
-{
+void Game::crossyZoo() {
 	ifstream fin("crossyZoo.txt");
 	if (fin.is_open()) {
 		int n;
@@ -143,4 +194,68 @@ void Game::crossyZoo()
 		}
 	}
 	fin.close();
+}
+
+void Game::instructor()
+{
+	int x = 165, y = 3;
+	color(4);
+	ifstream fin("crossy.txt");
+	if (fin.is_open()) {
+		string line;
+		while (getline(fin, line, '\n')) {
+			go(x, y++);
+			cout << line;
+		}
+	}
+	fin.close();
+
+	x += 10;
+	color(11);
+	fin.open("zoo.txt");
+	if (fin.is_open()) {
+		string line;
+		while (getline(fin, line, '\n')) {
+			go(x, ++y);
+			cout << line;
+		}
+	}
+	fin.close();
+
+	x = 175;
+	y = 17;
+	color(7);
+	go(x, y);
+	cout << "LEVEL: " << "//something will be here";
+	go(x, y+=3);
+	//cout << "LIVES: " << "//something will be here 2";
+	
+	// Try this
+	//cout << "LIVES: " << human.getLife();
+	
+	go(160, y += 3);
+	cout << (char)195;
+	for (int i = 0; i < 50; ++i)
+		cout << (char)196;
+
+	x = 165;
+	go(x, y = 25);
+	cout << "Press W to UP";
+	go(x, y += 2);
+	cout << "Press S to DOWN";
+	go(x, y += 2);
+	cout << "Press A to LEFT";
+	go(x, y += 2);
+	cout << "Press D to RIGHT";
+
+	go(x+=20, y = 33);
+	cout << setw(20) << "Press P to PAUSE";
+	go(x, y += 2);
+	cout << setw(20) << "Press R to RESUME";
+	go(x, y += 2);
+	cout << setw(20) << "Press L to SAVE";
+	go(x, y += 2);
+	cout << setw(20) << "Press T to LOAD";
+	go(x, y += 2);
+	cout << setw(20) << "Press ESC to EXIT";
 }
