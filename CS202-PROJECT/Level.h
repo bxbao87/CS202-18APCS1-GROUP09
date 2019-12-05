@@ -20,12 +20,13 @@ public:
 	~LEVEL();
 	LEVEL(int choice, int delay);
 	int getLevel();
+	void set_level();
 	void boss_split();
 	void split();
 	bool oktowrite();
 	void kill();
 	void run();
-	void passCoor(int x, int y);
+	void passCoor(pair<int,int> coor);
 	void pause();
 	void resume();
 };

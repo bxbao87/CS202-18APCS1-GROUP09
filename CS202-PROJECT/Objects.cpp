@@ -1,5 +1,4 @@
 #include "Objects.h"
-#include "Setups.h"
 
 //class OBJECT
 OBJECT::OBJECT()

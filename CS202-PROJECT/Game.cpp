@@ -1,7 +1,13 @@
 #include "Game.h"
 
-Game::Game() {
+Game::Game() 
+{
+	level = new LEVEL(1, 100);
+}
 
+Game::~Game()
+{
+	if (level != nullptr) delete level;
 }
 
 void Game::menu() {
@@ -91,18 +97,6 @@ void Game::stringCentralization(std::string str, int r, int colour)
 */
 }
 
-void Game::resetGame() {
-
-}
-
-void Game::exitGame(HANDLE) {
-
-}
-
-void Game::startGame() {
-
-}
-
 string Game::inputFileName() {
 	go(165, 39);
 	cout << "Type file name: ";
@@ -166,16 +160,41 @@ bool Game::saveGame(string fileName) {
 	return true;
 }
 
-void Game::pauseGame(HANDLE) {
-
+void Game::pauseGame(LEVEL*& a) {
+	a->pause();
 }
 
-void Game::resumeGame(HANDLE) {
-
+void Game::resumeGame(LEVEL*& a) {
+	a->resume();
 }
 
 People Game::getPeople() {
 	return human;
+}
+
+thread Game::switchlevel(thread* t, LEVEL*& a, int level, int delay)
+{
+	exitGame(t, a);
+	delete a;
+	a = new LEVEL(level, delay);
+	human.spawn();
+	thread t1(&LEVEL::run, a);
+	return t1;
+}
+
+thread Game::resetGame(thread* t) {
+	thread tmp = switchlevel(t, level, 1, 100); 
+	return tmp;
+}
+
+void Game::exitGame(thread* t, LEVEL*& a) {
+	a->kill();
+	t->join();
+}
+
+thread Game::startGame(thread* t) {
+	thread tmp = switchlevel(t, level, 1, 100);
+	return tmp;
 }
 
 
@@ -198,6 +217,8 @@ void Game::crossyZoo() {
 
 void Game::instructor()
 {
+	setcursor(0, 0); //hide cursor
+
 	int x = 165, y = 3;
 	color(4);
 	ifstream fin("crossy.txt");
@@ -258,4 +279,44 @@ void Game::instructor()
 	cout << setw(20) << "Press T to LOAD";
 	go(x, y += 2);
 	cout << setw(20) << "Press ESC to EXIT";
+
+}
+
+void Game::main_run()
+{
+	int k = 0;
+	instructor();
+	thread t1(&LEVEL::run, level);
+	human.spawn();
+	while (k != 27)
+	{
+		k = _getch();
+		if (k == 27) {
+			exitGame(&t1, level);
+		}
+		else if (k == 'p' || k == 'P')
+		{
+			level->pause();
+		}
+		else if (k == 'r' || k == 'R')
+		{
+			level->resume();
+		}
+		else if (k == 'n')
+		{
+			t1 = switchlevel(&t1, level, 10, 100);
+			level->pause();
+			while (level->oktowrite() == false);
+			instructor();
+			level->resume();
+		}
+		else
+		{
+			level->pause();
+			while (level->oktowrite() == false);
+			human.move(k);
+			level->passCoor(human.getCoor());
+			level->resume();
+		}
+	}
 }

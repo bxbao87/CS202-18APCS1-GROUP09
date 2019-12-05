@@ -9,7 +9,6 @@ LDOLPHIN::LDOLPHIN(int y, int n, int d, int closeness, bool traffic)
 	if (in.is_open())
 	{
 		string g;
-		in.ignore();
 		while (!in.eof())
 		{
 			for (int i = 0; i < 4; ++i)
@@ -179,7 +178,6 @@ RDOLPHIN::RDOLPHIN(int y, int n, int d, int closeness, bool traffic)
 	if (in.is_open())
 	{
 		string g;
-		in.ignore();
 		while (!in.eof())
 		{
 			for (int i = 0; i < 4; ++i)
