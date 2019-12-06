@@ -23,8 +23,6 @@ int main() {
 	FixConsoleWindow();
 	setcursor(0, 0);
 	Game g;
-	system("chcp 437");
-	LEVEL* test = new LEVEL(1, 100);
 	g.instructor();
 	People p;
 	LEVEL* test = new LEVEL(1, 100);

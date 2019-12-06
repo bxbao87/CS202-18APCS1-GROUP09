@@ -112,6 +112,7 @@ string Game::inputFileName() {
 	string fileName;
 	int key = 0, length = 0;
 	do {
+		if (length > 13) continue;
 		if (key == 27) break;
 		if (key > 31 && key < 127) {
 			std::cout << char(key);
@@ -130,9 +131,10 @@ string Game::inputFileName() {
 
 void Game::loadOption() {
 	string fileName;
-	do
+	do {
+		cout << "                               ";
 		fileName = inputFileName();
-	while(loadGame(fileName));
+	} while (loadGame(fileName));
 }
 
 bool Game::loadGame(string fileName) {
@@ -149,9 +151,10 @@ bool Game::loadGame(string fileName) {
 
 void Game::saveOption() {
 	string fileName;
-	do
+	do {
+		cout << "                               ";
 		fileName = inputFileName();
-	while(saveGame(fileName));
+	} while (saveGame(fileName));
 }
 
 bool Game::saveGame(string fileName) {

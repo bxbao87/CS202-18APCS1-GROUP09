@@ -1,7 +1,6 @@
 #ifndef _PEOPLE_H
 #define _PEOPLE_H
 
-#include "thanh.h"
 #include "Objects.h"
 
 using namespace std;
