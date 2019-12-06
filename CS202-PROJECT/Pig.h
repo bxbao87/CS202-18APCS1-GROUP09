@@ -1,16 +1,16 @@
-#ifndef _DOLPHIN_H
-#define _DOLPHIN_H
+#ifndef _PIG_H
+#define _PIG_H
 
 #include "Settings.h"
 #include "Objects.h"
 
 using namespace std;
 
-class LDOLPHIN :public OBJECT {
+class LPIG :public OBJECT {
 private:
-	int co;
+	int co; //color of object
 public:
-	LDOLPHIN(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
+	LPIG(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
 	void draw(int x, int y);
 	void erase(int x, int y);
 	void light_display();
@@ -24,11 +24,11 @@ public:
 	bool done(int second);
 };
 
-class RDOLPHIN :public OBJECT {
+class RPIG :public OBJECT {
 private:
-	int co;
+	int co; //color of object
 public:
-	RDOLPHIN(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
+	RPIG(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
 	void draw(int x, int y);
 	void erase(int x, int y);
 	void light_display();

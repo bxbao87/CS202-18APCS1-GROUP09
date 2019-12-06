@@ -1,27 +1,29 @@
-﻿  Game.cpp
-  main.cpp
+﻿  Boss.cpp
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Boss.cpp(25,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Boss.cpp(35,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Boss.cpp(57,33): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Boss.cpp(58,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Boss.cpp(68,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Boss.cpp(68,49): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Game.cpp
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Game.cpp(71,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Level.cpp
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Level.cpp(48,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Level.cpp(116,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Level.cpp(129,23): warning C4244: 'argument': conversion from 'time_t' to 'int', possible loss of data
   People.cpp
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Game.cpp(65,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\People.cpp(25,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\People.cpp(28,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\People.cpp(40,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\People.cpp(136,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Settings.cpp
-  thanh.cpp
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\People.cpp(138,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\thanh.cpp(42,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\thanh.cpp(52,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\thanh.cpp(122,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\thanh.cpp(241,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\thanh.cpp(251,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\thanh.cpp(321,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\thanh.cpp(436,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\thanh.cpp(446,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\thanh.cpp(513,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\thanh.cpp(611,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\thanh.cpp(624,23): warning C4244: 'argument': conversion from 'time_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\People.cpp(27,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\People.cpp(39,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\People.cpp(103,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\People.cpp(104,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\People.cpp(106,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\People.cpp(107,34): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  main.cpp
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\main.cpp(30,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 450 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  192 of 261 functions (73.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    22 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   CS202-PROJECT.vcxproj -> D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\x64\Release\CS202-PROJECT.exe

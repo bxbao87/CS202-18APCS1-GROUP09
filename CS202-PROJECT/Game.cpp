@@ -284,7 +284,7 @@ void Game::instructor()
 
 void Game::main_run()
 {
-	int k = 0;
+	int k = 0, l = 1;
 	instructor();
 	thread t1(&LEVEL::run, level);
 	human.spawn();
@@ -304,7 +304,9 @@ void Game::main_run()
 		}
 		else if (k == 'n')
 		{
-			t1 = switchlevel(&t1, level, 10, 100);
+			++l;
+			if (l >= 3) l = 10;
+			t1 = switchlevel(&t1, level, l, 100);
 			level->pause();
 			while (level->oktowrite() == false);
 			instructor();

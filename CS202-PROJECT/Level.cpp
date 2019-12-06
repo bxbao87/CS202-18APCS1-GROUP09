@@ -34,6 +34,19 @@ void LEVEL::set_level()
 		a = new RDOLPHIN(39, 8, 10, 50, true);
 		arr.push_back(a);*/
 	}
+	else if (current == 2)
+	{
+		split();
+		OBJECT* a;
+		a = new LPIG(4, 5, 10, 30, true);
+		arr.push_back(a);
+		a = new RPIG(9, 2, 10, 45, true);
+		arr.push_back(a);
+		a = new LPIG(14, 4, 10, 35, true);
+		arr.push_back(a);
+		a = new RPIG(19, 8, 10, 50, true);
+		arr.push_back(a);
+	}
 	else if (current == 10)
 	{
 		boss_split();

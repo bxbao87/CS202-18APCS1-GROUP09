@@ -1,11 +1,11 @@
-#include "Dolphin.h"
+#include "Pig.h"
 
-//class LDOLPHIN
-LDOLPHIN::LDOLPHIN(int y, int n, int d, int closeness, bool traffic)
+//class LPIG
+LPIG::LPIG(int y, int n, int d, int closeness, bool traffic)
 {
 	this->y = y;
 	ifstream in;
-	in.open(path + "LDOLPHIN.txt");
+	in.open(path + "LPIG.txt");
 	if (in.is_open())
 	{
 		string g;
@@ -20,11 +20,11 @@ LDOLPHIN::LDOLPHIN(int y, int n, int d, int closeness, bool traffic)
 		}
 		in.close();
 	}
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6;
 	first_spawn();
 }
 
-void LDOLPHIN::draw(int x, int y)
+void LPIG::draw(int x, int y)
 {
 	int n = map.size();
 	for (int i = 0; i < n; ++i)
@@ -34,17 +34,17 @@ void LDOLPHIN::draw(int x, int y)
 	}
 }
 
-void LDOLPHIN::erase(int x, int y)
+void LPIG::erase(int x, int y)
 {
 	int n = map.size();
 	for (int i = 0; i < n; ++i)
 	{
 		go(x, y + i);
-		cout << "              ";
+		cout << "           ";
 	}
 }
 
-void LDOLPHIN::light_display()
+void LPIG::light_display()
 {
 	if (light == 1)
 	{
@@ -66,9 +66,9 @@ void LDOLPHIN::light_display()
 	}
 }
 
-void LDOLPHIN::first_spawn()
+void LPIG::first_spawn()
 {
-	int s = 159 - 15;
+	int s = 159 - map[0].size();
 	while (s > 0)
 	{
 		arr.push_back(s);
@@ -77,34 +77,62 @@ void LDOLPHIN::first_spawn()
 	light = 1; green = 1000;
 }
 
-void LDOLPHIN::makeSound()
+void LPIG::makeSound()
 {
 	//do something
 }
 
-void LDOLPHIN::spawn_rate(int n, int d)
+void LPIG::spawn_rate(int n, int d)
 {
 	this->n = n; this->d = d;
 }
 
-bool LDOLPHIN::spawn()
+bool LPIG::spawn()
 {
 	if (rand() % d <= n) return true;
 	return false;
 }
 
-void LDOLPHIN::close(int closeness)
+void LPIG::close(int closeness)
 {
 	this->closeness = closeness;
 }
 
-void LDOLPHIN::set_traffic(bool s)
+void LPIG::set_traffic(bool s)
 {
 	if (s) traffic = true;
 	else traffic = false;
 }
 
-void LDOLPHIN::display()
+bool LPIG::done(int second) //check if is there any light on
+{
+	if (!traffic) return true;
+	if (light == 1)
+	{
+		green -= second;
+		if (green < 0)
+		{
+			green = 0;
+			light = 0;
+			return false;
+		}
+		return true;
+	}
+	else if (light == 2)
+	{
+		red -= second;
+		if (red < 0)
+		{
+			red = 0;
+			light = 0;
+			return false;
+		}
+		return true;
+	}
+	return false;
+}
+
+void LPIG::display()
 {
 	int n = arr.size();
 	for (int i = 0; i < n; ++i)
@@ -115,14 +143,17 @@ void LDOLPHIN::display()
 		arr.push_back(0);
 		++n;
 	}
+	bool go; //stop at red light up to them
+	if (light == 2 && rand() % 11 < 3) go = true;
+	else go = false;
 	for (int i = 0; i < n; ++i)
 	{
 		++arr[i];//move to the right
 		if (i == 0)
 		{
-			if (arr[i] + 16 > 160) //out of range
+			if (arr[i] + map[0].size() + 1 > 160) //out of range
 			{
-				if (light == 1)
+				if (light == 1 || go)
 				{
 					arr.erase(arr.begin() + i);
 					--n;
@@ -141,40 +172,12 @@ void LDOLPHIN::display()
 	color(15);
 }
 
-bool LDOLPHIN::done(int second) //check if is there any light on
-{
-	if (!traffic) return true;
-	if (light == 1)
-	{
-		green -= second;
-		if (green < 0)
-		{
-			green = 0;
-			light = 0;
-			return false;
-		}
-		return true;
-	}
-	else if (light == 2)
-	{
-		red -= second;
-		if (red < 0)
-		{
-			red = 0;
-			light = 0;
-			return false;
-		}
-		return true;
-	}
-	return false;
-}
-
-//class RDOLPHIN
-RDOLPHIN::RDOLPHIN(int y, int n, int d, int closeness, bool traffic)
+//class RPIG
+RPIG::RPIG(int y, int n, int d, int closeness, bool traffic)
 {
 	this->y = y;
 	ifstream in;
-	in.open(path + "RDOLPHIN.txt");
+	in.open(path + "RPIG.txt");
 	if (in.is_open())
 	{
 		string g;
@@ -189,11 +192,11 @@ RDOLPHIN::RDOLPHIN(int y, int n, int d, int closeness, bool traffic)
 		}
 		in.close();
 	}
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6;
 	first_spawn();
 }
 
-void RDOLPHIN::draw(int x, int y)
+void RPIG::draw(int x, int y)
 {
 	int n = map.size();
 	for (int i = 0; i < n; ++i)
@@ -203,17 +206,17 @@ void RDOLPHIN::draw(int x, int y)
 	}
 }
 
-void RDOLPHIN::erase(int x, int y)
+void RPIG::erase(int x, int y)
 {
 	int n = map.size();
 	for (int i = 0; i < n; ++i)
 	{
 		go(x, y + i);
-		cout << "              ";
+		cout << "           ";
 	}
 }
 
-void RDOLPHIN::light_display()
+void RPIG::light_display()
 {
 	if (light == 1)
 	{
@@ -235,10 +238,10 @@ void RDOLPHIN::light_display()
 	}
 }
 
-void RDOLPHIN::first_spawn()
+void RPIG::first_spawn()
 {
 	int s = 0;
-	while (s < 160 - 15)
+	while (s < 160 - map[0].size())
 	{
 		arr.push_back(s);
 		s += closeness;
@@ -246,71 +249,34 @@ void RDOLPHIN::first_spawn()
 	light = 1; green = 1000;
 }
 
-void RDOLPHIN::makeSound()
+void RPIG::makeSound()
 {
 	//do something
 }
 
-void RDOLPHIN::spawn_rate(int n, int d)
+void RPIG::spawn_rate(int n, int d)
 {
 	this->n = n; this->d = d;
 }
 
-bool RDOLPHIN::spawn()
+bool RPIG::spawn()
 {
 	if (rand() % d <= n) return true;
 	return false;
 }
 
-void RDOLPHIN::close(int closeness)
+void RPIG::close(int closeness)
 {
 	this->closeness = closeness;
 }
 
-void RDOLPHIN::set_traffic(bool s)
+void RPIG::set_traffic(bool s)
 {
 	if (s) traffic = true;
 	else traffic = false;
 }
 
-void RDOLPHIN::display()
-{
-	int n = arr.size();
-	for (int i = 0; i < n; ++i)
-		erase(arr[i], y);
-	light_display();
-	if (spawn() && 160 - arr[n - 1] > closeness + 15) //random appearance
-	{
-		arr.push_back(160 - 15);
-		++n;
-	}
-	for (int i = 0; i < n; ++i)
-	{
-		--arr[i];//move to the left
-		if (i == 0)
-		{
-			if (arr[i] <= 1) //out of range
-			{
-				if (light == 1)
-				{
-					arr.erase(arr.begin() + i);
-					--n;
-				}
-				else if (light == 2) ++arr[i]; //stop at red light
-			}
-		}
-		else
-		{
-			if (abs(arr[i] - arr[i - 1]) < closeness) ++arr[i];
-		}
-	}
-	color(co);
-	for (int i = 0; i < n; ++i)
-		draw(arr[i], y);
-	color(15);
-}
-
-bool RDOLPHIN::done(int second) //check if is there any light on
+bool RPIG::done(int second) //check if is there any light on
 {
 	if (!traffic) return true;
 	if (light == 1)
@@ -336,4 +302,44 @@ bool RDOLPHIN::done(int second) //check if is there any light on
 		return true;
 	}
 	return false;
+}
+
+void RPIG::display()
+{
+	int n = arr.size();
+	for (int i = 0; i < n; ++i)
+		erase(arr[i], y);
+	light_display();
+	if (spawn() && 160 - arr[n - 1] > closeness + 15) //random appearance
+	{
+		arr.push_back(160 - 15);
+		++n;
+	}
+	bool go; //stop at red light up to them
+	if (light == 2 && rand() % 11 < 3) go = true;
+	else go = false;
+	for (int i = 0; i < n; ++i)
+	{
+		--arr[i];//move to the left
+		if (i == 0)
+		{
+			if (arr[i] <= 1) //out of range
+			{
+				if (light == 1 || go)
+				{
+					arr.erase(arr.begin() + i);
+					--n;
+				}
+				else if (light == 2) --arr[i]; //stop at red light
+			}
+		}
+		else
+		{
+			if (abs(arr[i] - arr[i - 1]) < closeness) ++arr[i];
+		}
+	}
+	color(co);
+	for (int i = 0; i < n; ++i)
+		draw(arr[i], y);
+	color(15);
 }

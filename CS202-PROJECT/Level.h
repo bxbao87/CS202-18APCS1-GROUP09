@@ -4,6 +4,7 @@
 #include "Settings.h"
 #include "Objects.h"
 #include "Dolphin.h"
+#include "Pig.h"
 #include "Boss.h"
 
 using namespace std;
