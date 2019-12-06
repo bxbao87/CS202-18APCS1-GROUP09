@@ -7,6 +7,7 @@ using namespace std;
 
 class BOSS :public OBJECT {
 private:
+	int count;
 	int c; //color of boss
 public:
 	BOSS(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic

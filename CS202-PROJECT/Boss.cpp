@@ -1,7 +1,6 @@
 #include "Boss.h"
 
 //class BOSS
-//class BOSS
 BOSS::BOSS(int y, int n, int d, int closeness, bool traffic)
 {
 	ifstream in;
@@ -9,7 +8,6 @@ BOSS::BOSS(int y, int n, int d, int closeness, bool traffic)
 	if (in.is_open())
 	{
 		string g;
-		in.ignore();
 		while (!in.eof())
 		{
 			getline(in, g);
@@ -18,7 +16,7 @@ BOSS::BOSS(int y, int n, int d, int closeness, bool traffic)
 		}
 		in.close();
 	}
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; c = 15;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; c = 1; count = 0;
 	first_spawn();
 }
 
@@ -44,13 +42,20 @@ void BOSS::erase(int x, int y)
 
 void BOSS::light_display()
 {
-	if (rand() % 27 > 25)
-		c = rand() % 15;
+	++count;
+	if (count > 50)
+	{
+		++c;
+		count = 0;
+	}
+	if (c > 15) c = 1;
 }
 
 void BOSS::first_spawn()
 {
-	x = 47, y = 17;
+	//middle screen location
+	x = 160 / 2 - map[0].size() / 2;
+	y = 43 / 2 - map.size() / 2;
 }
 
 void BOSS::makeSound()
@@ -60,7 +65,8 @@ void BOSS::makeSound()
 
 bool BOSS::spawn()
 {
-	int xx = x + 32, yy = y + 5; //at heart of boss
+	int cx = map[0].size() / 2, cy = map.size() / 2;
+	int xx = x + cx, yy = y + cy; //at heart of boss
 	int hxx = hx + 1, hyy = hy + 1; //at heart of human
 	//initialize steps for boss (difficulty for player)
 	int steps = rand() % 11;
@@ -74,12 +80,12 @@ bool BOSS::spawn()
 	else xx = xx - steps - ix;
 	if (yy <= hyy) yy = yy + steps + iy;
 	else yy = yy - steps - iy;
-	x = xx - 32;
+	x = xx - cx;
 	if (x < 0) x = 0;
-	else if (x >= 159 - 64) x = 159 - 64;
-	y = yy - 5;
+	else if (x >= 159 - cx*2) x = 159 - cx*2;
+	y = yy - cy;
 	if (y < 4) y = 4;
-	else if (y >= 43 - 11) y = 43 - 11;
+	else if (y >= 43 - cy*2) y = 43 - cy*2;
 	return true;
 }
 

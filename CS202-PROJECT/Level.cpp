@@ -3,8 +3,16 @@
 //class LEVEL
 LEVEL::LEVEL(int choice, int delay)
 {
+	stop = false; tmp_stop = false; now = clock(); ok = true; this->delay = delay;
+	current = choice;
+	set_level();
+}
+
+void LEVEL::set_level()
+{
+	arr.clear();
 	system("cls");
-	if (choice == 1)
+	if (current == 1)
 	{
 		split();
 		OBJECT* a;
@@ -26,17 +34,41 @@ LEVEL::LEVEL(int choice, int delay)
 		a = new RDOLPHIN(39, 8, 10, 50, true);
 		arr.push_back(a);*/
 	}
-	else if (choice == 10)
+	else if (current == 2)
+	{
+		split();
+		OBJECT* a;
+		a = new LPIG(4, 5, 10, 30, true);
+		arr.push_back(a);
+		a = new RPIG(9, 2, 10, 45, true);
+		arr.push_back(a);
+		a = new LPIG(14, 4, 10, 35, true);
+		arr.push_back(a);
+		a = new RPIG(19, 8, 10, 50, true);
+		arr.push_back(a);
+	}
+	else if (current == 10)
 	{
 		boss_split();
 		OBJECT* a;
 		a = new BOSS(1, 1, 1, 1, true);
 		arr.push_back(a);
 	}
-	stop = false; tmp_stop = false; now = clock(); ok = true; this->delay = delay;
 }
 
-void LEVEL::split()
+LEVEL::~LEVEL()
+{
+	int n = arr.size();
+	for (int i = 0; i < n; ++i)
+		if (arr[i] != nullptr) delete arr[i];
+}
+
+int LEVEL::getLevel()
+{
+	return current;
+}
+
+void LEVEL::split() 
 {
 	string t = "---------------------------------------------------------------------------------------------------------------------------------------------------------------";
 	for (int i = 0; i < 9; ++i)
@@ -86,10 +118,10 @@ bool LEVEL::oktowrite()
 	return false;
 }
 
-void LEVEL::passCoor(int x, int y)
+void LEVEL::passCoor(pair<int,int> coor)
 {
 	if (arr.size() == 1) //applied for boss only
-		arr[0]->human(x, y);
+		arr[0]->human(coor.first, coor.second);
 }
 
 void LEVEL::run()

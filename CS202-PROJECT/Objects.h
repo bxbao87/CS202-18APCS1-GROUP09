@@ -1,7 +1,6 @@
 #ifndef _OBJECTS_H
 #define _OBJECTS_H
 #include "Settings.h"
-#include "Setups.h"
 
 using namespace std;
 

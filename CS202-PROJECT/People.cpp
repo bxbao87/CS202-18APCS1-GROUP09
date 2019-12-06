@@ -158,3 +158,10 @@ void People::spawn() {
 	pX = 80;
 	Draw();
 }
+
+pair<int, int> People::getCoor()
+{
+	pair<int, int> tmp;
+	tmp.first = pX, tmp.second = pY;
+	return tmp;
+}

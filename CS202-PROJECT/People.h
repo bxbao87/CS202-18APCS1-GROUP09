@@ -1,6 +1,5 @@
 #ifndef _PEOPLE_H
 #define _PEOPLE_H
-
 #include "Objects.h"
 
 using namespace std;
@@ -31,6 +30,7 @@ public:
 	void decreaseLife();
 	int getLife();
 	bool isDead();
+	pair<int, int> getCoor();
 	void spawn();
 };
 
