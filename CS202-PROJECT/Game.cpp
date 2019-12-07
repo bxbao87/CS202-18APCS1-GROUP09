@@ -319,6 +319,7 @@ void Game::main_run()
 			human.move(k);
 			level->passCoor(human.getCoor());
 			level->resume();
+			Sleep(100); //delay human movement
 		}
 	}
 }

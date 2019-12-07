@@ -68,7 +68,7 @@ void LDOLPHIN::light_display()
 
 void LDOLPHIN::first_spawn()
 {
-	int s = 159 - 15;
+	int s = 159 - map[0].size();
 	while (s > 0)
 	{
 		arr.push_back(s);
