@@ -5,6 +5,7 @@
 #include "Objects.h"
 #include "Dolphin.h"
 #include "Pig.h"
+#include "Whale.h"
 #include "Boss.h"
 
 using namespace std;
@@ -17,6 +18,7 @@ private:
 	vector <OBJECT*> arr;
 	bool stop, tmp_stop;
 	int delay;
+	void verticalLine(int col);
 public:
 	~LEVEL();
 	LEVEL(int choice, int delay);

@@ -21,6 +21,7 @@ LPIG::LPIG(int y, int n, int d, int closeness, bool traffic)
 		in.close();
 	}
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6;
+	lenAni = map[0].size();
 	first_spawn();
 }
 
@@ -48,28 +49,28 @@ void LPIG::light_display()
 {
 	if (light == 1)
 	{
-		go(159, y + 2);
+		go(BORDER - 1, y + 2);
 		color(34); //green background
 		cout << ' ';
 		color(15);
-		go(159, y + 1);
+		go(BORDER - 1, y + 1);
 		cout << ' ';
 	}
 	else if (light == 2)
 	{
-		go(159, y + 1);
+		go(BORDER - 1, y + 1);
 		color(68); //red blackground
 		cout << ' ';
 		color(15);
-		go(159, y + 2);
+		go(BORDER - 1, y + 2);
 		cout << ' ';
 	}
 }
 
 void LPIG::first_spawn()
 {
-	int s = 159 - map[0].size();
-	while (s > 0)
+	int s = BORDER - 1 - lenAni;
+	while (s > LBORDER)
 	{
 		arr.push_back(s);
 		s -= closeness;
@@ -151,7 +152,7 @@ void LPIG::display()
 		++arr[i];//move to the right
 		if (i == 0)
 		{
-			if (arr[i] + map[0].size() + 1 > 160) //out of range
+			if (arr[i] + lenAni + 1 > BORDER) //out of range
 			{
 				if (light == 1 || go)
 				{
@@ -193,6 +194,7 @@ RPIG::RPIG(int y, int n, int d, int closeness, bool traffic)
 		in.close();
 	}
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6;
+	lenAni = map[0].size();
 	first_spawn();
 }
 
@@ -240,8 +242,8 @@ void RPIG::light_display()
 
 void RPIG::first_spawn()
 {
-	int s = 0;
-	while (s < 160 - map[0].size())
+	int s = LBORDER + 1;
+	while (s < BORDER - lenAni)
 	{
 		arr.push_back(s);
 		s += closeness;
@@ -310,9 +312,9 @@ void RPIG::display()
 	for (int i = 0; i < n; ++i)
 		erase(arr[i], y);
 	light_display();
-	if (spawn() && 160 - arr[n - 1] > closeness + 15) //random appearance
+	if (spawn() && BORDER - arr[n - 1] > closeness + lenAni) //random appearance
 	{
-		arr.push_back(160 - 15);
+		arr.push_back(BORDER - lenAni);
 		++n;
 	}
 	bool go; //stop at red light up to them

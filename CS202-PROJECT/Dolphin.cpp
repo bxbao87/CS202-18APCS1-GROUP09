@@ -20,7 +20,9 @@ LDOLPHIN::LDOLPHIN(int y, int n, int d, int closeness, bool traffic)
 		}
 		in.close();
 	}
+	
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
+	lenAni = map[0].size();
 	first_spawn();
 }
 
@@ -48,28 +50,28 @@ void LDOLPHIN::light_display()
 {
 	if (light == 1)
 	{
-		go(159, y + 2);
+		go(BORDER - 1, y + 2);
 		color(34); //green background
 		cout << ' ';
 		color(15);
-		go(159, y + 1);
+		go(BORDER - 1, y + 1);
 		cout << ' ';
 	}
 	else if (light == 2)
 	{
-		go(159, y + 1);
+		go(BORDER - 1, y + 1);
 		color(68); //red blackground
 		cout << ' ';
 		color(15);
-		go(159, y + 2);
+		go(BORDER - 1, y + 2);
 		cout << ' ';
 	}
 }
 
 void LDOLPHIN::first_spawn()
 {
-	int s = 159 - 15;
-	while (s > 0)
+	int s = BORDER - 1 - lenAni;
+	while (s > LBORDER)
 	{
 		arr.push_back(s);
 		s -= closeness;
@@ -120,7 +122,7 @@ void LDOLPHIN::display()
 		++arr[i];//move to the right
 		if (i == 0)
 		{
-			if (arr[i] + 16 > 160) //out of range
+			if (arr[i] + lenAni + 1 > BORDER) //out of range
 			{
 				if (light == 1)
 				{
@@ -190,6 +192,7 @@ RDOLPHIN::RDOLPHIN(int y, int n, int d, int closeness, bool traffic)
 		in.close();
 	}
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
+	lenAni = map[0].size();
 	first_spawn();
 }
 
@@ -237,8 +240,8 @@ void RDOLPHIN::light_display()
 
 void RDOLPHIN::first_spawn()
 {
-	int s = 0;
-	while (s < 160 - 15)
+	int s = LBORDER + 1;
+	while (s < BORDER - lenAni)
 	{
 		arr.push_back(s);
 		s += closeness;
@@ -279,9 +282,9 @@ void RDOLPHIN::display()
 	for (int i = 0; i < n; ++i)
 		erase(arr[i], y);
 	light_display();
-	if (spawn() && 160 - arr[n - 1] > closeness + 15) //random appearance
+	if (spawn() && BORDER - arr[n - 1] > closeness + lenAni) //random appearance
 	{
-		arr.push_back(160 - 15);
+		arr.push_back(BORDER - lenAni);
 		++n;
 	}
 	for (int i = 0; i < n; ++i)

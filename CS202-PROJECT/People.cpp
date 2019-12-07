@@ -5,7 +5,7 @@ People::People() {
 	pY = 45;
 	pX = 80;
 	state = true;
-	ifstream fin("human.txt");
+	ifstream fin(path + "human.txt");
 	if (fin.is_open()) {
 		map.clear();
 		while(!fin.eof()){

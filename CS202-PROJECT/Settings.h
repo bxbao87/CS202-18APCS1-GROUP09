@@ -10,11 +10,22 @@
 #include <fstream>
 #include <mutex>
 #include<iomanip>
+
 using namespace std;
 
+const string path = "H:\\APCS\\2nd year\\CS202\\CS202-PROJECT\\CS202-PROJECT\\MAP\\";
+const string savedPath = "H:\\APCS\\2nd year\\CS202\\CS202-PROJECT\\CS202-PROJECT\\Saved\\";
+ // t.length()=140
+const string split_lane = "-------------------------------------------------------------------------------------------------------------------------------------------";
+const int BORDER = 140;
+const int LBORDER = 0;
 
-const string path = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\MAP\\";
-const int BORDER = 160;
+const int X_MOVE = 1;
+const int Y_MOVE = 5;
+const int Top_bound = 0;
+const int Bot_bound = 45;
+const int Left_bound = 1; 
+const int Right_bound = BORDER - 3;
 
 void FixConsoleWindow();
 void go(int column, int line);

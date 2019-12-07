@@ -54,7 +54,7 @@ void BOSS::light_display()
 void BOSS::first_spawn()
 {
 	//middle screen location
-	x = 160 / 2 - map[0].size() / 2;
+	x = BORDER / 2 - map[0].size() / 2;
 	y = 43 / 2 - map.size() / 2;
 }
 
@@ -81,8 +81,8 @@ bool BOSS::spawn()
 	if (yy <= hyy) yy = yy + steps + iy;
 	else yy = yy - steps - iy;
 	x = xx - cx;
-	if (x < 0) x = 0;
-	else if (x >= 159 - cx*2) x = 159 - cx*2;
+	if (x < 1) x = 1;
+	else if (x >= BORDER - 1 - cx*2) x = BORDER - 1 - cx*2;
 	y = yy - cy;
 	if (y < 4) y = 4;
 	else if (y >= 43 - cy*2) y = 43 - cy*2;

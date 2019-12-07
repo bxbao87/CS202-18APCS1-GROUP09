@@ -98,16 +98,13 @@ void Game::stringCentralization(std::string str, int r, int colour)
 }
 
 string Game::inputFileName() {
-	go(165, 39);
+	go(BORDER + 2, 44);
 	cout << "Type file name: ";
-	/*std::string fileName;
-	getline(cin, fileName, '\n');
-	cin.ignore();*/
 	string fileName;
 	int key = 0, length = 0;
 	do {
 		if (length > 13) continue;
-		if (key == 27) break;
+		if (key == 27) return "";
 		if (key > 31 && key < 127) {
 			std::cout << char(key);
 			fileName.push_back(key);
@@ -126,18 +123,21 @@ string Game::inputFileName() {
 void Game::loadOption() {
 	string fileName;
 	do {
+		go(BORDER + 2, 44);
 		cout << "                               ";
 		fileName = inputFileName();
-	} while (loadGame(fileName));
+		if (fileName == "") break;
+	} while (!loadGame(fileName));
 }
 
 bool Game::loadGame(string fileName) {
 	ifstream file;
-	file.open(fileName + ".bin", ios::binary);
-	if (!file.is_open()) 
+	file.open(savedPath + fileName + ".bin", ios::binary);
+	if (!file.is_open())
 		return false;
+	int leve = level->getLevel();
 	int life = human.getLife();
-	// file read level 
+	file.read((char*)& leve, sizeof(leve));
 	file.read((char*)& life, sizeof(life));
 	file.close();
 	return true;
@@ -146,19 +146,23 @@ bool Game::loadGame(string fileName) {
 void Game::saveOption() {
 	string fileName;
 	do {
+		go(BORDER + 2, 44);
 		cout << "                               ";
 		fileName = inputFileName();
-	} while (saveGame(fileName));
+		if (fileName == "") break;
+	} while (!saveGame(fileName));
+	return;
 }
 
 bool Game::saveGame(string fileName) {
 	ofstream file;
-	file.open(fileName + ".bin", ios::binary);
+	file.open(savedPath + fileName + ".bin", ios::binary);
 	if (!file.is_open())
 		return false;
-	// file<<(char*)   -> level
+	int leve = level->getLevel();
 	int life = human.getLife();
-	file.write((char*)&life, sizeof(life));
+	file.write((char*)& leve, sizeof(leve));
+	file.write((char*)& life, sizeof(life));
 	file.close();
 	return true;
 }
@@ -202,7 +206,7 @@ thread Game::startGame(thread* t) {
 
 
 void Game::crossyZoo() {
-	ifstream fin("crossyZoo.txt");
+	ifstream fin(path + "crossyZoo.txt");
 	if (fin.is_open()) {
 		int n;
 		fin >> n;
@@ -222,9 +226,9 @@ void Game::instructor()
 {
 	setcursor(0, 0); //hide cursor
 
-	int x = 165, y = 3;
+	int x = BORDER + 5, y = 3;
 	color(4);
-	ifstream fin("crossy.txt");
+	ifstream fin( path + "crossy.txt");
 	if (fin.is_open()) {
 		string line;
 		while (getline(fin, line, '\n')) {
@@ -236,7 +240,7 @@ void Game::instructor()
 
 	x += 10;
 	color(11);
-	fin.open("zoo.txt");
+	fin.open(path + "zoo.txt");
 	if (fin.is_open()) {
 		string line;
 		while (getline(fin, line, '\n')) {
@@ -246,23 +250,23 @@ void Game::instructor()
 	}
 	fin.close();
 
-	x = 175;
+	x = BORDER + 15;
 	y = 17;
 	color(7);
 	go(x, y);
-	cout << "LEVEL: " << "//something will be here";
+	//cout << "LEVEL: " << "//something will be here";
+	cout << "LEVEL: " << level->getLevel();
 	go(x, y+=3);
-	//cout << "LIVES: " << "//something will be here 2";
 	
 	// Try this
-	//cout << "LIVES: " << human.getLife();
+	cout << "LIVES: " << human.getLife();
 	
-	go(160, y += 3);
+	go(BORDER, y += 3);
 	cout << (char)195;
 	for (int i = 0; i < 50; ++i)
 		cout << (char)196;
 
-	x = 165;
+	x = BORDER + 5;
 	go(x, y = 25);
 	cout << "Press W to UP";
 	go(x, y += 2);
@@ -297,16 +301,22 @@ void Game::main_run()
 		if (k == 27) {
 			exitGame(&t1, level);
 		}
-		else if (k == 'p' || k == 'P')
-		{
+		else if (k == 'p' || k == 'P') {
 			level->pause();
 		}
-		else if (k == 'r' || k == 'R')
-		{
+		else if (k == 'r' || k == 'R') {
 			level->resume();
 		}
-		else if (k == 'n')
-		{
+		else if (k == 'l' || k == 'L') {
+			level->pause();
+			saveOption();
+			level->resume();
+		}
+		else if (k == 't' || k == 'T') {
+			level->pause();
+			loadOption();
+		}
+		else if (k == 'n') {
 			++l;
 			if (l >= 3) l = 10;
 			t1 = switchlevel(&t1, level, l, 100);
