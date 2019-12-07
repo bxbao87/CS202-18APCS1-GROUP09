@@ -28,6 +28,9 @@
     <ClCompile Include="Pig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Whale.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -52,6 +55,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Pig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Whale.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,11 +4,6 @@
 
 using namespace std;
 
-const int X_MOVE = 1;
-const int Y_MOVE = 5;
-const int Top_bound = 0, Bot_bound = 45;
-const int Left_bound = 0, Right_bound = 137;
-
 class People {
 private:
 	int pX, pY;
