@@ -130,8 +130,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Objects.cpp" />
     <ClCompile Include="People.cpp" />
+    <ClCompile Include="Pig.cpp" />
     <ClCompile Include="Settings.cpp" />
-    <ClCompile Include="Setups.cpp" />
+    <ClCompile Include="Whale.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boss.h" />
@@ -140,8 +141,9 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="Objects.h" />
     <ClInclude Include="People.h" />
+    <ClInclude Include="Pig.h" />
     <ClInclude Include="Settings.h" />
-    <ClInclude Include="Setups.h" />
+    <ClInclude Include="Whale.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="BOSS.txt" />

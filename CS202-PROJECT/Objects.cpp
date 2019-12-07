@@ -1,5 +1,4 @@
 #include "Objects.h"
-#include "Setups.h"
 
 //class OBJECT
 OBJECT::OBJECT()
@@ -38,13 +37,5 @@ vector <string> OBJECT::getMAP()
 vector <int> OBJECT::getARR()
 {
 	return arr;
-}
-
-//class LEVEL
-LEVEL::~LEVEL()
-{
-	int n = arr.size();
-	for (int i = 0; i < n; ++i)
-		if (arr[i] != nullptr) delete arr[i];
 }
 

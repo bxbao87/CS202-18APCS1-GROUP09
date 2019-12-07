@@ -1,7 +1,13 @@
 #include "Game.h"
 
-Game::Game() {
+Game::Game() 
+{
+	level = new LEVEL(1, 100);
+}
 
+Game::~Game()
+{
+	if (level != nullptr) delete level;
 }
 
 void Game::menu() {
@@ -91,28 +97,14 @@ void Game::stringCentralization(std::string str, int r, int colour)
 */
 }
 
-void Game::resetGame() {
-
-}
-
-void Game::exitGame(HANDLE) {
-
-}
-
-void Game::startGame() {
-
-}
-
 string Game::inputFileName() {
-	go(165, 39);
+	go(BORDER + 2, 44);
 	cout << "Type file name: ";
-	/*std::string fileName;
-	getline(cin, fileName, '\n');
-	cin.ignore();*/
 	string fileName;
 	int key = 0, length = 0;
 	do {
-		if (key == 27) break;
+		if (length > 13) continue;
+		if (key == 27) return "";
 		if (key > 31 && key < 127) {
 			std::cout << char(key);
 			fileName.push_back(key);
@@ -130,18 +122,22 @@ string Game::inputFileName() {
 
 void Game::loadOption() {
 	string fileName;
-	do
+	do {
+		go(BORDER + 2, 44);
+		cout << "                               ";
 		fileName = inputFileName();
-	while(loadGame(fileName));
+		if (fileName == "") break;
+	} while (!loadGame(fileName));
 }
 
 bool Game::loadGame(string fileName) {
 	ifstream file;
-	file.open(fileName + ".bin", ios::binary);
-	if (!file.is_open()) 
+	file.open(savedPath + fileName + ".bin", ios::binary);
+	if (!file.is_open())
 		return false;
+	int leve = level->getLevel();
 	int life = human.getLife();
-	// file read level 
+	file.read((char*)& leve, sizeof(leve));
 	file.read((char*)& life, sizeof(life));
 	file.close();
 	return true;
@@ -149,38 +145,68 @@ bool Game::loadGame(string fileName) {
 
 void Game::saveOption() {
 	string fileName;
-	do
+	do {
+		go(BORDER + 2, 44);
+		cout << "                               ";
 		fileName = inputFileName();
-	while(saveGame(fileName));
+		if (fileName == "") break;
+	} while (!saveGame(fileName));
+	return;
 }
 
 bool Game::saveGame(string fileName) {
 	ofstream file;
-	file.open(fileName + ".bin", ios::binary);
+	file.open(savedPath + fileName + ".bin", ios::binary);
 	if (!file.is_open())
 		return false;
-	// file<<(char*)   -> level
+	int leve = level->getLevel();
 	int life = human.getLife();
-	file.write((char*)&life, sizeof(life));
+	file.write((char*)& leve, sizeof(leve));
+	file.write((char*)& life, sizeof(life));
 	file.close();
 	return true;
 }
 
-void Game::pauseGame(HANDLE) {
-
+void Game::pauseGame(LEVEL*& a) {
+	a->pause();
 }
 
-void Game::resumeGame(HANDLE) {
-
+void Game::resumeGame(LEVEL*& a) {
+	a->resume();
 }
 
 People Game::getPeople() {
 	return human;
 }
 
+thread Game::switchlevel(thread* t, LEVEL*& a, int level, int delay)
+{
+	exitGame(t, a);
+	delete a;
+	a = new LEVEL(level, delay);
+	human.spawn();
+	thread t1(&LEVEL::run, a);
+	return t1;
+}
+
+thread Game::resetGame(thread* t) {
+	thread tmp = switchlevel(t, level, 1, 100); 
+	return tmp;
+}
+
+void Game::exitGame(thread* t, LEVEL*& a) {
+	a->kill();
+	t->join();
+}
+
+thread Game::startGame(thread* t) {
+	thread tmp = switchlevel(t, level, 1, 100);
+	return tmp;
+}
+
 
 void Game::crossyZoo() {
-	ifstream fin("crossyZoo.txt");
+	ifstream fin(path + "crossyZoo.txt");
 	if (fin.is_open()) {
 		int n;
 		fin >> n;
@@ -198,9 +224,11 @@ void Game::crossyZoo() {
 
 void Game::instructor()
 {
-	int x = 165, y = 3;
+	setcursor(0, 0); //hide cursor
+
+	int x = BORDER + 5, y = 3;
 	color(4);
-	ifstream fin("crossy.txt");
+	ifstream fin( path + "crossy.txt");
 	if (fin.is_open()) {
 		string line;
 		while (getline(fin, line, '\n')) {
@@ -212,7 +240,7 @@ void Game::instructor()
 
 	x += 10;
 	color(11);
-	fin.open("zoo.txt");
+	fin.open(path + "zoo.txt");
 	if (fin.is_open()) {
 		string line;
 		while (getline(fin, line, '\n')) {
@@ -222,23 +250,23 @@ void Game::instructor()
 	}
 	fin.close();
 
-	x = 175;
+	x = BORDER + 15;
 	y = 17;
 	color(7);
 	go(x, y);
-	cout << "LEVEL: " << "//something will be here";
+	//cout << "LEVEL: " << "//something will be here";
+	cout << "LEVEL: " << level->getLevel();
 	go(x, y+=3);
-	//cout << "LIVES: " << "//something will be here 2";
 	
 	// Try this
-	//cout << "LIVES: " << human.getLife();
+	cout << "LIVES: " << human.getLife();
 	
-	go(160, y += 3);
+	go(BORDER, y += 3);
 	cout << (char)195;
 	for (int i = 0; i < 50; ++i)
 		cout << (char)196;
 
-	x = 165;
+	x = BORDER + 5;
 	go(x, y = 25);
 	cout << "Press W to UP";
 	go(x, y += 2);
@@ -258,4 +286,52 @@ void Game::instructor()
 	cout << setw(20) << "Press T to LOAD";
 	go(x, y += 2);
 	cout << setw(20) << "Press ESC to EXIT";
+
+}
+
+void Game::main_run()
+{
+	int k = 0, l = 1;
+	instructor();
+	thread t1(&LEVEL::run, level);
+	human.spawn();
+	while (k != 27)
+	{
+		k = _getch();
+		if (k == 27) {
+			exitGame(&t1, level);
+		}
+		else if (k == 'p' || k == 'P') {
+			level->pause();
+		}
+		else if (k == 'r' || k == 'R') {
+			level->resume();
+		}
+		else if (k == 'l' || k == 'L') {
+			level->pause();
+			saveOption();
+			level->resume();
+		}
+		else if (k == 't' || k == 'T') {
+			level->pause();
+			loadOption();
+		}
+		else if (k == 'n') {
+			++l;
+			if (l >= 3) l = 10;
+			t1 = switchlevel(&t1, level, l, 100);
+			level->pause();
+			while (level->oktowrite() == false);
+			instructor();
+			level->resume();
+		}
+		else
+		{
+			level->pause();
+			while (level->oktowrite() == false);
+			human.move(k);
+			level->passCoor(human.getCoor());
+			level->resume();
+		}
+	}
 }

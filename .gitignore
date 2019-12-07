@@ -4,3 +4,4 @@
 .DS_Store
 *.vcxproj.user
 *.sln
+/**/x64/

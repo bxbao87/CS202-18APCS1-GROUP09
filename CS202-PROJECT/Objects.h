@@ -1,7 +1,6 @@
 #ifndef _OBJECTS_H
 #define _OBJECTS_H
 #include "Settings.h"
-#include "Setups.h"
 
 using namespace std;
 
@@ -15,6 +14,7 @@ protected:
 	int light = 0; // 0 is neutral, 1 is green, 2 is red
 	vector <string> map;
 	vector <int> arr;
+	int lenAni;		// lenght of Animal's map
 public:
 	OBJECT();
 	vector <int> getARR();

@@ -1,16 +1,16 @@
-#ifndef _DOLPHIN_H
-#define _DOLPHIN_H
+#ifndef _WHALE_H
+#define _WHALE_H
 
 #include "Settings.h"
 #include "Objects.h"
 
 using namespace std;
 
-class LDOLPHIN :public OBJECT {
+class LWHALE :public OBJECT {
 private:
 	int co;
 public:
-	LDOLPHIN(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
+	LWHALE(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
 	void draw(int x, int y);
 	void erase(int x, int y);
 	void light_display();
@@ -24,11 +24,11 @@ public:
 	bool done(int second);
 };
 
-class RDOLPHIN :public OBJECT {
+class RWHALE :public OBJECT {
 private:
 	int co;
 public:
-	RDOLPHIN(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
+	RWHALE(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
 	void draw(int x, int y);
 	void erase(int x, int y);
 	void light_display();

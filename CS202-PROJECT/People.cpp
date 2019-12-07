@@ -5,7 +5,7 @@ People::People() {
 	pY = 45;
 	pX = 80;
 	state = true;
-	ifstream fin("human.txt");
+	ifstream fin(path + "human.txt");
 	if (fin.is_open()) {
 		map.clear();
 		while(!fin.eof()){
@@ -98,7 +98,7 @@ void People::RIGHT() {
 }
 
 bool People::isImpact(int objY, vector<int> objCoordX, vector<string> objMap) {
-	for (int i = 0; i < objCoordX.size(); i++) {
+	for (int i = 0; i < int(objCoordX.size()); i++) {
 		int objX = objCoordX[i];
 		int BRx = pX + map[0].size();		// length of rectangle
 		int BRy = pY + map.size();			// width of rectangle
@@ -124,9 +124,8 @@ bool People::isImpact(int objY, vector<int> objCoordX, vector<string> objMap) {
 				if (map[abs(pX - i)][abs(pY - j)] != 32 &&
 					objMap[abs(objX - i)][abs(objY - j)] != 32)
 					return true;
-
-		return false;
 	}
+		return false;
 }
 
 bool People::isFinish() {
@@ -158,4 +157,11 @@ void People::spawn() {
 	pY = 45;
 	pX = 80;
 	Draw();
+}
+
+pair<int, int> People::getCoor()
+{
+	pair<int, int> tmp;
+	tmp.first = pX, tmp.second = pY;
+	return tmp;
 }
