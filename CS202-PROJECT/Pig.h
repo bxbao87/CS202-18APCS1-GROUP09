@@ -9,6 +9,7 @@ using namespace std;
 class LPIG :public OBJECT {
 private:
 	int co; //color of object
+	bool stop; //wait till red ends
 public:
 	LPIG(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
 	void draw(int x, int y);
@@ -27,6 +28,7 @@ public:
 class RPIG :public OBJECT {
 private:
 	int co; //color of object
+	bool stop; //wait till red ends
 public:
 	RPIG(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
 	void draw(int x, int y);

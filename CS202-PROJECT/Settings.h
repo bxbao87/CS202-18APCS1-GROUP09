@@ -13,11 +13,11 @@
 
 using namespace std;
 
-const string path = "H:\\APCS\\2nd year\\CS202\\CS202-PROJECT\\CS202-PROJECT\\MAP\\";
-const string savedPath = "H:\\APCS\\2nd year\\CS202\\CS202-PROJECT\\CS202-PROJECT\\Saved\\";
+const string path = "D:\\cs202-project\\cs202-project\\cs202-project\\MAP\\";
+const string savedPath = "D:\\cs202-project\\cs202-project\\cs202-project\\Saved\\";
  // t.length()=140
-const string split_lane = "-------------------------------------------------------------------------------------------------------------------------------------------";
-const int BORDER = 140;
+const string split_lane = "--------------------------------------------------------------------------------------------------------------------------------------------------------------";
+const int BORDER = 160;
 const int LBORDER = 0;
 
 const int X_MOVE = 1;

@@ -16,18 +16,18 @@ void LEVEL::set_level()
 	{
 		split();
 		OBJECT* a;
-		a = new LDOLPHIN(4, 5, 10, 30, true);
+		a = new LDOLPHIN(4, 5, 10, 30, false);
 		arr.push_back(a);
 		a = new RDOLPHIN(9, 2, 10, 45, true);
 		arr.push_back(a);
-		a = new LDOLPHIN(14, 4, 10, 35, true);
+		a = new LDOLPHIN(14, 4, 10, 35, false);
 		arr.push_back(a);
 		a = new RDOLPHIN(19, 8, 10, 50, true);
 		arr.push_back(a);
 		
-		a = new LWHALE(24, 5, 10, 40, false);
+		a = new LWHALE(24, 5, 10, 40, true);
 		arr.push_back(a);
-		a = new RWHALE(29, 2, 10, 45, false);
+		a = new RWHALE(29, 2, 10, 45, true);
 		arr.push_back(a);
 		a = new LWHALE(34, 4, 10, 45, false);
 		arr.push_back(a);
@@ -45,6 +45,14 @@ void LEVEL::set_level()
 		a = new LPIG(14, 4, 10, 35, true);
 		arr.push_back(a);
 		a = new RPIG(19, 8, 10, 50, true);
+		arr.push_back(a);
+		a = new LPIG(24, 5, 10, 30, false);
+		arr.push_back(a);
+		a = new RPIG(29, 2, 10, 45, false);
+		arr.push_back(a);
+		a = new LPIG(34, 4, 10, 35, false);
+		arr.push_back(a);
+		a = new RPIG(39, 8, 10, 50, false);
 		arr.push_back(a);
 	}
 	else if (current == 10)
@@ -88,6 +96,7 @@ void LEVEL::split()
 
 void LEVEL::boss_split()
 {
+	verticalLine(LBORDER);
 	go(LBORDER + 1, 3); // upper bound
 	cout << split_lane;
 	go(LBORDER + 1, 43);
