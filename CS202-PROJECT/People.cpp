@@ -121,8 +121,8 @@ bool People::isImpact(int objY, vector<int> objCoordX, vector<string> objMap) {
 		// check impact 
 		for (int i = x1; i <= x2; i++)
 			for (int j = y1; j <= y2; j++)
-				if (map[abs(pX - i)][abs(pY - j)] != 32 &&
-					objMap[abs(objX - i)][abs(objY - j)] != 32)
+				if (map[abs(pX - i)][abs(pY - j)] != ' ' &&
+					objMap[abs(objX - i)][abs(objY - j)] != ' ')
 					return true;
 	}
 		return false;
@@ -148,9 +148,9 @@ int People::getLife() {
 }
 
 bool People::isDead() {
-	if (!state)
-		return true;
-	return false;
+	if (state)
+		return false;
+	return true;
 }
 
 void People::spawn() {
