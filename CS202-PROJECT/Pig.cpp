@@ -20,7 +20,7 @@ LPIG::LPIG(int y, int n, int d, int closeness, bool traffic)
 		}
 		in.close();
 	}
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6; stop = false;
 	lenAni = map[0].size();
 	first_spawn();
 }
@@ -138,15 +138,13 @@ void LPIG::display()
 	int n = arr.size();
 	for (int i = 0; i < n; ++i)
 		erase(arr[i], y);
-	light_display();
+	if (traffic) light_display();
 	if (spawn() && arr[n - 1] > closeness) //random appearance
 	{
 		arr.push_back(0);
 		++n;
 	}
-	bool go; //stop at red light up to them
-	if (light == 2 && rand() % 11 < 3) go = true;
-	else go = false;
+	if (light == 1) stop = false;
 	for (int i = 0; i < n; ++i)
 	{
 		++arr[i];//move to the right
@@ -154,12 +152,13 @@ void LPIG::display()
 		{
 			if (arr[i] + lenAni + 1 > BORDER) //out of range
 			{
-				if (light == 1 || go)
+				if ((rand() % 11 < 6 && !stop) || light == 1)
 				{
 					arr.erase(arr.begin() + i);
 					--n;
+					if (light == 2) stop = true;
 				}
-				else if (light == 2) --arr[i]; //stop at red light
+				else --arr[i]; //stop at red light
 			}
 		}
 		else
@@ -193,7 +192,7 @@ RPIG::RPIG(int y, int n, int d, int closeness, bool traffic)
 		}
 		in.close();
 	}
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6; stop = false;
 	lenAni = map[0].size();
 	first_spawn();
 }
@@ -311,15 +310,13 @@ void RPIG::display()
 	int n = arr.size();
 	for (int i = 0; i < n; ++i)
 		erase(arr[i], y);
-	light_display();
+	if (traffic) light_display();
 	if (spawn() && BORDER - arr[n - 1] > closeness + lenAni) //random appearance
 	{
 		arr.push_back(BORDER - lenAni);
 		++n;
 	}
-	bool go; //stop at red light up to them
-	if (light == 2 && rand() % 11 < 3) go = true;
-	else go = false;
+	if (light == 1) stop = false;
 	for (int i = 0; i < n; ++i)
 	{
 		--arr[i];//move to the left
@@ -327,12 +324,13 @@ void RPIG::display()
 		{
 			if (arr[i] <= 1) //out of range
 			{
-				if (light == 1 || go)
+				if ((rand() % 11 < 6 && !stop) || light == 1)
 				{
 					arr.erase(arr.begin() + i);
 					--n;
+					if (light == 2) stop = true;
 				}
-				else if (light == 2) --arr[i]; //stop at red light
+				else ++arr[i]; //stop at red light
 			}
 		}
 		else

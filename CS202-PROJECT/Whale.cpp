@@ -39,22 +39,22 @@ void LWHALE::erase(int x, int y) {
 }
 
 void LWHALE::light_display() {
-	//if (light == 1) {
-	//	go(BORDER - 1, y + 2);
-	//	color(34); //green background
-	//	cout << ' ';
-	//	color(15);
-	//	go(BORDER - 1, y + 1);
-	//	cout << ' ';
-	//}
-	//else if (light == 2) {
-	//	go(BORDER - 1, y + 1);
-	//	color(68); //red blackground
-	//	cout << ' ';
-	//	color(15);
-	//	go(BORDER - 1, y + 2);
-	//	cout << ' ';
-	//}
+	if (light == 1) {
+		go(BORDER - 1, y + 2);
+		color(34); //green background
+		cout << ' ';
+		color(15);
+		go(BORDER - 1, y + 1);
+		cout << ' ';
+	}
+	else if (light == 2) {
+		go(BORDER - 1, y + 1);
+		color(68); //red blackground
+		cout << ' ';
+		color(15);
+		go(BORDER - 1, y + 2);
+		cout << ' ';
+	}
 }
 
 void LWHALE::first_spawn() {
@@ -93,7 +93,7 @@ void LWHALE::display() {
 	int n = arr.size();
 	for (int i = 0; i < n; i++)
 		erase(arr[i], y);
-	light_display();
+	if (traffic) light_display();
 	if (spawn() && arr[n - 1] > closeness) //random appearance
 	{
 		arr.push_back(0);
@@ -102,7 +102,7 @@ void LWHALE::display() {
 	for (int i = 0; i < n; i++) {
 		arr[i]++;//move to the right
 		if (i == 0) {
-			if (arr[i] + lenAni > BORDER) {//out of range
+			if (arr[i] + lenAni + 1> BORDER) {//out of range
 				if (light == 1) {
 					arr.erase(arr.begin() + i);
 					n--;
@@ -180,23 +180,23 @@ void RWHALE::erase(int x, int y) {
 }
 
 void RWHALE::light_display() {
-	//if (light == 1) {
-	//	go(1, y + 2);
-	//	color(34); //green background
-	//	cout << ' ';
-	//	color(15);
-	//	go(1, y + 1);
-	//	cout << ' ';
-	//}
-	//else if (light == 2)
-	//{
-	//	go(1, y + 1);
-	//	color(68); //red blackground
-	//	cout << ' ';
-	//	color(15);
-	//	go(1, y + 2);
-	//	cout << ' ';
-	//}
+	if (light == 1) {
+		go(1, y + 2);
+		color(34); //green background
+		cout << ' ';
+		color(15);
+		go(1, y + 1);
+		cout << ' ';
+	}
+	else if (light == 2)
+	{
+		go(1, y + 1);
+		color(68); //red blackground
+		cout << ' ';
+		color(15);
+		go(1, y + 2);
+		cout << ' ';
+	}
 }
 
 void RWHALE::first_spawn() {
@@ -235,7 +235,7 @@ void RWHALE::display()
 	int n = arr.size();
 	for (int i = 0; i < n; i++)
 		erase(arr[i], y);
-	light_display();
+	if (traffic) light_display();
 	if (spawn() && BORDER - arr[n - 1] > closeness + lenAni) { //random appearance
 		arr.push_back(BORDER - lenAni);
 		n++;

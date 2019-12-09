@@ -318,6 +318,7 @@ void Game::main_run()
 		}
 		else if (k == 'n') {
 			++l;
+			if (l > 10) l = 1;
 			if (l >= 3) l = 10;
 			t1 = switchlevel(&t1, level, l, 100);
 			level->pause();
@@ -341,6 +342,7 @@ void Game::main_run()
 	
 				level->passCoor(human.getCoor());
 				level->resume();
+							Sleep(100); //delay human movement
 			}
 		}
 	}

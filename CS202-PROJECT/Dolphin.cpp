@@ -111,7 +111,7 @@ void LDOLPHIN::display()
 	int n = arr.size();
 	for (int i = 0; i < n; ++i)
 		erase(arr[i], y);
-	light_display();
+	if (traffic) light_display();
 	if (spawn() && arr[n - 1] > closeness) //random appearance
 	{
 		arr.push_back(0);
@@ -281,7 +281,7 @@ void RDOLPHIN::display()
 	int n = arr.size();
 	for (int i = 0; i < n; ++i)
 		erase(arr[i], y);
-	light_display();
+	if (traffic) light_display();
 	if (spawn() && BORDER - arr[n - 1] > closeness + lenAni) //random appearance
 	{
 		arr.push_back(BORDER - lenAni);
