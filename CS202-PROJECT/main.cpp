@@ -2,6 +2,7 @@
 
 
 int main() {
+	//system("chcp 437");
 	FixConsoleWindow(); //fixed screen
 	Game g;
 	g.main_run();

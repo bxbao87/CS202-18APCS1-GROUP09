@@ -13,8 +13,8 @@
 
 using namespace std;
 
-const string path = "H:\\APCS\\2nd year\\CS202\\CS202-PROJECT\\CS202-PROJECT\\MAP\\";
-const string savedPath = "H:\\APCS\\2nd year\\CS202\\CS202-PROJECT\\CS202-PROJECT\\Saved\\";
+const string path = "MAP\\";
+const string savedPath = "Saved\\";
  // t.length()=140
 const string split_lane = "-------------------------------------------------------------------------------------------------------------------------------------------";
 const int BORDER = 140;
