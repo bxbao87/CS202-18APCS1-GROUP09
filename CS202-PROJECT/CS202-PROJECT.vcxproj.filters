@@ -31,6 +31,12 @@
     <ClCompile Include="Whale.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Duck.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bee.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -60,6 +66,12 @@
     <ClInclude Include="Whale.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Duck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bee.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -73,22 +85,49 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="DOLPHIN.txt">
+    <Text Include="MAP\BOSS.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="BOSS.txt">
+    <Text Include="MAP\crossy.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="crossyZoo.txt">
+    <Text Include="MAP\crossyZoo.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="LDOLPHIN.txt">
+    <Text Include="MAP\human.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="RDOLPHIN.txt">
+    <Text Include="MAP\LBEE.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="RDUCK.txt">
+    <Text Include="MAP\LDOLPHIN.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MAP\LDUCK.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MAP\LPIG.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MAP\LWHALE.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MAP\RBEE.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MAP\RDOLPHIN.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MAP\RDUCK.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MAP\RPIG.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MAP\RWHALE.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MAP\zoo.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
