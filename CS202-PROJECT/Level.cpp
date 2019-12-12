@@ -5,6 +5,7 @@ LEVEL::LEVEL(int choice, int delay)
 {
 	stop = false; tmp_stop = false; now = clock(); ok = true; this->delay = delay;
 	current = choice;
+	ifstream in;
 	set_level();
 }
 
@@ -125,10 +126,13 @@ bool LEVEL::oktowrite()
 	return false;
 }
 
-void LEVEL::passCoor(pair<int,int> coor)
+void LEVEL::passCoor(pair <int,int> coor)
 {
-	if (arr.size() == 1) //applied for boss only
-		arr[0]->human(coor.first, coor.second);
+	int n = arr.size();
+	for (int i = 0; i < n; ++i)
+		arr[i]->human(coor.first, coor.second);
+	//update human coordinate
+	human.setCoor(coor.first, coor.second);
 }
 
 void LEVEL::run()
@@ -149,6 +153,8 @@ void LEVEL::run()
 				if (!arr[i]->done(now)) arr[i]->switch_light();
 				arr[i]->display();
 			}
+			//check impact before this
+			human.Draw();
 			ok = true;
 			now = clock();
 			Sleep(delay);

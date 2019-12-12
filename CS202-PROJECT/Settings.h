@@ -33,5 +33,4 @@ void color(const int& k);
 void Nocursortype();				// hide the cursor
 void setcursor(bool x, DWORD size);
 
-
 #endif 

@@ -2,7 +2,7 @@
 
 Game::Game() 
 {
-	level = new LEVEL(1, 1);
+	level = new LEVEL(1, 100);
 }
 
 Game::~Game()
@@ -334,15 +334,14 @@ void Game::main_run()
 			else {
 				level->pause();
 				while (level->oktowrite() == false);
-				human.move(k);
-				for (int i = 0; i < level->objectSize(); i++)
+				human.move(k);  
+				/*for (int i = 0; i < level->objectSize(); i++)
 					if (human.isImpact(level->getObject(i)->getY(), level->getObject(i)->getARR(), level->getObject(i)->getMAP()))
-						//human.decreaseLife();
-						cout << "impacted" << endl;
-	
+						human.decreaseLife();
+						cout << "impacted" << endl;*/
 				level->passCoor(human.getCoor());
 				level->resume();
-				Sleep(100); //delay human movement
+				Sleep(80); //delay human movement
 			}
 		}
 	}

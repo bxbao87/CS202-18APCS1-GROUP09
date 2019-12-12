@@ -2,6 +2,7 @@
 #define _LEVEL_H
 
 #include "Settings.h"
+#include "People.h"
 #include "Objects.h"
 #include "Dolphin.h"
 #include "Pig.h"
@@ -18,6 +19,7 @@ private:
 	vector <OBJECT*> arr;
 	bool stop, tmp_stop;
 	int delay;
+	People human;
 	void verticalLine(int col);
 public:
 	~LEVEL();
@@ -29,7 +31,7 @@ public:
 	bool oktowrite();
 	void kill();
 	void run();
-	void passCoor(pair<int,int> coor);
+	void passCoor(pair <int,int> coor);
 	void pause();
 	void resume();
 	OBJECT* getObject(int i) {

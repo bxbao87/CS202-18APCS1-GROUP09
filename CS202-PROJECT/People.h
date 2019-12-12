@@ -14,7 +14,7 @@ public:
 	People();
 	~People();
 	void delDraw();
-	void Draw();
+	void Draw() const;
 	void move(int key);
 	void UP();
 	void DOWN();
@@ -26,6 +26,7 @@ public:
 	int getLife();
 	bool isDead();
 	pair<int, int> getCoor();
+	void setCoor(int x,int y);
 	void spawn();
 };
 
