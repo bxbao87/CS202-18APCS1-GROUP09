@@ -161,3 +161,8 @@ pair<int, int> People::getCoor()
 	tmp.first = pX, tmp.second = pY;
 	return tmp;
 }
+
+void People::setCoor(int x, int y)
+{
+	pX = x; pY = y;
+}
