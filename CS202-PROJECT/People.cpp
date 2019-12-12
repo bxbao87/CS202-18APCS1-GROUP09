@@ -62,6 +62,7 @@ void People::move(int key) {
 			UP();
 		else if (key == 80)
 			DOWN();
+		Draw();
 	}
 }
 
@@ -69,7 +70,6 @@ void People::UP() {
 	if (pY - 5 >= Top_bound) {
 		delDraw();
 		pY -= Y_MOVE;
-		Draw();
 	}
 }
 
@@ -77,7 +77,6 @@ void People::DOWN() {
 	if (pY + 5 <= Bot_bound) {
 		delDraw();
 		pY += Y_MOVE;
-		Draw();
 	}
 }
 
@@ -85,7 +84,6 @@ void People::LEFT() {
 	if (pX - 1 >= Left_bound) {
 		delDraw();
 		pX -= X_MOVE;
-		Draw();
 	}
 }
 
@@ -93,7 +91,6 @@ void People::RIGHT() {
 	if (pX < Right_bound) {
 		delDraw();
 		pX += X_MOVE;
-		Draw();
 	}
 }
 
