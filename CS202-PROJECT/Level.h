@@ -32,6 +32,12 @@ public:
 	void passCoor(pair<int,int> coor);
 	void pause();
 	void resume();
+	OBJECT* getObject(int i) {
+		return arr[i];
+	}
+	int objectSize() {
+		return arr.size();
+	}
 };
 
 
