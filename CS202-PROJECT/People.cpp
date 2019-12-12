@@ -119,10 +119,10 @@ bool People::isImpact(int objY, vector<int> objCoordX, vector<string> objMap) {
 			continue;
 
 		// check impact 
-		for (int i = x1; i <= x2; i++)
-			for (int j = y1; j <= y2; j++)
-				if (map[abs(pX - i)][abs(pY - j)] != ' ' &&
-					objMap[abs(objX - i)][abs(objY - j)] != ' ')
+		for (int i = x1; i < x2; i++)
+			for (int j = y1; j < y2; j++)
+				if (map[abs(pY - j)][abs(pX - i)] != ' ' &&
+					objMap[abs(objY - j)][abs(objX - i)] != ' ')
 					return true;
 	}
 		return false;

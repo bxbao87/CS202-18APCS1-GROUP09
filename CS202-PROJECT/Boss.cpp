@@ -56,6 +56,7 @@ void BOSS::first_spawn()
 	//middle screen location
 	x = BORDER / 2 - map[0].size() / 2;
 	y = 43 / 2 - map.size() / 2;
+	arr.push_back(x);
 }
 
 void BOSS::makeSound()

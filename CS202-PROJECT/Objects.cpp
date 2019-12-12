@@ -29,13 +29,15 @@ void OBJECT::human(int x, int y)
 	this->hy = y;
 }
 
-vector <string> OBJECT::getMAP()
-{
+vector <string> OBJECT::getMAP() {
 	return map;
 }
 
-vector <int> OBJECT::getARR()
-{
+vector <int> OBJECT::getARR() {
 	return arr;
+}
+
+int OBJECT::getY() {
+	return y;
 }
 
