@@ -17,9 +17,7 @@ protected:
 	int lenAni;		// lenght of Animal's map
 public:
 	OBJECT();
-	int getY() {
-		return y;
-	}
+	int getY();
 	vector <int> getARR();
 	vector <string> getMAP();
 	virtual void draw(int x, int y) = 0; //draw object

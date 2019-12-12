@@ -100,23 +100,50 @@ void Game::stringCentralization(std::string str, int r, int colour)
 string Game::inputFileName() {
 	go(BORDER + 2, 44);
 	cout << "Type file name: ";
-	string fileName;
-	int key = 0, length = 0;
-	do {
-		if (length > 13) continue;
-		if (key == 27) return "";
-		if (key > 31 && key < 127) {
-			std::cout << char(key);
-			fileName.push_back(key);
-			length++;
+	string fileName = "";
+	char ch;
+	int index_ch = BORDER + 18;
+
+	ch = _getch();
+	string t;
+	bool ok = true;
+	while (ch != 13) {
+		if (ch == 27) {
+			ch = _getch();
+			if (ch == 27) {
+				fileName.clear();
+				fileName.push_back(27);
+				return fileName;
+			}
 		}
-		else if (key == 8 && length > 0) {
-			std::cout << '\b' << ' ' << '\b';
-			fileName.pop_back();
-			length--;
+		if (ch == -32) {
+			ch = _getch();
+			if (ch == 72) ch = 00;
+			if (ch == 75) ch = 00;
+			if (ch == 77) ch = 00;
+			if (ch == 80) ch = 00;
 		}
-		key = _getch();
-	} while (key != 13);
+		if (ch == '\b') {
+			t.clear();
+			t = fileName.substr(0, fileName.length() - 1);
+			fileName.clear();
+			fileName = t;
+			index_ch -= 2;
+		}
+		else {
+			if ((fileName.length() < 21) && (ch >= 32 && ch <= 126)) {
+				fileName.push_back(ch);
+				ok = true;
+			}
+			else ok = false;
+		}
+		go(BORDER + 18, 44);
+		cout << fileName;
+		if (ok)
+			index_ch++;
+		go(index_ch, 44);
+		ch = _getch();
+	}
 	return fileName;
 }
 
@@ -310,7 +337,7 @@ void Game::main_run()
 		else if (k == 'l' || k == 'L') {
 			level->pause();
 			saveOption();
-			level->resume();
+			//level->resume();
 		}
 		else if (k == 't' || k == 'T') {
 			level->pause();
