@@ -16,22 +16,22 @@ void LEVEL::set_level()
 	{
 		split();
 		OBJECT* a;
-		a = new LDOLPHIN(4, 5, 10, 30, false);
+		a = new LDOLPHIN(4, 5, 10, 20, true);
 		arr.push_back(a);
-		a = new RDOLPHIN(9, 2, 10, 45, true);
+		a = new RDOLPHIN(9, 2, 10, 40, true);
 		arr.push_back(a);
-		a = new LDOLPHIN(14, 4, 10, 35, false);
+		a = new LDOLPHIN(14, 4, 10, 20, true);
 		arr.push_back(a);
-		a = new RDOLPHIN(19, 8, 10, 50, true);
+		a = new RDOLPHIN(19, 8, 10, 40, true);
 		arr.push_back(a);
 		
-		a = new LWHALE(24, 5, 10, 40, true);
+		a = new LWHALE(24, 5, 10, 35, true);
 		arr.push_back(a);
-		a = new RWHALE(29, 2, 10, 45, true);
+		a = new RWHALE(29, 2, 10, 50, true);
 		arr.push_back(a);
-		a = new LWHALE(34, 4, 10, 45, false);
+		a = new LWHALE(34, 4, 10, 40, true);
 		arr.push_back(a);
-		a = new RWHALE(39, 8, 10, 50, false);
+		a = new RWHALE(39, 8, 10, 50, true);
 		arr.push_back(a);
 	}
 	else if (current == 2)
@@ -151,7 +151,7 @@ void LEVEL::run()
 			}
 			ok = true;
 			now = clock();
-			Sleep(100);
+			Sleep(delay);
 		}
 	}
 }

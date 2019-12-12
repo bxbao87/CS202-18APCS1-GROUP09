@@ -2,7 +2,7 @@
 
 Game::Game() 
 {
-	level = new LEVEL(1, 100);
+	level = new LEVEL(1, 1);
 }
 
 Game::~Game()
@@ -188,8 +188,8 @@ thread Game::switchlevel(thread* t, LEVEL*& a, int level, int delay)
 	thread t1(&LEVEL::run, a);
 	return t1;
 }
-
 thread Game::resetGame(thread* t) {
+
 	thread tmp = switchlevel(t, level, 1, 100); 
 	return tmp;
 }
