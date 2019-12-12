@@ -7,6 +7,8 @@ int main() {
 	Game g;
 	g.main_run();
 	setcursor(1, 10);
+	
+	
 	return 0;
 }
 

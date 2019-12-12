@@ -40,3 +40,7 @@ void setcursor(bool x, DWORD size) // x = 0 : invisible, x = 1 : visible, usuall
 	lpCursor.dwSize = size;
 	SetConsoleCursorInfo(console, &lpCursor);
 }
+
+void playSound(const char* path) {
+	PlaySound(TEXT(path), NULL, SND_ASYNC);
+}

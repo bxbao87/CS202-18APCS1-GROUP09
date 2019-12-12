@@ -43,7 +43,14 @@ void People::Draw() {
 	}
 }
 
-void People::move(int key) {
+bool People::move(int key) {
+	bool ret = false;
+	int mov[] = { 'a','A','d','D','w','W','s','S' };
+	for(auto i:mov)
+		if (i == key) {
+			ret = true;
+			break;
+		}
 	if (key == 'a' || key == 'A')
 		LEFT();
 	else if (key == 'd' || key == 'D')
@@ -62,8 +69,16 @@ void People::move(int key) {
 			UP();
 		else if (key == 80)
 			DOWN();
-		Draw();
+		int mov2[] = { 75,72,77,80 };
+		for (auto i : mov2)
+			if (i == key) {
+				ret = true;
+				break;
+			}
 	}
+	if(ret)
+		Draw();
+	return ret;
 }
 
 void People::UP() {
