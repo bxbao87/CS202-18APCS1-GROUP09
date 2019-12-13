@@ -43,7 +43,14 @@ void People::Draw() {
 	}
 }
 
-void People::move(int key) {
+bool People::move(int key) {
+	bool ret = false;
+	int mov[] = { 'a','A','d','D','w','W','s','S' };
+	for(auto i:mov)
+		if (i == key) {
+			ret = true;
+			break;
+		}
 	if (key == 'a' || key == 'A')
 		LEFT();
 	else if (key == 'd' || key == 'D')
@@ -62,14 +69,22 @@ void People::move(int key) {
 			UP();
 		else if (key == 80)
 			DOWN();
+		int mov2[] = { 75,72,77,80 };
+		for (auto i : mov2)
+			if (i == key) {
+				ret = true;
+				break;
+			}
 	}
+	if(ret)
+		Draw();
+	return ret;
 }
 
 void People::UP() {
 	if (pY - 5 >= Top_bound) {
 		delDraw();
 		pY -= Y_MOVE;
-		Draw();
 	}
 }
 
@@ -77,7 +92,6 @@ void People::DOWN() {
 	if (pY + 5 <= Bot_bound) {
 		delDraw();
 		pY += Y_MOVE;
-		Draw();
 	}
 }
 
@@ -85,7 +99,6 @@ void People::LEFT() {
 	if (pX - 1 >= Left_bound) {
 		delDraw();
 		pX -= X_MOVE;
-		Draw();
 	}
 }
 
@@ -93,7 +106,6 @@ void People::RIGHT() {
 	if (pX < Right_bound) {
 		delDraw();
 		pX += X_MOVE;
-		Draw();
 	}
 }
 
