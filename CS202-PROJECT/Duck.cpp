@@ -16,8 +16,7 @@ LDUCK::LDUCK(int y, int n, int d, int closeness, bool traffic) {
 		}
 		in.close();
 	}
-
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 14; crowd_size = 3;
 	lenAni = map[0].size();
 	first_spawn();
 }
@@ -76,8 +75,18 @@ void LDUCK::spawn_rate(int n, int d) {
 }
 
 bool LDUCK::spawn() {
-	if (rand() % d <= n) return true;
-	return false;
+	if (crowd_size == 0 && arr[arr.size() - 1] > closeness && rand() % d <= n)
+	{
+		crowd_size = rand() % 2 + 2; //take 3 values 2 3 4
+		//choose when to spawn the crowd
+		arr.push_back(1);
+	}
+	else if (crowd_size > 0 && arr[arr.size() - 1] > lenAni)
+	{
+		arr.push_back(1);
+		--crowd_size;
+	}
+	return true;
 }
 
 void LDUCK::close(int closeness) {
@@ -94,16 +103,16 @@ void LDUCK::display() {
 	for (int i = 0; i < n; i++)
 		erase(arr[i], y);
 	if (traffic) light_display();
-	if (spawn() && arr[n - 1] > closeness) //random appearance
+	spawn();
+	for (int i = 0; i < n; i++) 
 	{
-		arr.push_back(0);
-		n++;
-	}
-	for (int i = 0; i < n; i++) {
 		arr[i]++;//move to the right
-		if (i == 0) {
-			if (arr[i] + lenAni + 1 > BORDER) {//out of range
-				if (light == 1) {
+		if (i == 0)
+		{
+			if (arr[i] + lenAni + 1 > BORDER) //out of range
+			{
+				if (light == 1)
+				{
 					arr.erase(arr.begin() + i);
 					n--;
 				}
@@ -111,7 +120,12 @@ void LDUCK::display() {
 			}
 		}
 		else
-			if (abs(arr[i] - arr[i - 1]) < closeness) arr[i]--;
+		{
+			if (light == 2)
+			{
+				if (!(arr[i] - arr[i - 1] != lenAni && arr[i] - arr[i - 1] > closeness)) --arr[i];
+			}
+		}
 	}
 	color(co);
 	for (int i = 0; i < n; i++)
@@ -158,7 +172,7 @@ RDUCK::RDUCK(int y, int n, int d, int closeness, bool traffic) {
 		}
 		in.close();
 	}
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3; crowd_size = 3;
 	lenAni = map[0].size();
 	first_spawn();
 }

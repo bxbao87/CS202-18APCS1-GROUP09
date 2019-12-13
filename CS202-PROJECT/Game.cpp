@@ -399,10 +399,9 @@ void Game::main_run()
 		else if (k == 'n') {
 			++l;
 			if (l > 10) l = 1;
-			if (l > 3) l = 10;
+			if (l > 4) l = 10;
 			t1 = switchlevel(&t1, level, l, 100);
 			level->pause();
-			while (level->oktowrite() == false);
 			instructor();
 			level->resume();
 		}
@@ -411,11 +410,15 @@ void Game::main_run()
 			if (human.isDead()) {
 
 			}
-			else {
+			else
+			{
+				bool keep = level->status();
 				level->pause();
-				while (level->oktowrite() == false);
-				human.move(k);
-				level->resume();
+				while (!level->oktowrite());
+				if (!keep)
+				{
+					if (human.move(k)) level->resume();
+				}
 				Sleep(100); //delay human movement
 			}
 		}

@@ -8,7 +8,8 @@ using namespace std;
 
 class LDUCK :public OBJECT {
 private:
-	int co;
+	int co; //color of OBJECT
+	int crowd_size; //size of a crowd
 public:
 	LDUCK(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
 	void draw(int x, int y);
@@ -26,7 +27,8 @@ public:
 
 class RDUCK :public OBJECT {
 private:
-	int co;
+	int co; //color of OBJECT
+	int crowd_size; //size of a crowd
 public:
 	RDUCK(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic
 	void draw(int x, int y);

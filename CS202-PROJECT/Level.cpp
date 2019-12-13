@@ -17,6 +17,27 @@ void LEVEL::set_level()
 	{
 		split();
 		OBJECT* a;
+		a = new LDUCK(4, 5, 10, 20, true);
+		arr.push_back(a);
+		/*a = new RDUCK(9, 2, 10, 40, true);
+		arr.push_back(a);
+		a = new LDUCK(14, 4, 10, 20, true);
+		arr.push_back(a);
+		a = new RDUCK(19, 8, 10, 40, true);
+		arr.push_back(a);
+		a = new LDUCK(24, 5, 10, 35, true);
+		arr.push_back(a);
+		a = new RDUCK(29, 2, 10, 50, true);
+		arr.push_back(a);
+		a = new LDUCK(34, 4, 10, 40, true);
+		arr.push_back(a);
+		a = new RDUCK(39, 8, 10, 50, true);
+		arr.push_back(a);*/
+	}
+	else if (current == 2)
+	{
+		split();
+		OBJECT* a;
 		a = new LDOLPHIN(4, 5, 10, 20, true);
 		arr.push_back(a);
 		a = new RDOLPHIN(9, 2, 10, 40, true);
@@ -35,7 +56,7 @@ void LEVEL::set_level()
 		a = new RWHALE(39, 8, 10, 50, true);
 		arr.push_back(a);
 	}
-	else if (current == 2)
+	else if (current == 3)
 	{
 		split();
 		OBJECT* a;
@@ -56,7 +77,7 @@ void LEVEL::set_level()
 		a = new RBEE(39, 8, 10, 25, true);
 		arr.push_back(a);
 	}
-	else if (current == 3)
+	else if (current == 4)
 	{
 		split();
 		OBJECT* a;
@@ -158,6 +179,7 @@ void LEVEL::passCoor(pair <int,int> coor)
 
 void LEVEL::cooldown()
 {
+	pause();
 	for (int i = 0; i < 3; ++i)
 	{
 		go(1, 45);
@@ -168,6 +190,13 @@ void LEVEL::cooldown()
 	}
 	go(1, 45);
 	cout << "                 ";
+	resume();
+}
+
+bool LEVEL::status()
+{
+	if (tmp_stop) return true;
+	return false;
 }
 
 void LEVEL::run(People& human)

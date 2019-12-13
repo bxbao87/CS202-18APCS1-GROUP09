@@ -76,8 +76,6 @@ bool People::move(int key) {
 				break;
 			}
 	}
-	if(ret)
-		Draw();
 	return ret;
 }
 

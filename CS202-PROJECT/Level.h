@@ -9,6 +9,7 @@
 #include "Whale.h"
 #include "Boss.h"
 #include "Bee.h"
+#include "Duck.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ private:
 public:
 	~LEVEL();
 	LEVEL(int choice, int delay);
+	bool status();
 	int getLevel();
 	void set_level();
 	void boss_split();

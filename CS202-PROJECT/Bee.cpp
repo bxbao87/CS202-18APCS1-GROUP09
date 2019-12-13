@@ -17,7 +17,7 @@ LBEE::LBEE(int y, int n, int d, int closeness, bool traffic) {
 		in.close();
 	}
 
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 14;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6;
 	lenAni = map[0].size();
 	first_spawn();
 }
@@ -157,7 +157,7 @@ RBEE::RBEE(int y, int n, int d, int closeness, bool traffic) {
 		}
 		in.close();
 	}
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 14;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6;
 	lenAni = map[0].size();
 	first_spawn();
 }
