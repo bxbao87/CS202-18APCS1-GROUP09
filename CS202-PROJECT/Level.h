@@ -8,6 +8,7 @@
 #include "Pig.h"
 #include "Whale.h"
 #include "Boss.h"
+#include "Bee.h"
 
 using namespace std;
 
@@ -30,7 +31,7 @@ public:
 	void split();
 	bool oktowrite();
 	void kill();
-	void run();
+	void run(People& human);
 	void passCoor(pair <int,int> coor);
 	void pause();
 	void resume();

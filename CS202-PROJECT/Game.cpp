@@ -212,7 +212,7 @@ thread Game::switchlevel(thread* t, LEVEL*& a, int level, int delay)
 	delete a;
 	a = new LEVEL(level, delay);
 	human.spawn();
-	thread t1(&LEVEL::run, a);
+	thread t1(&LEVEL::run, a,ref(human));
 	return t1;
 }
 thread Game::resetGame(thread* t) {
@@ -320,7 +320,7 @@ void Game::main_run()
 {
 	int k = 0, l = 1;
 	instructor();
-	thread t1(&LEVEL::run, level);
+	thread t1(&LEVEL::run, level,ref(human));
 	human.spawn();
 	while (k != 27)
 	{
@@ -346,7 +346,7 @@ void Game::main_run()
 		else if (k == 'n') {
 			++l;
 			if (l > 10) l = 1;
-			if (l >= 3) l = 10;
+			if (l > 3) l = 10;
 			t1 = switchlevel(&t1, level, l, 100);
 			level->pause();
 			while (level->oktowrite() == false);
@@ -361,14 +361,10 @@ void Game::main_run()
 			else {
 				level->pause();
 				while (level->oktowrite() == false);
-				human.move(k);  
-				/*for (int i = 0; i < level->objectSize(); i++)
-					if (human.isImpact(level->getObject(i)->getY(), level->getObject(i)->getARR(), level->getObject(i)->getMAP()))
-						human.decreaseLife();
-						cout << "impacted" << endl;*/
+				human.move(k);
 				level->passCoor(human.getCoor());
 				level->resume();
-				Sleep(80); //delay human movement
+				Sleep(100); //delay human movement
 			}
 		}
 	}

@@ -39,6 +39,27 @@ void LEVEL::set_level()
 	{
 		split();
 		OBJECT* a;
+		a = new LBEE(4, 5, 10, 20, true);
+		arr.push_back(a);
+		a = new RBEE(9, 2, 10, 25, true);
+		arr.push_back(a);
+		a = new LBEE(14, 4, 10, 30, true);
+		arr.push_back(a);
+		a = new RBEE(19, 8, 10, 15, true);
+		arr.push_back(a);
+		a = new LBEE(24, 5, 10, 35, true);
+		arr.push_back(a);
+		a = new RBEE(29, 2, 10, 20, true);
+		arr.push_back(a);
+		a = new LBEE(34, 4, 10, 25, true);
+		arr.push_back(a);
+		a = new RBEE(39, 8, 10, 25, true);
+		arr.push_back(a);
+	}
+	else if (current == 3)
+	{
+		split();
+		OBJECT* a;
 		a = new LPIG(4, 5, 10, 30, true);
 		arr.push_back(a);
 		a = new RPIG(9, 2, 10, 45, true);
@@ -135,7 +156,7 @@ void LEVEL::passCoor(pair <int,int> coor)
 	human.setCoor(coor.first, coor.second);
 }
 
-void LEVEL::run()
+void LEVEL::run(People& human)
 {
 	int n = arr.size();
 	while (!stop)
@@ -153,7 +174,12 @@ void LEVEL::run()
 				if (!arr[i]->done(now)) arr[i]->switch_light();
 				arr[i]->display();
 			}
-			//check impact before this
+			for (int i = 0; i < n; i++)
+				if (human.isImpact(arr[i]->getY(), arr[i]->getARR(), arr[i]->getMAP()))
+				{
+					human.decreaseLife();
+					human.spawn();
+				}
 			human.Draw();
 			ok = true;
 			now = clock();
