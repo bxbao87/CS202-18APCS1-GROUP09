@@ -215,6 +215,60 @@ thread Game::switchlevel(thread* t, LEVEL*& a, int level, int delay)
 	thread t1(&LEVEL::run, a,ref(human));
 	return t1;
 }
+
+void Game::displayWin()
+{
+	playSound(string(soundPath+"victory.wav").c_str());
+	color(224);
+	ifstream fin(path + "victory.txt");
+	if (fin.is_open())
+	{
+		int x = BORDER/2-35, y = 15;
+		string line;
+		while (getline(fin, line, '\n')) {
+			Sleep(150);
+			go(x, y++);
+			cout << line;
+		}
+	}
+	fin.close();
+	color(8);
+	Sleep(800);
+}
+
+void Game::displayLose()
+{
+	playSound(string(soundPath+"death.wav").c_str());
+	color(192);
+	ifstream fin(path + "gameOver.txt");
+	if (fin.is_open())
+	{
+		int x = BORDER/2-35, y = 15;
+		string line;
+		while (getline(fin, line, '\n')) {
+			Sleep(150);
+			go(x, y++);
+			cout << line;
+		}
+	}
+	fin.close();
+	color(8);
+	Sleep(800);
+}
+
+void Game::displayLevel()
+{
+	go(BORDER + 23, 17);
+	cout << level->getLevel();
+}
+
+void Game::displayLives()
+{
+	go(BORDER + 23, 20);
+	cout << human.getLife();
+}
+
+
 thread Game::resetGame(thread* t) {
 
 	thread tmp = switchlevel(t, level, 1, 100); 
@@ -281,12 +335,11 @@ void Game::instructor()
 	y = 17;
 	color(7);
 	go(x, y);
-	//cout << "LEVEL: " << "//something will be here";
-	cout << "LEVEL: " << level->getLevel();
+	cout << "LEVEL: ";
+	displayLevel();
 	go(x, y+=3);
-	
-	// Try this
-	cout << "LIVES: " << human.getLife();
+	cout << "LIVES: ";
+	displayLives();
 	
 	go(BORDER, y += 3);
 	cout << (char)195;

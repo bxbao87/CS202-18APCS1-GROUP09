@@ -15,8 +15,8 @@ public:
 	People();
 	~People();
 	void delDraw();
-	void Draw() const;
-	void move(int key);
+	void Draw();
+	bool move(int key);
 	void UP();
 	void DOWN();
 	void LEFT();

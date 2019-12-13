@@ -36,5 +36,10 @@ public:
 
 	void main_run();
 	thread switchlevel(thread* t, LEVEL*& a, int level, int delay);
+
+	void displayWin();
+	void displayLose();
+	void displayLevel();
+	void displayLives();
 };
 #endif
