@@ -35,6 +35,7 @@ public:
 	void passCoor(pair <int,int> coor);
 	void pause();
 	void resume();
+	void cooldown();
 	OBJECT* getObject(int i) {
 		return arr[i];
 	}

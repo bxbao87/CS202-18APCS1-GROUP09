@@ -156,6 +156,20 @@ void LEVEL::passCoor(pair <int,int> coor)
 	human.setCoor(coor.first, coor.second);
 }
 
+void LEVEL::cooldown()
+{
+	for (int i = 0; i < 3; ++i)
+	{
+		go(1, 45);
+		color(4);
+		cout << "Cooldown time: " << 3 - i;
+		Sleep(500);
+		color(15);
+	}
+	go(1, 45);
+	cout << "                 ";
+}
+
 void LEVEL::run(People& human)
 {
 	int n = arr.size();
@@ -178,7 +192,10 @@ void LEVEL::run(People& human)
 				if (human.isImpact(arr[i]->getY(), arr[i]->getARR(), arr[i]->getMAP()))
 				{
 					human.decreaseLife();
+					go(BORDER + 23, 20);
+					cout << human.getLife();
 					human.spawn();
+					cooldown();
 				}
 			human.Draw();
 			ok = true;

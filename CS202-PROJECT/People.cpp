@@ -151,8 +151,6 @@ bool People::isFinish() {
 
 void People::decreaseLife() {
 	live--;
-	go(BORDER + 22, 20);
-	cout << live;
 	if (live == 0)
 		state = false;
 }
