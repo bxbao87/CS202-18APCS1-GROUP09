@@ -183,7 +183,9 @@ void LEVEL::cooldown()
 	for (int i = 0; i < 3; ++i)
 	{
 		go(1, 45);
-		color(4);
+		if (i == 0) color(12);
+		else if (i == 1) color(14);
+		else if (i == 2) color(10);
 		cout << "Cooldown time: " << 3 - i;
 		Sleep(500);
 		color(15);
