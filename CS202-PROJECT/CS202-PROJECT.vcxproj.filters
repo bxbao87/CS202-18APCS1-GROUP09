@@ -130,5 +130,11 @@
     <Text Include="MAP\zoo.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="MAP\gameOver.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="MAP\victory.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

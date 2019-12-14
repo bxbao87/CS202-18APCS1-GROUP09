@@ -154,6 +154,7 @@
     <Text Include="MAP\BOSS.txt" />
     <Text Include="MAP\crossy.txt" />
     <Text Include="MAP\crossyZoo.txt" />
+    <Text Include="MAP\gameOver.txt" />
     <Text Include="MAP\human.txt" />
     <Text Include="MAP\LBEE.txt" />
     <Text Include="MAP\LDOLPHIN.txt" />
@@ -165,6 +166,7 @@
     <Text Include="MAP\RDUCK.txt" />
     <Text Include="MAP\RPIG.txt" />
     <Text Include="MAP\RWHALE.txt" />
+    <Text Include="MAP\victory.txt" />
     <Text Include="MAP\zoo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
