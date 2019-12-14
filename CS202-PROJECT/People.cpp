@@ -21,7 +21,7 @@ People::People() {
 People::~People() {
 }
 
-void People::delDraw() {
+void People::delDraw(int x,int y) {
 	int n = map.size();
 	if (n > 0) {
 		int len = map[0].length();
@@ -29,7 +29,7 @@ void People::delDraw() {
 		for (int i = 0; i < len; ++i)
 			str += " ";
 		for (int i = 0; i < n; ++i) {
-			go(pX, pY + i);
+			go(x,y + i);
 			cout << str;
 		}
 	}
@@ -81,28 +81,24 @@ bool People::move(int key) {
 
 void People::UP() {
 	if (pY - 5 >= Top_bound) {
-		delDraw();
 		pY -= Y_MOVE;
 	}
 }
 
 void People::DOWN() {
 	if (pY + 5 <= Bot_bound) {
-		delDraw();
 		pY += Y_MOVE;
 	}
 }
 
 void People::LEFT() {
 	if (pX - 1 >= Left_bound) {
-		delDraw();
 		pX -= X_MOVE;
 	}
 }
 
 void People::RIGHT() {
 	if (pX < Right_bound) {
-		delDraw();
 		pX += X_MOVE;
 	}
 }

@@ -18,9 +18,7 @@ BOSS::BOSS(int y, int n, int d, int closeness, bool traffic)
 	}
 	lenAni = map[0].size();
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; c = 1; count = 0;
-	bx = BORDER / 2 - lenAni / 2; by = 20 - map.size() / 2;
-	pair<int, int> tmp(80, 45);
-	dir.push_back(tmp);
+	reset_dir();
 	first_spawn();
 	arr.push_back(x);
 }
@@ -59,8 +57,10 @@ void BOSS::light_display()
 void BOSS::first_spawn()
 {
 	//middle screen location
-	x = BORDER / 2 - map[0].size() / 2;
-	y = 43 / 2 - map.size() / 2;
+	x = BORDER / 2 - lenAni / 2;
+	y = 20 - map.size() / 2;
+	bx = BORDER / 2 - lenAni / 2; 
+	by = 20 - map.size() / 2;
 }
 
 void BOSS::makeSound()
@@ -94,6 +94,8 @@ void BOSS::reset_dir()
 	dir.clear();
 	pair <int, int> tmp(80, 45);
 	dir.push_back(tmp);
+	bx = BORDER / 2 - map[0].size() / 2;
+	by = 43 / 2 - map.size() / 2;
 }
 
 void BOSS::impact()

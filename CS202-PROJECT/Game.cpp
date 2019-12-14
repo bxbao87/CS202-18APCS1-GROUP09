@@ -373,12 +373,12 @@ void Game::main_run()
 {
 	int k = 0, l = 1;
 	instructor();
-	thread t1(&LEVEL::run, level,ref(human));
+	thread t1(&LEVEL::run, level, ref(human));
 	human.spawn();
 	while (k != 27)
 	{
 		k = _getch();
-		if (k == 27) {
+		if (k == 27 && !human.isDead()) {
 			exitGame(&t1, level);
 		}
 		else if (k == 'p' || k == 'P') {
@@ -401,27 +401,35 @@ void Game::main_run()
 			if (l > 10) l = 1;
 			if (l > 4) l = 10;
 			t1 = switchlevel(&t1, level, l, 100);
-			level->pause();
+			while (!level->oktowrite());
 			instructor();
 			level->resume();
 		}
 		else
 		{
+			bool keep = level->status();
+			while (!level->oktowrite());
+			if (human.move(k))
+			{
+				level->resume();
+				if (level->freeze_main())
+				{
+					Sleep(1500);
+					go(1, 45);
+					cout << "Press c to continue";
+					while (k != 'c') k = _getch();
+					go(1, 45);
+					cout << "                   ";
+				}
+			}
+			if (keep) level->pause();
+			else level->resume();
 			if (human.isDead()) {
 				exitGame(&t1, level);
 				k = 27;
+				continue;
 			}
-			else
-			{
-				bool keep = level->status();
-				level->pause();
-				while (!level->oktowrite());
-				if (!keep)
-				{
-					if (human.move(k)) level->resume();
-				}
-				Sleep(100); //delay human movement
-			}
+			Sleep(100); //delay human movement
 		}
 	}
 }

@@ -21,7 +21,9 @@ private:
 	vector <OBJECT*> arr;
 	bool stop, tmp_stop;
 	int delay;
+	bool freeze;
 	People human;
+	pair<int, int> old_coor;
 	void verticalLine(int col);
 public:
 	~LEVEL();
@@ -34,10 +36,10 @@ public:
 	bool oktowrite();
 	void kill();
 	void run(People& human);
-	//void passCoor(pair <int,int> coor);
 	void pause();
 	void resume();
 	void cooldown();
+	bool freeze_main();
 	OBJECT* getObject(int i) {
 		return arr[i];
 	}

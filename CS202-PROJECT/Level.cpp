@@ -3,7 +3,8 @@
 //class LEVEL
 LEVEL::LEVEL(int choice, int delay)
 {
-	stop = false; tmp_stop = false; now = clock(); ok = true; this->delay = delay;
+	stop = false; tmp_stop = false; now = clock(); ok = true; this->delay = delay; freeze = false;
+	old_coor.first = 80; old_coor.second = 45;
 	current = choice;
 	ifstream in;
 	set_level();
@@ -164,22 +165,25 @@ void LEVEL::kill()
 
 bool LEVEL::oktowrite()
 {
-	if (ok) return true;
-	return false;
+	pause();
+	int i = 0;
+	while (!(ok && tmp_stop) && i < 500000) ++i;
+	return true;
 }
 
-//void LEVEL::passCoor(pair <int,int> coor)
-//{
-//	int n = arr.size();
-//	for (int i = 0; i < n; ++i)
-//		arr[i]->human(coor.first, coor.second);
-//	update human coordinate
-//	human.setCoor(coor.first, coor.second);
-//}
+bool LEVEL::status()
+{
+	return tmp_stop;
+}
+
+bool LEVEL::freeze_main()
+{
+	return freeze;
+}
 
 void LEVEL::cooldown()
 {
-	pause();
+	freeze = true;
 	for (int i = 0; i < 3; ++i)
 	{
 		go(1, 45);
@@ -192,13 +196,7 @@ void LEVEL::cooldown()
 	}
 	go(1, 45);
 	cout << "                 ";
-	resume();
-}
-
-bool LEVEL::status()
-{
-	if (tmp_stop) return true;
-	return false;
+	freeze = false;
 }
 
 void LEVEL::run(People& human)
@@ -214,13 +212,16 @@ void LEVEL::run(People& human)
 		{
 			ok = false;
 			now = clock() - now;
-			pair<int, int> tmp = human.getCoor();
-			if (arr.size() == 1) arr[0]->human(tmp);
+			human.delDraw(old_coor.first, old_coor.second);
+			old_coor = human.getCoor();
+			if (arr.size() == 1) arr[0]->human(old_coor);
 			for (int i = 0; i < n; ++i)
 			{
 				if (!arr[i]->done(now)) arr[i]->switch_light();
 				arr[i]->display();
 			}
+			//draw before checking impact
+			human.Draw();
 			for (int i = 0; i < n; i++)
 				if (human.isImpact(arr[i]->getY(), arr[i]->getARR(), arr[i]->getMAP()))
 				{
@@ -228,10 +229,10 @@ void LEVEL::run(People& human)
 					human.decreaseLife();
 					go(BORDER + 23, 20);
 					cout << human.getLife();
-					human.spawn();
 					cooldown();
+					human.delDraw(old_coor.first,old_coor.second);
+					human.spawn();
 				}
-			human.Draw();
 			ok = true;
 			now = clock();
 			Sleep(delay);

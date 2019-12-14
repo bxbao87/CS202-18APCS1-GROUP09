@@ -14,7 +14,7 @@ protected:
 	int light = 0; // 0 is neutral, 1 is green, 2 is red
 	vector <string> map;
 	vector <int> arr;
-	int lenAni;		// lenght of Animal's map
+	int lenAni;	// lenght of Animal's map
 public:
 	OBJECT();
 	int getY();

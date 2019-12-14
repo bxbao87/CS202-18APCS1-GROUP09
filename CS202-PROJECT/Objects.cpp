@@ -3,7 +3,7 @@
 //class OBJECT
 OBJECT::OBJECT()
 {
-	n = 0; d = 0; closeness = 0; x = 0; y = 0; green = 0; red = 0; traffic = false; hx = 80; hy = 45;
+	n = 0; d = 0; closeness = 0; x = 0; y = 0; green = 0; red = 0; traffic = false; hx = 80; hy = 45; lenAni = 0;
 }
 
 void OBJECT::switch_light()
