@@ -408,7 +408,8 @@ void Game::main_run()
 		else
 		{
 			if (human.isDead()) {
-
+				exitGame(&t1, level);
+				k = 27;
 			}
 			else
 			{

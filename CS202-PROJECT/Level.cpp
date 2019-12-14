@@ -13,7 +13,7 @@ void LEVEL::set_level()
 {
 	arr.clear();
 	system("cls");
-	if (current == 1)
+	if (current == 10)
 	{
 		split();
 		OBJECT* a;
@@ -98,7 +98,7 @@ void LEVEL::set_level()
 		a = new RPIG(39, 8, 10, 50, false);
 		arr.push_back(a);
 	}
-	else if (current == 10)
+	else if (current == 1)
 	{
 		boss_split();
 		OBJECT* a;
@@ -168,14 +168,14 @@ bool LEVEL::oktowrite()
 	return false;
 }
 
-void LEVEL::passCoor(pair <int,int> coor)
-{
-	int n = arr.size();
-	for (int i = 0; i < n; ++i)
-		arr[i]->human(coor.first, coor.second);
-	//update human coordinate
-	human.setCoor(coor.first, coor.second);
-}
+//void LEVEL::passCoor(pair <int,int> coor)
+//{
+//	int n = arr.size();
+//	for (int i = 0; i < n; ++i)
+//		arr[i]->human(coor.first, coor.second);
+//	update human coordinate
+//	human.setCoor(coor.first, coor.second);
+//}
 
 void LEVEL::cooldown()
 {
@@ -214,6 +214,8 @@ void LEVEL::run(People& human)
 		{
 			ok = false;
 			now = clock() - now;
+			pair<int, int> tmp = human.getCoor();
+			if (arr.size() == 1) arr[0]->human(tmp);
 			for (int i = 0; i < n; ++i)
 			{
 				if (!arr[i]->done(now)) arr[i]->switch_light();
@@ -222,6 +224,7 @@ void LEVEL::run(People& human)
 			for (int i = 0; i < n; i++)
 				if (human.isImpact(arr[i]->getY(), arr[i]->getARR(), arr[i]->getMAP()))
 				{
+					arr[i]->impact();
 					human.decreaseLife();
 					go(BORDER + 23, 20);
 					cout << human.getLife();

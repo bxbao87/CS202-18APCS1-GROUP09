@@ -23,10 +23,10 @@ void OBJECT::switch_light()
 	}
 }
 
-void OBJECT::human(int x, int y)
+void OBJECT::human(pair <int,int> tmp)
 {
-	this->hx = x;
-	this->hy = y;
+	this->hx = tmp.first;
+	this->hy = tmp.second;
 }
 
 vector <string> OBJECT::getMAP() {

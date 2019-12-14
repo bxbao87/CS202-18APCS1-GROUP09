@@ -1,8 +1,9 @@
 ﻿  Game.cpp
+D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Level.h(45,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
 D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Game.cpp(71,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Generating code
-  2 of 503 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+  2 of 786 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   CS202-PROJECT.vcxproj -> D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\x64\Release\CS202-PROJECT.exe

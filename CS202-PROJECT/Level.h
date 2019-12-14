@@ -34,7 +34,7 @@ public:
 	bool oktowrite();
 	void kill();
 	void run(People& human);
-	void passCoor(pair <int,int> coor);
+	//void passCoor(pair <int,int> coor);
 	void pause();
 	void resume();
 	void cooldown();
