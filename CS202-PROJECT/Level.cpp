@@ -5,6 +5,7 @@ LEVEL::LEVEL(int choice, int delay)
 {
 	stop = false; tmp_stop = false; now = clock(); ok = true; this->delay = delay;
 	current = choice;
+	ifstream in;
 	set_level();
 }
 
@@ -16,25 +17,67 @@ void LEVEL::set_level()
 	{
 		split();
 		OBJECT* a;
-		a = new LDOLPHIN(4, 5, 10, 30, false);
+		a = new LDUCK(4, 5, 10, 20, true);
 		arr.push_back(a);
-		a = new RDOLPHIN(9, 2, 10, 45, true);
+		a = new RDUCK(9, 5, 10, 20, true);
 		arr.push_back(a);
-		a = new LDOLPHIN(14, 4, 10, 35, false);
+		a = new LDUCK(14, 4, 10, 20, true);
 		arr.push_back(a);
-		a = new RDOLPHIN(19, 8, 10, 50, true);
+		a = new RDUCK(19, 8, 10, 25, true);
 		arr.push_back(a);
-		
-		a = new LWHALE(24, 5, 10, 40, true);
+		a = new LDUCK(24, 5, 10, 35, true);
 		arr.push_back(a);
-		a = new RWHALE(29, 2, 10, 45, true);
+		a = new RDUCK(29, 2, 10, 25, true);
 		arr.push_back(a);
-		a = new LWHALE(34, 4, 10, 45, false);
+		a = new LDUCK(34, 4, 10, 35, true);
 		arr.push_back(a);
-		a = new RWHALE(39, 8, 10, 50, false);
+		a = new RDUCK(39, 8, 10, 20, true);
 		arr.push_back(a);
 	}
 	else if (current == 2)
+	{
+		split();
+		OBJECT* a;
+		a = new LDOLPHIN(4, 5, 10, 20, true);
+		arr.push_back(a);
+		a = new RDOLPHIN(9, 2, 10, 40, true);
+		arr.push_back(a);
+		a = new LDOLPHIN(14, 4, 10, 20, true);
+		arr.push_back(a);
+		a = new RDOLPHIN(19, 8, 10, 40, true);
+		arr.push_back(a);
+		
+		a = new LWHALE(24, 5, 10, 35, true);
+		arr.push_back(a);
+		a = new RWHALE(29, 2, 10, 50, true);
+		arr.push_back(a);
+		a = new LWHALE(34, 4, 10, 40, true);
+		arr.push_back(a);
+		a = new RWHALE(39, 8, 10, 50, true);
+		arr.push_back(a);
+	}
+	else if (current == 3)
+	{
+		split();
+		OBJECT* a;
+		a = new LBEE(4, 5, 10, 20, true);
+		arr.push_back(a);
+		a = new RBEE(9, 2, 10, 25, true);
+		arr.push_back(a);
+		a = new LBEE(14, 4, 10, 30, true);
+		arr.push_back(a);
+		a = new RBEE(19, 8, 10, 15, true);
+		arr.push_back(a);
+		a = new LBEE(24, 5, 10, 35, true);
+		arr.push_back(a);
+		a = new RBEE(29, 2, 10, 20, true);
+		arr.push_back(a);
+		a = new LBEE(34, 4, 10, 25, true);
+		arr.push_back(a);
+		a = new RBEE(39, 8, 10, 25, true);
+		arr.push_back(a);
+	}
+	else if (current == 4)
 	{
 		split();
 		OBJECT* a;
@@ -125,13 +168,40 @@ bool LEVEL::oktowrite()
 	return false;
 }
 
-void LEVEL::passCoor(pair<int,int> coor)
+void LEVEL::passCoor(pair <int,int> coor)
 {
-	if (arr.size() == 1) //applied for boss only
-		arr[0]->human(coor.first, coor.second);
+	int n = arr.size();
+	for (int i = 0; i < n; ++i)
+		arr[i]->human(coor.first, coor.second);
+	//update human coordinate
+	human.setCoor(coor.first, coor.second);
 }
 
-void LEVEL::run()
+void LEVEL::cooldown()
+{
+	pause();
+	for (int i = 0; i < 3; ++i)
+	{
+		go(1, 45);
+		if (i == 0) color(12);
+		else if (i == 1) color(14);
+		else if (i == 2) color(10);
+		cout << "Cooldown time: " << 3 - i;
+		Sleep(500);
+		color(15);
+	}
+	go(1, 45);
+	cout << "                 ";
+	resume();
+}
+
+bool LEVEL::status()
+{
+	if (tmp_stop) return true;
+	return false;
+}
+
+void LEVEL::run(People& human)
 {
 	int n = arr.size();
 	while (!stop)
@@ -149,9 +219,19 @@ void LEVEL::run()
 				if (!arr[i]->done(now)) arr[i]->switch_light();
 				arr[i]->display();
 			}
+			for (int i = 0; i < n; i++)
+				if (human.isImpact(arr[i]->getY(), arr[i]->getARR(), arr[i]->getMAP()))
+				{
+					human.decreaseLife();
+					go(BORDER + 23, 20);
+					cout << human.getLife();
+					human.spawn();
+					cooldown();
+				}
+			human.Draw();
 			ok = true;
 			now = clock();
-			Sleep(100);
+			Sleep(delay);
 		}
 	}
 }

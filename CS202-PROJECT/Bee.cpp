@@ -17,7 +17,7 @@ LBEE::LBEE(int y, int n, int d, int closeness, bool traffic) {
 		in.close();
 	}
 
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6;
 	lenAni = map[0].size();
 	first_spawn();
 }
@@ -34,7 +34,7 @@ void LBEE::erase(int x, int y) {
 	int n = map.size();
 	for (int i = 0; i < n; i++) {
 		go(x, y + i);
-		cout << "      ";
+		cout << "        ";
 	}
 }
 
@@ -101,13 +101,12 @@ void LBEE::display() {
 	}
 	for (int i = 0; i < n; i++) {
 		arr[i]++;//move to the right
-		if (i == 0) {
-			if (arr[i] + lenAni + 1 > BORDER) {//out of range
-				if (light == 1) {
-					arr.erase(arr.begin() + i);
-					n--;
-				}
-				else if (light == 2) arr[i]--; //stop at red light
+		if (i == 0) 
+		{
+			if (arr[i] + lenAni + 1 > BORDER) //out of range
+			{
+				arr.erase(arr.begin() + i);
+				n--;
 			}
 		}
 		else
@@ -158,7 +157,7 @@ RBEE::RBEE(int y, int n, int d, int closeness, bool traffic) {
 		}
 		in.close();
 	}
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6;
 	lenAni = map[0].size();
 	first_spawn();
 }
@@ -175,7 +174,7 @@ void RBEE::erase(int x, int y) {
 	int n = map.size();
 	for (int i = 0; i < n; i++) {
 		go(x, y + i);
-		cout << "      ";
+		cout << "        ";
 	}
 }
 
@@ -240,15 +239,16 @@ void RBEE::display()
 		arr.push_back(BORDER - lenAni);
 		n++;
 	}
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) 
+	{
 		arr[i]--;//move to the left
-		if (i == 0) {
-			if (arr[i] <= 1) {//out of range
-				if (light == 1) {
-					arr.erase(arr.begin() + i);
-					n--;
-				}
-				else if (light == 2) arr[i]++; //stop at red light
+		if (i == 0)
+		{
+			if (arr[i] <= 1)
+			{//out of range
+				arr.erase(arr.begin() + i);
+				n--;
+
 			}
 		}
 		else

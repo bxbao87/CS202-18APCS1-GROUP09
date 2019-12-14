@@ -18,6 +18,7 @@ BOSS::BOSS(int y, int n, int d, int closeness, bool traffic)
 	}
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; c = 1; count = 0;
 	first_spawn();
+	arr.push_back(x);
 }
 
 void BOSS::draw(int x, int y)
@@ -56,7 +57,6 @@ void BOSS::first_spawn()
 	//middle screen location
 	x = BORDER / 2 - map[0].size() / 2;
 	y = 43 / 2 - map.size() / 2;
-	arr.push_back(x);
 }
 
 void BOSS::makeSound()
@@ -101,6 +101,7 @@ void BOSS::display()
 	spawn();
 	light_display();
 	color(c);
+	arr[0] = x;
 	draw(x, y);
 	color(15);
 }

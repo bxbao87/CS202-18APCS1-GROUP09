@@ -16,8 +16,7 @@ LDUCK::LDUCK(int y, int n, int d, int closeness, bool traffic) {
 		}
 		in.close();
 	}
-
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 14; crowd_size = 0;
 	lenAni = map[0].size();
 	first_spawn();
 }
@@ -59,9 +58,16 @@ void LDUCK::light_display() {
 
 void LDUCK::first_spawn() {
 	int s = BORDER - 1 - lenAni;
+	int count = 3;
 	while (s > LBORDER) {
 		arr.push_back(s);
-		s -= closeness;
+		--count;
+		if (count == 0)
+		{
+			count = 3;
+			s -= closeness;
+		}
+		else s -= lenAni +1;
 	}
 	light = 1; green = 1000;
 }
@@ -76,8 +82,18 @@ void LDUCK::spawn_rate(int n, int d) {
 }
 
 bool LDUCK::spawn() {
-	if (rand() % d <= n) return true;
-	return false;
+	if (crowd_size == 0 && arr[arr.size() - 1] > closeness && rand() % d <= n)
+	{
+		crowd_size = rand() % 3 + 1; //take 3 values 2 3 4
+		//choose when to spawn the crowd
+		arr.push_back(1);
+	}
+	else if (crowd_size > 0 && arr[arr.size() - 1] > lenAni)
+	{
+		arr.push_back(1);
+		--crowd_size;
+	}
+	return true;
 }
 
 void LDUCK::close(int closeness) {
@@ -94,24 +110,32 @@ void LDUCK::display() {
 	for (int i = 0; i < n; i++)
 		erase(arr[i], y);
 	if (traffic) light_display();
-	if (spawn() && arr[n - 1] > closeness) //random appearance
+	spawn();
+	n = arr.size();
+	for (int i = 0; i < n; i++) 
 	{
-		arr.push_back(0);
-		n++;
-	}
-	for (int i = 0; i < n; i++) {
 		arr[i]++;//move to the right
-		if (i == 0) {
-			if (arr[i] + lenAni + 1 > BORDER) {//out of range
-				if (light == 1) {
+		if (i == 0)
+		{
+			if (arr[i] + lenAni + 1 > BORDER) //out of range
+			{
+				if (light == 1)
+				{
 					arr.erase(arr.begin() + i);
 					n--;
 				}
-				else if (light == 2) arr[i]--; //stop at red light
+				else if (light == 2) //stop at red light
+					--arr[i];
 			}
 		}
 		else
-			if (abs(arr[i] - arr[i - 1]) < closeness) arr[i]--;
+		{
+			if (light == 2)
+			{
+				//if 2 ducks are not in a crowd ... 2 ducks are in a same crowd
+				if ((arr[i-1] - arr[i] > lenAni + 1 && arr[i-1] - arr[i] <= closeness) || arr[i-1] - arr[i] <= lenAni) --arr[i];
+			}
+		}
 	}
 	color(co);
 	for (int i = 0; i < n; i++)
@@ -158,7 +182,7 @@ RDUCK::RDUCK(int y, int n, int d, int closeness, bool traffic) {
 		}
 		in.close();
 	}
-	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
+	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 14; crowd_size = 0;
 	lenAni = map[0].size();
 	first_spawn();
 }
@@ -201,9 +225,16 @@ void RDUCK::light_display() {
 
 void RDUCK::first_spawn() {
 	int s = LBORDER + 1;
+	int count = 3;
 	while (s < BORDER - lenAni) {
 		arr.push_back(s);
-		s += closeness;
+		--count;
+		if (count == 0)
+		{
+			count = 3;
+			s += closeness;
+		}
+		else s += lenAni + 1;
 	}
 	light = 1; green = 1000;
 }
@@ -217,8 +248,18 @@ void RDUCK::spawn_rate(int n, int d) {
 }
 
 bool RDUCK::spawn() {
-	if (rand() % d <= n) return true;
-	return false;
+	if (crowd_size == 0 && arr[arr.size() - 1] + closeness + 2*lenAni < BORDER && rand() % d <= n)
+	{
+		crowd_size = rand() % 3 + 1; //take 3 values 2 3 4
+		//choose when to spawn the crowd
+		arr.push_back(BORDER-lenAni);
+	}
+	else if (crowd_size > 0 && arr[arr.size() - 1] + 2*lenAni < BORDER)
+	{
+		arr.push_back(BORDER-lenAni);
+		--crowd_size;
+	}
+	return true;
 }
 
 void RDUCK::close(int closeness) {
@@ -236,10 +277,8 @@ void RDUCK::display()
 	for (int i = 0; i < n; i++)
 		erase(arr[i], y);
 	if (traffic) light_display();
-	if (spawn() && BORDER - arr[n - 1] > closeness + lenAni) { //random appearance
-		arr.push_back(BORDER - lenAni);
-		n++;
-	}
+	spawn();
+	n = arr.size();
 	for (int i = 0; i < n; i++) {
 		arr[i]--;//move to the left
 		if (i == 0) {
@@ -252,7 +291,13 @@ void RDUCK::display()
 			}
 		}
 		else
-			if (abs(arr[i] - arr[i - 1]) < closeness) arr[i]++;
+		{
+			if (light == 2)
+			{
+				//if 2 ducks are not in a crowd ... 2 ducks are in a same crowd
+				if ((arr[i] - arr[i - 1] > lenAni + 1 && arr[i] - arr[i - 1] <= closeness + lenAni) || arr[i] - arr[i - 1] <= lenAni) ++arr[i];
+			}
+		}
 	}
 	color(co);
 	for (int i = 0; i < n; i++)

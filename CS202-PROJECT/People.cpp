@@ -35,7 +35,7 @@ void People::delDraw() {
 	}
 }
 
-void People::Draw() {
+void People::Draw() const{
 	int n = map.size();
 	for (int i = 0; i < n; ++i) {
 		go(pX, pY+i);
@@ -76,8 +76,6 @@ bool People::move(int key) {
 				break;
 			}
 	}
-	if(ret)
-		Draw();
 	return ret;
 }
 
@@ -176,4 +174,9 @@ pair<int, int> People::getCoor()
 	pair<int, int> tmp;
 	tmp.first = pX, tmp.second = pY;
 	return tmp;
+}
+
+void People::setCoor(int x, int y)
+{
+	pX = x; pY = y;
 }
