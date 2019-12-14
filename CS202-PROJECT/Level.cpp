@@ -19,20 +19,20 @@ void LEVEL::set_level()
 		OBJECT* a;
 		a = new LDUCK(4, 5, 10, 20, true);
 		arr.push_back(a);
-		/*a = new RDUCK(9, 2, 10, 40, true);
+		a = new RDUCK(9, 5, 10, 20, true);
 		arr.push_back(a);
 		a = new LDUCK(14, 4, 10, 20, true);
 		arr.push_back(a);
-		a = new RDUCK(19, 8, 10, 40, true);
+		a = new RDUCK(19, 8, 10, 25, true);
 		arr.push_back(a);
 		a = new LDUCK(24, 5, 10, 35, true);
 		arr.push_back(a);
-		a = new RDUCK(29, 2, 10, 50, true);
+		a = new RDUCK(29, 2, 10, 25, true);
 		arr.push_back(a);
-		a = new LDUCK(34, 4, 10, 40, true);
+		a = new LDUCK(34, 4, 10, 35, true);
 		arr.push_back(a);
-		a = new RDUCK(39, 8, 10, 50, true);
-		arr.push_back(a);*/
+		a = new RDUCK(39, 8, 10, 20, true);
+		arr.push_back(a);
 	}
 	else if (current == 2)
 	{
