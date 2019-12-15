@@ -391,11 +391,18 @@ void Game::main_run()
 		else if (k == 'l' || k == 'L') {
 			while (!level->oktowrite());
 			saveOption();
-			//level->resume();
+			level->resume();
 		}
 		else if (k == 't' || k == 'T') {
-			level->pause();
+			while (!level->oktowrite());
 			loadOption();
+			//after loads new option and applies it to data member there should be this block of code
+
+			/*t1 = switchlevel(&t1, level, ++current_level, 100);
+			while (!level->oktowrite());
+			instructor();
+			level->resume();
+			human.spawn();*/
 		}
 		else
 		{

@@ -17,7 +17,7 @@ void LEVEL::setLevel()
 	if (current == 1)
 	{
 		split();
-		/*OBJECT* a;
+		OBJECT* a;
 		a = new LDUCK(4, 5, 10, 20, true);
 		arr.push_back(a);
 		a = new RDUCK(9, 5, 10, 20, true);
@@ -33,7 +33,7 @@ void LEVEL::setLevel()
 		a = new LDUCK(34, 4, 10, 35, true);
 		arr.push_back(a);
 		a = new RDUCK(39, 8, 10, 20, true);
-		arr.push_back(a);*/
+		arr.push_back(a);
 	}
 	else if (current == 2)
 	{
@@ -190,7 +190,7 @@ bool LEVEL::oktowrite()
 {
 	pause();
 	int i = 0;
-	while (!(ok && tmp_stop) && i < 500000) ++i;
+	while (!(ok && tmp_stop) && i++ < 500000);
 	return true;
 }
 

@@ -22,12 +22,12 @@ public:
 	~Game();
 	void menu();
 	thread resetGame(thread* t);
-	void exitGame(thread* t, LEVEL*& a);			// exit thread
+	void exitGame(thread* t, LEVEL*& a);// exit thread
 	thread startGame(thread* t);
 	void loadOption();
 	void saveOption();
-	void pauseGame(LEVEL*& a);			// pause thread
-	void resumeGame(LEVEL*& a);		// resume thread
+	void pauseGame(LEVEL*& a);// pause thread
+	void resumeGame(LEVEL*& a);// resume thread
 	//void cooldown();
 
 	People getPeople();
