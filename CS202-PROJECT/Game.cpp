@@ -2,6 +2,7 @@
 
 Game::Game() 
 {
+	current_level = 1;
 	level = new LEVEL(1, 100);
 }
 
@@ -161,7 +162,7 @@ thread Game::switchlevel(thread* t, LEVEL*& a, int level, int delay)
 	delete a;
 	a = new LEVEL(level, delay);
 	human.spawn();
-	thread t1(&LEVEL::run, a);
+	thread t1(&LEVEL::run, a,ref(human));
 	return t1;
 }
 
@@ -230,6 +231,7 @@ void Game::settings()
 
 
 thread Game::resetGame(thread* t) {
+
 	thread tmp = switchlevel(t, level, 1, 100); 
 	return tmp;
 }
@@ -333,7 +335,7 @@ void Game::main_run()
 {
 	int k = 0, l = 1;
 	instructor();
-	thread t1(&LEVEL::run, level);
+	thread t1(&LEVEL::run, level, ref(human));
 	human.spawn();
 	while (k != 27)
 	{
@@ -342,48 +344,74 @@ void Game::main_run()
 			exitGame(&t1, level);
 		}
 		else if (k == 'p' || k == 'P') {
-			level->pause();
+			while (!level->oktowrite());
 		}
 		else if (k == 'r' || k == 'R') {
 			level->resume();
 		}
 		else if (k == 'l' || k == 'L') {
-			level->pause();
+			while (!level->oktowrite());
 			saveOption();
-			//level->resume();
+			level->resume();
 		}
 		else if (k == 't' || k == 'T') {
-			level->pause();
+			while (!level->oktowrite());
 			loadOption();
-		}
-		else if (k == 'n') {
-			++l;
-			if (l > 10) l = 1;
-			if (l >= 3) l = 10;
-			t1 = switchlevel(&t1, level, l, 100);
-			level->pause();
-			while (level->oktowrite() == false);
+			//after loads new option and applies it to data member there should be this block of code
+
+			/*t1 = switchlevel(&t1, level, ++current_level, 100);
+			while (!level->oktowrite());
 			instructor();
 			level->resume();
+			human.spawn();*/
 		}
 		else
 		{
-			if (human.isDead()) {
-
-			}
-			else {
-				level->pause();
-				while (level->oktowrite() == false);
-				human.move(k);
-				for (int i = 0; i < level->objectSize(); i++)
-					if (human.isImpact(level->getObject(i)->getY(), level->getObject(i)->getARR(), level->getObject(i)->getMAP()))
-						//human.decreaseLife();
-						cout << "impacted" << endl;
-	
-				level->passCoor(human.getCoor());
+			bool keep = level->status();
+			while (!level->oktowrite());
+			if (human.move(k))
+			{
 				level->resume();
 				Sleep(100); //delay human movement
+				//if there is an impact
+				if (level->freeze_main())
+				{
+					Sleep(1500);
+					//confirmation, actually bug avoiding :)
+					go(1, 45);
+					// check if player is dead
+					if (human.isDead()) {
+						//insert lose display
+						exitGame(&t1, level);
+						k = 27;
+						continue;
+					}
+					cout << "Press c to continue";
+					while (k != 'c' || k == 'C') k = _getch();
+					go(1, 45);
+					cout << "                   ";
+				}
+				//check human status
+				if (human.isFinish())
+				{
+					if (current_level < 11)
+					{
+						t1 = switchlevel(&t1, level, ++current_level, 100);
+						while (!level->oktowrite());
+						instructor();
+						level->resume();
+						human.spawn();
+					}
+					else
+					{
+						//insert win display
+						exitGame(&t1, level);
+						k = 27;
+					}
+				}
 			}
+			if (keep) level->pause();
+			else level->resume();
 		}
 	}
 }

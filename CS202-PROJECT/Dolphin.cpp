@@ -5,7 +5,7 @@ LDOLPHIN::LDOLPHIN(int y, int n, int d, int closeness, bool traffic)
 {
 	this->y = y;
 	ifstream in;
-	in.open(path + "LDOLPHIN.txt");
+	in.open(path+ "LDOLPHIN.txt");
 	if (in.is_open())
 	{
 		string g;
@@ -20,7 +20,6 @@ LDOLPHIN::LDOLPHIN(int y, int n, int d, int closeness, bool traffic)
 		}
 		in.close();
 	}
-	
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
 	lenAni = map[0].size();
 	first_spawn();

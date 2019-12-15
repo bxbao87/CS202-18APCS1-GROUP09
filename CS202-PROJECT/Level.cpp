@@ -3,12 +3,14 @@
 //class LEVEL
 LEVEL::LEVEL(int choice, int delay)
 {
-	stop = false; tmp_stop = false; now = clock(); ok = true; this->delay = delay;
+	stop = false; tmp_stop = false; now = clock(); ok = true; this->delay = delay; freeze = false;
+	old_coor.first = 80; old_coor.second = 45;
 	current = choice;
-	set_level();
+	ifstream in;
+	setLevel();
 }
 
-void LEVEL::set_level()
+void LEVEL::setLevel()
 {
 	arr.clear();
 	system("cls");
@@ -16,25 +18,66 @@ void LEVEL::set_level()
 	{
 		split();
 		OBJECT* a;
-		a = new LDOLPHIN(4, 5, 10, 30, false);
+		a = new LDUCK(4, 5, 10, 20, true);
 		arr.push_back(a);
-		a = new RDOLPHIN(9, 2, 10, 45, true);
+		a = new RDUCK(9, 5, 10, 20, true);
 		arr.push_back(a);
-		a = new LDOLPHIN(14, 4, 10, 35, false);
+		a = new LDUCK(14, 4, 10, 20, true);
 		arr.push_back(a);
-		a = new RDOLPHIN(19, 8, 10, 50, true);
+		a = new RDUCK(19, 8, 10, 25, true);
 		arr.push_back(a);
-		
-		a = new LWHALE(24, 5, 10, 40, true);
+		a = new LDUCK(24, 5, 10, 35, true);
 		arr.push_back(a);
-		a = new RWHALE(29, 2, 10, 45, true);
+		a = new RDUCK(29, 2, 10, 25, true);
 		arr.push_back(a);
-		a = new LWHALE(34, 4, 10, 45, false);
+		a = new LDUCK(34, 4, 10, 35, true);
 		arr.push_back(a);
-		a = new RWHALE(39, 8, 10, 50, false);
+		a = new RDUCK(39, 8, 10, 20, true);
 		arr.push_back(a);
 	}
 	else if (current == 2)
+	{
+		split();
+		OBJECT* a;
+		a = new LDOLPHIN(4, 5, 10, 20, true);
+		arr.push_back(a);
+		a = new RDOLPHIN(9, 2, 10, 40, true);
+		arr.push_back(a);
+		a = new LDOLPHIN(14, 4, 10, 20, true);
+		arr.push_back(a);
+		a = new RDOLPHIN(19, 8, 10, 40, true);
+		arr.push_back(a);
+		a = new LWHALE(24, 5, 10, 35, true);
+		arr.push_back(a);
+		a = new RWHALE(29, 2, 10, 50, true);
+		arr.push_back(a);
+		a = new LWHALE(34, 4, 10, 40, true);
+		arr.push_back(a);
+		a = new RWHALE(39, 8, 10, 50, true);
+		arr.push_back(a);
+	}
+	else if (current == 3)
+	{
+		split();
+		OBJECT* a;
+		a = new LBEE(4, 5, 10, 20, true);
+		arr.push_back(a);
+		a = new RBEE(9, 2, 10, 25, true);
+		arr.push_back(a);
+		a = new LBEE(14, 4, 10, 30, true);
+		arr.push_back(a);
+		a = new RBEE(19, 8, 10, 15, true);
+		arr.push_back(a);
+		a = new LBEE(24, 5, 10, 35, true);
+		arr.push_back(a);
+		a = new RBEE(29, 2, 10, 20, true);
+		arr.push_back(a);
+		a = new LBEE(34, 4, 10, 25, true);
+		arr.push_back(a);
+		a = new RBEE(39, 8, 10, 25, true);
+		arr.push_back(a);
+	}
+	else if (current == 4)
 	{
 		split();
 		OBJECT* a;
@@ -55,7 +98,31 @@ void LEVEL::set_level()
 		a = new RPIG(39, 8, 10, 50, false);
 		arr.push_back(a);
 	}
+	else if (current == 5)
+	{
+		split();
+	}
+	else if (current == 6)
+	{
+		split();
+	}
+	else if (current == 7)
+	{
+		split();
+	}
+	else if (current == 8)
+	{
+		split();
+	}
+	else if (current == 9)
+	{
+		split();
+	}
 	else if (current == 10)
+	{
+		split();
+	}
+	else if (current == 11)
 	{
 		boss_split();
 		OBJECT* a;
@@ -121,17 +188,42 @@ void LEVEL::kill()
 
 bool LEVEL::oktowrite()
 {
-	if (ok) return true;
-	return false;
+	pause();
+	int i = 0;
+	while (!(ok && tmp_stop) && i++ < 500000);
+	return true;
 }
 
-void LEVEL::passCoor(pair<int,int> coor)
+bool LEVEL::status()
 {
-	if (arr.size() == 1) //applied for boss only
-		arr[0]->human(coor.first, coor.second);
+	return tmp_stop;
 }
 
-void LEVEL::run()
+bool LEVEL::freeze_main()
+{
+	return freeze;
+}
+
+void LEVEL::cooldown()
+{
+	//insert sound of an impact " triangle ! "
+	freeze = true;
+	for (int i = 0; i < 3; ++i)
+	{
+		go(1, 45);
+		if (i == 0) color(12);
+		else if (i == 1) color(14);
+		else if (i == 2) color(10);
+		cout << "Cooldown time: " << 3 - i;
+		Sleep(500);
+		color(15);
+	}
+	go(1, 45);
+	cout << "                 ";
+	freeze = false;
+}
+
+void LEVEL::run(People& human)
 {
 	int n = arr.size();
 	while (!stop)
@@ -144,14 +236,31 @@ void LEVEL::run()
 		{
 			ok = false;
 			now = clock() - now;
+			human.delDraw(old_coor.first, old_coor.second);
+			old_coor = human.getCoor();
+			if (arr.size() == 1) arr[0]->human(old_coor);
 			for (int i = 0; i < n; ++i)
 			{
 				if (!arr[i]->done(now)) arr[i]->switch_light();
 				arr[i]->display();
 			}
+			//draw before checking impact
+			human.Draw();
+			for (int i = 0; i < n; i++)
+				if (human.isImpact(arr[i]->getY(), arr[i]->getARR(), arr[i]->getMAP()))
+				{
+					arr[i]->impact();
+					human.decreaseLife();
+					go(BORDER + 23, 20);
+					cout << human.getLife();
+					//or insert sound here
+					cooldown();
+					human.delDraw(old_coor.first,old_coor.second);
+					human.spawn();
+				}
 			ok = true;
 			now = clock();
-			Sleep(100);
+			Sleep(delay);
 		}
 	}
 }

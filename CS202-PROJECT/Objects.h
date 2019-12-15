@@ -14,7 +14,7 @@ protected:
 	int light = 0; // 0 is neutral, 1 is green, 2 is red
 	vector <string> map;
 	vector <int> arr;
-	int lenAni;		// lenght of Animal's map
+	int lenAni;	// lenght of Animal's map
 public:
 	OBJECT();
 	int getY();
@@ -32,7 +32,8 @@ public:
 	virtual bool spawn() = 0; //decide if spawned or not
 	virtual void switch_light(); //switch between 2 signals
 	virtual bool done(int second) = 0; //check if any light is on
-	void human(int x, int y); //get human coordinate
+	virtual void human(pair <int,int> tmp); //get human coordinate
+	virtual void impact() {}; //only for boss to override
 };
 
 #endif

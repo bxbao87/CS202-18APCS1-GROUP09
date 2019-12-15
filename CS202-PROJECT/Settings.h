@@ -33,13 +33,12 @@ const int Y_MOVE = 5;
 const int Top_bound = 0;
 const int Bot_bound = 45;
 const int Left_bound = 1; 
-const int Right_bound = BORDER - 3;
+const int Right_bound = BORDER - 4;
 
 void FixConsoleWindow();
 void go(int column, int line);
 void color(const int& k);
 void Nocursortype();				// hide the cursor
 void setcursor(bool x, DWORD size);
-//void playSound(const char* path);
 
-#endif 
+#endif

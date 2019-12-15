@@ -3,7 +3,7 @@
 //class OBJECT
 OBJECT::OBJECT()
 {
-	n = 0; d = 0; closeness = 0; x = 0; y = 0; green = 0; red = 0; traffic = false; hx = 80; hy = 45;
+	n = 0; d = 0; closeness = 0; x = 0; y = 0; green = 0; red = 0; traffic = false; hx = 80; hy = 45; lenAni = 0;
 }
 
 void OBJECT::switch_light()
@@ -23,10 +23,10 @@ void OBJECT::switch_light()
 	}
 }
 
-void OBJECT::human(int x, int y)
+void OBJECT::human(pair <int,int> tmp)
 {
-	this->hx = x;
-	this->hy = y;
+	this->hx = tmp.first;
+	this->hy = tmp.second;
 }
 
 vector <string> OBJECT::getMAP() {
