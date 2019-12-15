@@ -16,7 +16,7 @@ private:
 	string inputFileName();
 	bool loadGame(string fileName);
 	bool saveGame(string fileName);
-
+	int current_level;
 public:
 	Game();
 	~Game();

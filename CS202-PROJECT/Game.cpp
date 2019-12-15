@@ -2,6 +2,7 @@
 
 Game::Game() 
 {
+	current_level = 1;
 	level = new LEVEL(1, 100);
 }
 
@@ -378,32 +379,23 @@ void Game::main_run()
 	while (k != 27)
 	{
 		k = _getch();
-		if (k == 27 && !human.isDead()) {
+		if (k == 27) {
 			exitGame(&t1, level);
 		}
 		else if (k == 'p' || k == 'P') {
-			level->pause();
+			while (!level->oktowrite());
 		}
 		else if (k == 'r' || k == 'R') {
 			level->resume();
 		}
 		else if (k == 'l' || k == 'L') {
-			level->pause();
+			while (!level->oktowrite());
 			saveOption();
 			//level->resume();
 		}
 		else if (k == 't' || k == 'T') {
 			level->pause();
 			loadOption();
-		}
-		else if (k == 'n') {
-			++l;
-			if (l > 10) l = 1;
-			if (l > 4) l = 10;
-			t1 = switchlevel(&t1, level, l, 100);
-			while (!level->oktowrite());
-			instructor();
-			level->resume();
 		}
 		else
 		{
@@ -412,24 +404,46 @@ void Game::main_run()
 			if (human.move(k))
 			{
 				level->resume();
+				Sleep(100); //delay human movement
+				//if there is an impact
 				if (level->freeze_main())
 				{
 					Sleep(1500);
+					//confirmation, actually bug avoiding :)
 					go(1, 45);
+					// check if player is dead
+					if (human.isDead()) {
+						//insert lose display
+						exitGame(&t1, level);
+						k = 27;
+						continue;
+					}
 					cout << "Press c to continue";
-					while (k != 'c') k = _getch();
+					while (k != 'c' || k == 'C') k = _getch();
 					go(1, 45);
 					cout << "                   ";
+				}
+				//check human status
+				if (human.isFinish())
+				{
+					if (current_level < 11)
+					{
+						t1 = switchlevel(&t1, level, ++current_level, 100);
+						while (!level->oktowrite());
+						instructor();
+						level->resume();
+						human.spawn();
+					}
+					else
+					{
+						//insert win display
+						exitGame(&t1, level);
+						k = 27;
+					}
 				}
 			}
 			if (keep) level->pause();
 			else level->resume();
-			if (human.isDead()) {
-				exitGame(&t1, level);
-				k = 27;
-				continue;
-			}
-			Sleep(100); //delay human movement
 		}
 	}
 }
