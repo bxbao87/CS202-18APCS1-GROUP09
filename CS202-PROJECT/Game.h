@@ -4,19 +4,19 @@
 #include "Settings.h"
 #include "People.h"
 #include "Level.h"
-
+#include "option.h"
+#include "menu.h"
 const string DirToGame = "";
 
 class Game {
 private:
 	People human;
 	LEVEL* level;
-	void moveCursor(int key, int& y);
-	void stringCentralization(std::string str, int r, int colour);
 	string inputFileName();
 	bool loadGame(string fileName);
 	bool saveGame(string fileName);
-
+	Option op;
+	Menu _menu;
 public:
 	Game();
 	~Game();
@@ -41,5 +41,7 @@ public:
 	void displayLose();
 	void displayLevel();
 	void displayLives();
+
+	void settings();
 };
 #endif

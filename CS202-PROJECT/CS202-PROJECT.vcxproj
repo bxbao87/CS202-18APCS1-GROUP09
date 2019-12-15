@@ -131,7 +131,9 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="Objects.cpp" />
+    <ClCompile Include="option.cpp" />
     <ClCompile Include="People.cpp" />
     <ClCompile Include="Pig.cpp" />
     <ClCompile Include="Settings.cpp" />
@@ -144,7 +146,9 @@
     <ClInclude Include="Duck.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="Objects.h" />
+    <ClInclude Include="option.h" />
     <ClInclude Include="People.h" />
     <ClInclude Include="Pig.h" />
     <ClInclude Include="Settings.h" />
