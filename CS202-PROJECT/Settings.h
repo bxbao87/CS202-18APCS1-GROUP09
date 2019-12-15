@@ -40,6 +40,5 @@ void go(int column, int line);
 void color(const int& k);
 void Nocursortype();				// hide the cursor
 void setcursor(bool x, DWORD size);
-void playSound(const char* path);
 
 #endif

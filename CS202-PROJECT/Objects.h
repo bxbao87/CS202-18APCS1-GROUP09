@@ -33,7 +33,7 @@ public:
 	virtual void switch_light(); //switch between 2 signals
 	virtual bool done(int second) = 0; //check if any light is on
 	virtual void human(pair <int,int> tmp); //get human coordinate
-	virtual void impact() {};
+	virtual void impact() {}; //only for boss to override
 };
 
 #endif

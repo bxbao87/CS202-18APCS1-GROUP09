@@ -7,14 +7,14 @@ LEVEL::LEVEL(int choice, int delay)
 	old_coor.first = 80; old_coor.second = 45;
 	current = choice;
 	ifstream in;
-	set_level();
+	setLevel();
 }
 
-void LEVEL::set_level()
+void LEVEL::setLevel()
 {
 	arr.clear();
 	system("cls");
-	if (current == 10)
+	if (current == 1)
 	{
 		split();
 		OBJECT* a;
@@ -47,7 +47,6 @@ void LEVEL::set_level()
 		arr.push_back(a);
 		a = new RDOLPHIN(19, 8, 10, 40, true);
 		arr.push_back(a);
-		
 		a = new LWHALE(24, 5, 10, 35, true);
 		arr.push_back(a);
 		a = new RWHALE(29, 2, 10, 50, true);
@@ -99,7 +98,31 @@ void LEVEL::set_level()
 		a = new RPIG(39, 8, 10, 50, false);
 		arr.push_back(a);
 	}
-	else if (current == 1)
+	else if (current == 5)
+	{
+		split();
+	}
+	else if (current == 6)
+	{
+		split();
+	}
+	else if (current == 7)
+	{
+		split();
+	}
+	else if (current == 8)
+	{
+		split();
+	}
+	else if (current == 9)
+	{
+		split();
+	}
+	else if (current == 10)
+	{
+		split();
+	}
+	else if (current == 11)
 	{
 		boss_split();
 		OBJECT* a;
@@ -167,7 +190,7 @@ bool LEVEL::oktowrite()
 {
 	pause();
 	int i = 0;
-	while (!(ok && tmp_stop) && i < 500000) ++i;
+	while (!(ok && tmp_stop) && i++ < 500000);
 	return true;
 }
 
@@ -183,6 +206,7 @@ bool LEVEL::freeze_main()
 
 void LEVEL::cooldown()
 {
+	//insert sound of an impact " triangle ! "
 	freeze = true;
 	for (int i = 0; i < 3; ++i)
 	{
@@ -229,6 +253,7 @@ void LEVEL::run(People& human)
 					human.decreaseLife();
 					go(BORDER + 23, 20);
 					cout << human.getLife();
+					//or insert sound here
 					cooldown();
 					human.delDraw(old_coor.first,old_coor.second);
 					human.spawn();

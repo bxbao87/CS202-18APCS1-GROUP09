@@ -2,6 +2,7 @@
 
 Game::Game() 
 {
+	current_level = 1;
 	level = new LEVEL(1, 100);
 }
 
@@ -11,91 +12,40 @@ Game::~Game()
 }
 
 void Game::menu() {
+	_menu.display();
 	crossyZoo();
+	// please continue 'here' Nhat Hoang
+	// i think below could be a loop
 
-	int t = 23;
-	int y = t+3;
-	int cursorColor = 176;
-	int colour = 11;
-	vector<std::string> command;
-	command.push_back("   Start New Game   ");
-	command.push_back("  Load Saved Game   ");
-	command.push_back("      Settings      ");
-	command.push_back("      About Us      ");
-	command.push_back("        Exit        ");
-	for (int i = 0; i < 5; ++i)
-	{
-		stringCentralization(command[i], t += 3, colour);
+	int choice = _menu.choose();
+	if (choice == 0) {
+		PlaySound(NULL, 0, 0);
+		// here
+
+
+		op.playMusic();
 	}
-	int line = 0;
-	stringCentralization(command[line], line*3+y, cursorColor);
-	int k = _getch();
-	while (k != 13) {
-		stringCentralization(command[line], 3*line+y, colour);
-		moveCursor(k,line);
-		stringCentralization(command[line], line*3+y, cursorColor);
-		k = _getch();
+	else if (choice == 1) {
+		PlaySound(NULL, 0, 0);
+		// here
+
+
+		op.playMusic();
 	}
-	color(8);
-	if (line == 0)
-		cout << "New game" << endl;//startGame();
-	else if (line == 1)
-		cout << "Load Game" << endl;//loadGame();
-	else if (line == 2)
-		cout << "Settings" << endl;//settings();
-	else if (line == 3)
-		cout << "About Us" << endl;//aboutUs();
-	else if (line == 4)
-		cout << "Exit game" << endl;//exitGame();
+	else if (choice == 2) {
+		op.display();
+		op.change();
+	}
+	else if(choice==3){
 
-}
+	}
+	else {
 
-void Game::moveCursor(int key, int& y)
-{
-	if (y > 0 && (key == 'w' || key == 'W'))
-		y -= 1;
-	else if (y < 4 && (key == 's' || key == 'S'))
-		y += 1;
-	else if (key == 224)
-	{
-		key = _getch();
-		if (y > 0 && key==72)
-			y -= 1;
-		else if (y < 4 && key==80)
-			y += 1;
 	}
 }
 
-void Game::stringCentralization(std::string str, int r, int colour)
-{
-	int len = str.length();
-	const int width = 210 - len;
-	int mid = width / 2;
-	go(mid, r+1);
-	color(colour);
-	std::cout << str;
-/*
-	int c = mid-1;
-	color(14);
-	go(c, r++);
 
-	cout << (char)201;
-	for (int i = 1; i < len; ++i)
-		cout << (char)205;
-	cout << (char)187;
 
-	go(c, r);
-	cout << (char)186;
-	go(c + len, r++);
-	cout << (char)186;
-
-	go(c, r);
-	cout << (char)200;
-	for (int i = 1; i < len; ++i)
-		cout << (char)205;
-	cout << (char)188;
-*/
-}
 
 string Game::inputFileName() {
 	go(BORDER + 2, 44);
@@ -218,7 +168,9 @@ thread Game::switchlevel(thread* t, LEVEL*& a, int level, int delay)
 
 void Game::displayWin()
 {
-	playSound(string(soundPath+"victory.wav").c_str());
+	int sleep = 0;
+	if (Option::playSound(soundPath + "victory.wav"))
+		sleep = 3500;
 	color(224);
 	ifstream fin(path + "victory.txt");
 	if (fin.is_open())
@@ -226,19 +178,21 @@ void Game::displayWin()
 		int x = BORDER/2-35, y = 15;
 		string line;
 		while (getline(fin, line, '\n')) {
-			Sleep(150);
+			Sleep(200);
 			go(x, y++);
 			cout << line;
 		}
 	}
 	fin.close();
-	color(8);
-	Sleep(800);
+	color(15);
+	Sleep(sleep);
 }
 
 void Game::displayLose()
 {
-	playSound(string(soundPath+"death.wav").c_str());
+	int sleep = 0;
+	if (Option::playSound(soundPath + "death.wav"))
+		sleep = 800;
 	color(192);
 	ifstream fin(path + "gameOver.txt");
 	if (fin.is_open())
@@ -252,8 +206,8 @@ void Game::displayLose()
 		}
 	}
 	fin.close();
-	color(8);
-	Sleep(800);
+	color(15);
+	Sleep(sleep);
 }
 
 void Game::displayLevel()
@@ -266,6 +220,13 @@ void Game::displayLives()
 {
 	go(BORDER + 23, 20);
 	cout << human.getLife();
+}
+
+void Game::settings()
+{
+	system("cls");
+	op.display();
+	op.change();
 }
 
 
@@ -301,6 +262,7 @@ void Game::crossyZoo() {
 		}
 	}
 	fin.close();
+	color(15);
 }
 
 void Game::instructor()
@@ -333,7 +295,7 @@ void Game::instructor()
 
 	x = BORDER + 15;
 	y = 17;
-	color(7);
+	color(15);
 	go(x, y);
 	cout << "LEVEL: ";
 	displayLevel();
@@ -378,32 +340,30 @@ void Game::main_run()
 	while (k != 27)
 	{
 		k = _getch();
-		if (k == 27 && !human.isDead()) {
+		if (k == 27) {
 			exitGame(&t1, level);
 		}
 		else if (k == 'p' || k == 'P') {
-			level->pause();
+			while (!level->oktowrite());
 		}
 		else if (k == 'r' || k == 'R') {
 			level->resume();
 		}
 		else if (k == 'l' || k == 'L') {
-			level->pause();
+			while (!level->oktowrite());
 			saveOption();
-			//level->resume();
+			level->resume();
 		}
 		else if (k == 't' || k == 'T') {
-			level->pause();
+			while (!level->oktowrite());
 			loadOption();
-		}
-		else if (k == 'n') {
-			++l;
-			if (l > 10) l = 1;
-			if (l > 4) l = 10;
-			t1 = switchlevel(&t1, level, l, 100);
+			//after loads new option and applies it to data member there should be this block of code
+
+			/*t1 = switchlevel(&t1, level, ++current_level, 100);
 			while (!level->oktowrite());
 			instructor();
 			level->resume();
+			human.spawn();*/
 		}
 		else
 		{
@@ -412,24 +372,46 @@ void Game::main_run()
 			if (human.move(k))
 			{
 				level->resume();
+				Sleep(100); //delay human movement
+				//if there is an impact
 				if (level->freeze_main())
 				{
 					Sleep(1500);
+					//confirmation, actually bug avoiding :)
 					go(1, 45);
+					// check if player is dead
+					if (human.isDead()) {
+						//insert lose display
+						exitGame(&t1, level);
+						k = 27;
+						continue;
+					}
 					cout << "Press c to continue";
-					while (k != 'c') k = _getch();
+					while (k != 'c' || k == 'C') k = _getch();
 					go(1, 45);
 					cout << "                   ";
+				}
+				//check human status
+				if (human.isFinish())
+				{
+					if (current_level < 11)
+					{
+						t1 = switchlevel(&t1, level, ++current_level, 100);
+						while (!level->oktowrite());
+						instructor();
+						level->resume();
+						human.spawn();
+					}
+					else
+					{
+						//insert win display
+						exitGame(&t1, level);
+						k = 27;
+					}
 				}
 			}
 			if (keep) level->pause();
 			else level->resume();
-			if (human.isDead()) {
-				exitGame(&t1, level);
-				k = 27;
-				continue;
-			}
-			Sleep(100); //delay human movement
 		}
 	}
 }

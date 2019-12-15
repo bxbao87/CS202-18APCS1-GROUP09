@@ -4,30 +4,31 @@
 #include "Settings.h"
 #include "People.h"
 #include "Level.h"
-
+#include "option.h"
+#include "menu.h"
 const string DirToGame = "";
 
 class Game {
 private:
 	People human;
 	LEVEL* level;
-	void moveCursor(int key, int& y);
-	void stringCentralization(std::string str, int r, int colour);
 	string inputFileName();
 	bool loadGame(string fileName);
 	bool saveGame(string fileName);
-
+	Option op;
+	Menu _menu;
+	int current_level;
 public:
 	Game();
 	~Game();
 	void menu();
 	thread resetGame(thread* t);
-	void exitGame(thread* t, LEVEL*& a);			// exit thread
+	void exitGame(thread* t, LEVEL*& a);// exit thread
 	thread startGame(thread* t);
 	void loadOption();
 	void saveOption();
-	void pauseGame(LEVEL*& a);			// pause thread
-	void resumeGame(LEVEL*& a);		// resume thread
+	void pauseGame(LEVEL*& a);// pause thread
+	void resumeGame(LEVEL*& a);// resume thread
 	//void cooldown();
 
 	People getPeople();
@@ -42,5 +43,7 @@ public:
 	void displayLose();
 	void displayLevel();
 	void displayLives();
+
+	void settings();
 };
 #endif

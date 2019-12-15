@@ -30,7 +30,7 @@ public:
 	LEVEL(int choice, int delay);
 	bool status();
 	int getLevel();
-	void set_level();
+	void setLevel();
 	void boss_split();
 	void split();
 	bool oktowrite();
