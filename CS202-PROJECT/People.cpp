@@ -92,7 +92,7 @@ void People::DOWN() {
 }
 
 void People::LEFT() {
-	if (pX - 1 >= Left_bound) {
+	if (pX - 1 > Left_bound) {
 		pX -= X_MOVE;
 	}
 }
