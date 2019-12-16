@@ -238,7 +238,10 @@ void Game::displayLose()
 void Game::displayLevel()
 {
 	go(BORDER + 23, 17);
-	cout << level->getLevel();
+	if (current_level == 14)
+		cout << 13;
+	else 
+		cout << current_level;
 }
 
 void Game::displayLives()
@@ -408,7 +411,7 @@ void Game::main_run(int leve, int life) {
 		//for testing only
 		/*else if (k == 'n' || k == 'N')
 		{
-			if (current_level < 11)
+			if (current_level < 14)
 				t1 = switchlevel(&t1, level, ++current_level, 100 - current_level*3);
 			while (!level->oktowrite());
 			instructor();
@@ -441,14 +444,14 @@ void Game::main_run(int leve, int life) {
 						break;//continue;
 					}
 					cout << "Press c to continue";
-					while (k != 'c' && k != 'C' && k != 27 ) k = _getch();
+					while (k != 'c' && k != 'C' && k != 27) k = _getch();
 					go(1, 46);
 					cout << "                   ";
 				}
 				//check human status
 				if (human.isFinish())
 				{
-					if (current_level < 11)
+					if (current_level < 14)
 					{
 						t1 = switchlevel(&t1, level, ++current_level, 100);
 						while (!level->oktowrite());
@@ -470,6 +473,11 @@ void Game::main_run(int leve, int life) {
 
 			if (keep) level->pause();
 			else level->resume();
+		}
+		if (human.isDead()) {
+			//insert lose display
+			k = 27;
+			continue;
 		}
 	}
 	if (k == 27)
