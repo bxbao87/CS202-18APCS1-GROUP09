@@ -203,16 +203,52 @@ void LEVEL::setLevel()
 		a = new RPIG(39, 0, 11, 20, true);
 		arr.push_back(a);
 	}
-	else if (current == 10)
+	else if (current == 10 || current == 11 || current == 12)
 	{
 		split();
 		OBJECT* a;
+		int count = 4;
+		int r, t, n, d;
 		for (int i = 0; i < 8; ++i)
 		{
-			int r = rand() % 5;
+			srand(clock() + rand() % 101); r = rand() % 103;
+			srand(clock() + rand() % 101); t = rand() % 2;
+			srand(clock() + rand() % 101); n = rand() % 11;
+			srand(clock() + rand() % 101); d = rand() % 11 + 1;
+			if (r <= 21)
+			{
+				if (t == 0) a = new LDOLPHIN(count, n, d, 24, rand() % 2);
+				else if (t == 1) a = new RDOLPHIN(count, n, d, 24, rand() % 2);
+			}
+			else if (r <= 42)
+			{
+				if (t == 0) a = new LWHALE(count, n, d, 32, rand() % 2);
+				else if (t == 1) a = new RWHALE(count, n, d, 32, rand() % 2);
+			}
+			else if (r <= 63)
+			{
+				if (t == 0) a = new LBEE(count, n, d, 22, rand() % 2);
+				else if (t == 1) a = new RBEE(count, n, d, 22, rand() % 2);
+			}
+			else if (r <= 84)
+			{
+				if (t == 0) a = new LDUCK(count, n, d, 23, rand() % 2);
+				else if (t == 1) a = new RDUCK(count, n, d, 23, rand() % 2);
+			}
+			else
+			{
+				if (t == 0) a = new LPIG(count, n, d, 23, rand() % 2);
+				else if (t == 1) a = new RPIG(count, n, d, 23, rand() % 2);
+			}
+			count += 5;
+			arr.push_back(a);
 		}
 	}
-	else if (current == 11)
+	else if (current == 13)
+	{
+		split();
+	}
+	else if (current == 14)
 	{
 		boss_split();
 		OBJECT* a;

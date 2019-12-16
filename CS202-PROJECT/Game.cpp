@@ -260,7 +260,10 @@ void Game::displayLose()
 void Game::displayLevel()
 {
 	go(BORDER + 23, 17);
-	cout << level->getLevel();
+	if (current_level == 14)
+		cout << 13;
+	else 
+		cout << current_level;
 }
 
 void Game::displayLives()
@@ -407,7 +410,7 @@ void Game::main_run()
 		//for testing only
 		else if (k == 'n' || k == 'N')
 		{
-			if (current_level < 11)
+			if (current_level < 14)
 				t1 = switchlevel(&t1, level, ++current_level, 100 - current_level*3);
 			while (!level->oktowrite());
 			instructor();
@@ -442,7 +445,7 @@ void Game::main_run()
 				//check human status
 				if (human.isFinish())
 				{
-					if (current_level < 11)
+					if (current_level < 14)
 					{
 						t1 = switchlevel(&t1, level, ++current_level, 100);
 						while (!level->oktowrite());
