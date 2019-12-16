@@ -78,9 +78,8 @@ void LDOLPHIN::first_spawn()
 	light = 1; green = 1000;
 }
 
-void LDOLPHIN::makeSound()
-{
-	//do something
+void LDOLPHIN::makeSound() {
+	PlaySound(TEXT(string(soundPath + "dolphin&whale.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 void LDOLPHIN::spawn_rate(int n, int d)
@@ -248,9 +247,8 @@ void RDOLPHIN::first_spawn()
 	light = 1; green = 1000;
 }
 
-void RDOLPHIN::makeSound()
-{
-	//do something
+void RDOLPHIN::makeSound() {
+	PlaySound(TEXT(string(soundPath + "dolphin&whale.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 void RDOLPHIN::spawn_rate(int n, int d)

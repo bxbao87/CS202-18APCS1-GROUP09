@@ -1,9 +1,7 @@
 #include "Game.h"
 
-Game::Game() 
-{
+Game::Game() {
 	current_level = 1;
-	level = new LEVEL(1, 100);
 }
 
 Game::~Game()
@@ -18,18 +16,26 @@ void Game::menu() {
 		_menu.display();
 		crossyZoo();
 		choice = _menu.choose();
+		
+
 		if (choice == 0) {			// start new game
 			PlaySound(NULL, 0, 0);
-			// here
 			system("cls");
-			main_run();
+			main_run(1, 3);
 
 			op.playMusic();
 		}
 		else if (choice == 1) {		//load saved game
 			PlaySound(NULL, 0, 0);
 			// here
-			loadOption(0);
+			system("cls");
+			crossyZoo();
+
+			int leve=0, life=0;
+			loadOption(0, leve, life);
+			if (leve == 0 && life == 0)
+				continue;
+			main_run(leve, life);
 
 			op.playMusic();
 		}
@@ -54,7 +60,7 @@ string Game::inputFileName(int x, int y) {
 	int index_ch = BORDER + 18;
 
 	ch = _getch();
-	string t;
+	string t = " ";
 	bool ok = true;
 	while (ch != 13) {
 		if (ch == 27) {
@@ -80,12 +86,14 @@ string Game::inputFileName(int x, int y) {
 			index_ch -= 2;
 		}
 		else {
-			if ((fileName.length() < 21) && (ch >= 32 && ch <= 126)) {
+			if ((fileName.length() < 19) && (ch >= 32 && ch <= 126)) {
 				fileName.push_back(ch);
 				ok = true;
 			}
 			else ok = false;
 		}
+		go(x + 16, y);
+		cout << "                     ";
 		go(x + 16, y);
 		cout << fileName;
 		if (ok)
@@ -96,11 +104,11 @@ string Game::inputFileName(int x, int y) {
 	return fileName;
 }
 
-void Game::loadOption(int p) {
+void Game::loadOption(int p, int& leve, int& life) {
 	int x, y;
 	if (p == 0) {
 		x = BORDER / 2;
-		y = 24;
+		y = 27;
 	}
 	else {
 		x = BORDER + 2;
@@ -112,20 +120,22 @@ void Game::loadOption(int p) {
 		cout << "                               ";
 		fileName = inputFileName(x, y);
 		if (fileName == "") break;
-	} while (!loadGame(fileName));
-	cout << "                               ";
-	return;
+	} while (!loadGame(fileName, x, y, leve, life));
 }
 
-bool Game::loadGame(string fileName) {
+bool Game::loadGame(string fileName, int x, int y, int& leve, int& life) {
 	ifstream file;
 	file.open(savedPath + fileName + ".bin", ios::binary);
 	if (!file.is_open()) {
+		go(x, y);
+		cout << "                               ";
+		go(x, y);
 		cout << "File not found!";
+		go(x, y);
+		int temp = _getch();
+		cout << "                               ";
 		return false;
 	}
-	int leve = level->getLevel();
-	int life = human.getLife();
 	file.read((char*)& leve, sizeof(leve));
 	file.read((char*)& life, sizeof(life));
 	file.close();
@@ -140,7 +150,6 @@ void Game::saveOption() {
 		fileName = inputFileName(BORDER+2, 44);
 		if (fileName == "") break;
 	} while (!saveGame(fileName));
-	return;
 }
 
 bool Game::saveGame(string fileName) {
@@ -153,6 +162,9 @@ bool Game::saveGame(string fileName) {
 	file.write((char*)& leve, sizeof(leve));
 	file.write((char*)& life, sizeof(life));
 	file.close();
+	go(BORDER + 2, 44);
+	cout << "                               ";
+	go(BORDER + 2, 44);
 	cout << "Save successful!";
 	return true;
 }
@@ -281,8 +293,7 @@ void Game::crossyZoo() {
 	color(15);
 }
 
-void Game::instructor()
-{
+void Game::instructor() {
 	setcursor(0, 0); //hide cursor
 
 	int x = BORDER + 5, y = 3;
@@ -347,16 +358,28 @@ void Game::instructor()
 
 }
 
-void Game::main_run() {
+void Game::main_run(int leve, int life) {
+	human.setLife(life);
+	level = new LEVEL(1, 100);
 	int k = 0, l = 1;
-	instructor();
+	
 	thread t1(&LEVEL::run, level, ref(human));
-
-	//t1=resetGame(&t1);
+	t1 = switchlevel(&t1, level, leve, 100);
+	while (!level->oktowrite());
+	instructor();
+	level->resume();
 
 	human.spawn();
 	while (k != 27)
-	{
+	{	
+		if (human.isDead()) {
+			level->pause();
+			while (!level->oktowrite());
+			displayLose();
+			Sleep(1500);
+			k = 27;
+			break;
+		}
 		k = _getch();
 		if (k == 'p' || k == 'P') {
 			while (!level->oktowrite());
@@ -365,23 +388,25 @@ void Game::main_run() {
 			level->resume();
 		}
 		else if (k == 'l' || k == 'L') {
+			level->pause();
 			while (!level->oktowrite());
 			saveOption();
 			level->resume();
 		}
 		else if (k == 't' || k == 'T') {
+			level->pause();
 			while (!level->oktowrite());
-			loadOption(1);
-			//after loads new option and applies it to data member there should be this block of code
-
-			/*t1 = switchlevel(&t1, level, ++current_level, 100);
+			int leve = 0, life = 0;
+			loadOption(1, leve, life);
+			human.setLife(life);
+			t1 = switchlevel(&t1, level, leve, 100);
 			while (!level->oktowrite());
 			instructor();
 			level->resume();
-			human.spawn();*/
+			human.spawn();
 		}
 		//for testing only
-		else if (k == 'n' || k == 'N')
+		/*else if (k == 'n' || k == 'N')
 		{
 			if (current_level < 11)
 				t1 = switchlevel(&t1, level, ++current_level, 100 - current_level*3);
@@ -389,11 +414,12 @@ void Game::main_run() {
 			instructor();
 			level->resume();
 			human.spawn();
-		}
+		}*/
 		else
 		{
 			bool keep = level->status();
 			while (!level->oktowrite());
+			
 			if (human.move(k))
 			{
 				level->resume();
@@ -407,8 +433,12 @@ void Game::main_run() {
 					// check if player is dead
 					if (human.isDead()) {
 						//insert lose display
+						level->pause();
+						while (!level->oktowrite());
+						displayLose();
+						Sleep(1500);
 						k = 27;
-						continue;
+						break;//continue;
 					}
 					cout << "Press c to continue";
 					while (k != 'c' && k != 'C' && k != 27 ) k = _getch();
@@ -426,13 +456,18 @@ void Game::main_run() {
 						level->resume();
 						human.spawn();
 					}
-					else
-					{
+					else {
 						//insert win display
+						level->pause();
+						while (!level->oktowrite());
+						displayWin();
+						Sleep(1500);
 						k = 27;
 					}
 				}
 			}
+			
+
 			if (keep) level->pause();
 			else level->resume();
 		}

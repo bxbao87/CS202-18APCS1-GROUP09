@@ -13,7 +13,7 @@ private:
 	People human;
 	LEVEL* level;
 	string inputFileName(int x, int y);
-	bool loadGame(string fileName);
+	bool loadGame(string fileName, int x, int y, int& leve, int& life);
 	bool saveGame(string fileName);
 	Option op;
 	Menu _menu;
@@ -25,7 +25,7 @@ public:
 	thread resetGame(thread* t);
 	void exitGame(thread* t, LEVEL*& a);// exit thread
 	thread startGame(thread* t);
-	void loadOption(int p);
+	void loadOption(int p, int& leve, int& life);
 	void saveOption();
 	void pauseGame(LEVEL*& a);// pause thread
 	void resumeGame(LEVEL*& a);// resume thread
@@ -36,7 +36,7 @@ public:
 	void crossyZoo();
 	void instructor();
 
-	void main_run();
+	void main_run(int leve, int life);
 	thread switchlevel(thread* t, LEVEL*& a, int level, int delay);
 
 	void displayWin();
