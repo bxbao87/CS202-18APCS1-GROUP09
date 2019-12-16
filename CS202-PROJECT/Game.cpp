@@ -438,7 +438,7 @@ void Game::main_run()
 						continue;
 					}
 					cout << "Press c to continue";
-					while (k != 'c' && k != 'C' && k != 27 ) k = _getch();
+					while (k != 'c' && k != 'C' && k != 27) k = _getch();
 					go(1, 46);
 					cout << "                   ";
 				}
@@ -462,6 +462,11 @@ void Game::main_run()
 			}
 			if (keep) level->pause();
 			else level->resume();
+		}
+		if (human.isDead()) {
+			//insert lose display
+			k = 27;
+			continue;
 		}
 	}
 	if (k == 27)

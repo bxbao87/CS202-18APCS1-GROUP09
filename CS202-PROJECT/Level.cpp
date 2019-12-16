@@ -334,6 +334,8 @@ void LEVEL::cooldown()
 {
 	//insert sound of an impact " triangle ! "
 	freeze = true;
+	int time = 0;
+	clock_t count = clock();
 	for (int i = 0; i < 3; ++i)
 	{
 		go(1, 45);
@@ -341,7 +343,12 @@ void LEVEL::cooldown()
 		else if (i == 1) color(14);
 		else if (i == 2) color(10);
 		cout << "Cooldown time: " << 3 - i;
-		Sleep(500);
+		while (time < 500)
+		{
+			time += clock() - count;
+			count = clock();
+		}
+		time = 0;
 		color(15);
 	}
 	go(1, 45);
@@ -381,7 +388,7 @@ void LEVEL::run(People& human)
 					cout << human.getLife();
 					//or insert sound here
 					cooldown();
-					human.delDraw(old_coor.first,old_coor.second);
+					human.delDraw(old_coor.first, old_coor.second);
 					human.spawn();
 				}
 			ok = true;
