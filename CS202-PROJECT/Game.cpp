@@ -12,43 +12,42 @@ Game::~Game()
 }
 
 void Game::menu() {
-	_menu.display();
-	crossyZoo();
-	// please continue 'here' Nhat Hoang
-	// i think below could be a loop
+	int choice = 0;
+	while (choice <= 3) {
+		system("cls");
+		_menu.display();
+		crossyZoo();
+		choice = _menu.choose();
+		if (choice == 0) {			// start new game
+			PlaySound(NULL, 0, 0);
+			// here
+			system("cls");
+			main_run();
 
-	int choice = _menu.choose();
-	if (choice == 0) {
-		PlaySound(NULL, 0, 0);
-		// here
+			op.playMusic();
+		}
+		else if (choice == 1) {		//load saved game
+			PlaySound(NULL, 0, 0);
+			// here
+			loadOption(0);
 
+			op.playMusic();
+		}
+		else if (choice == 2) {		// setting
+			op.display();
+			op.change();
+		}
+		else if (choice == 3) {		// about
 
-		op.playMusic();
-	}
-	else if (choice == 1) {
-		PlaySound(NULL, 0, 0);
-		// here
+		}
+		else {						// exit
 
-
-		op.playMusic();
-	}
-	else if (choice == 2) {
-		op.display();
-		op.change();
-	}
-	else if(choice==3){
-
-	}
-	else {
-
+		}
 	}
 }
 
-
-
-
-string Game::inputFileName() {
-	go(BORDER + 2, 44);
+string Game::inputFileName(int x, int y) {
+	go(x, y);
 	cout << "Type file name: ";
 	string fileName = "";
 	char ch;
@@ -87,31 +86,44 @@ string Game::inputFileName() {
 			}
 			else ok = false;
 		}
-		go(BORDER + 18, 44);
+		go(x + 16, y);
 		cout << fileName;
 		if (ok)
 			index_ch++;
-		go(index_ch, 44);
+		go(index_ch, y);
 		ch = _getch();
 	}
 	return fileName;
 }
 
-void Game::loadOption() {
+void Game::loadOption(int p) {
+	int x, y;
+	if (p == 0) {
+		x = BORDER / 2;
+		y = 24;
+	}
+	else {
+		x = BORDER + 2;
+		y = 44;
+	}
 	string fileName;
 	do {
-		go(BORDER + 2, 44);
+		go(x, y);
 		cout << "                               ";
-		fileName = inputFileName();
+		fileName = inputFileName(x, y);
 		if (fileName == "") break;
 	} while (!loadGame(fileName));
+	cout << "                               ";
+	return;
 }
 
 bool Game::loadGame(string fileName) {
 	ifstream file;
 	file.open(savedPath + fileName + ".bin", ios::binary);
-	if (!file.is_open())
+	if (!file.is_open()) {
+		cout << "File not found!";
 		return false;
+	}
 	int leve = level->getLevel();
 	int life = human.getLife();
 	file.read((char*)& leve, sizeof(leve));
@@ -125,7 +137,7 @@ void Game::saveOption() {
 	do {
 		go(BORDER + 2, 44);
 		cout << "                               ";
-		fileName = inputFileName();
+		fileName = inputFileName(BORDER+2, 44);
 		if (fileName == "") break;
 	} while (!saveGame(fileName));
 	return;
@@ -141,6 +153,7 @@ bool Game::saveGame(string fileName) {
 	file.write((char*)& leve, sizeof(leve));
 	file.write((char*)& life, sizeof(life));
 	file.close();
+	cout << "Save successful!";
 	return true;
 }
 
@@ -331,11 +344,13 @@ void Game::instructor()
 
 }
 
-void Game::main_run()
-{
+void Game::main_run() {
 	int k = 0, l = 1;
 	instructor();
 	thread t1(&LEVEL::run, level, ref(human));
+
+	//t1=resetGame(&t1);
+
 	human.spawn();
 	while (k != 27)
 	{
@@ -356,7 +371,7 @@ void Game::main_run()
 		}
 		else if (k == 't' || k == 'T') {
 			while (!level->oktowrite());
-			loadOption();
+			loadOption(1);
 			//after loads new option and applies it to data member there should be this block of code
 
 			/*t1 = switchlevel(&t1, level, ++current_level, 100);

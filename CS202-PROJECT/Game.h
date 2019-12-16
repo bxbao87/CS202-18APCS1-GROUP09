@@ -12,7 +12,7 @@ class Game {
 private:
 	People human;
 	LEVEL* level;
-	string inputFileName();
+	string inputFileName(int x, int y);
 	bool loadGame(string fileName);
 	bool saveGame(string fileName);
 	Option op;
@@ -25,7 +25,7 @@ public:
 	thread resetGame(thread* t);
 	void exitGame(thread* t, LEVEL*& a);// exit thread
 	thread startGame(thread* t);
-	void loadOption();
+	void loadOption(int p);
 	void saveOption();
 	void pauseGame(LEVEL*& a);// pause thread
 	void resumeGame(LEVEL*& a);// resume thread
