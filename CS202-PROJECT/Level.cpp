@@ -18,109 +18,199 @@ void LEVEL::setLevel()
 	{
 		split();
 		OBJECT* a;
-		a = new LDUCK(4, 5, 10, 20, true);
+		a = new LDOLPHIN(4, 5, 11, 35, true);
 		arr.push_back(a);
-		a = new RDUCK(9, 5, 10, 20, true);
+		a = new LDOLPHIN(9, 5, 11, 40, false);
 		arr.push_back(a);
-		a = new LDUCK(14, 4, 10, 20, true);
+		a = new RDOLPHIN(14, 5, 11, 35, true);
 		arr.push_back(a);
-		a = new RDUCK(19, 8, 10, 25, true);
+		a = new RDOLPHIN(19, 5, 11, 40, false);
 		arr.push_back(a);
-		a = new LDUCK(24, 5, 10, 35, true);
+		a = new LWHALE(24, 5, 11, 45, false);
 		arr.push_back(a);
-		a = new RDUCK(29, 2, 10, 25, true);
+		a = new LWHALE(29, 5, 11, 50, true);
 		arr.push_back(a);
-		a = new LDUCK(34, 4, 10, 35, true);
+		a = new RWHALE(34, 5, 11, 45, false);
 		arr.push_back(a);
-		a = new RDUCK(39, 8, 10, 20, true);
+		a = new RWHALE(39, 5, 11, 50, true);
 		arr.push_back(a);
 	}
 	else if (current == 2)
 	{
 		split();
 		OBJECT* a;
-		a = new LDOLPHIN(4, 5, 10, 20, true);
+		a = new LPIG(4, 5, 11, 25, true);
 		arr.push_back(a);
-		a = new RDOLPHIN(9, 2, 10, 40, true);
+		a = new RPIG(9, 6, 11, 25, true);
 		arr.push_back(a);
-		a = new LDOLPHIN(14, 4, 10, 20, true);
+		a = new LPIG(14, 5, 11, 30, true);
 		arr.push_back(a);
-		a = new RDOLPHIN(19, 8, 10, 40, true);
+		a = new RPIG(19, 6, 11, 30, true);
 		arr.push_back(a);
-		a = new LWHALE(24, 5, 10, 35, true);
+		a = new LDOLPHIN(24, 5, 11, 35, false);
 		arr.push_back(a);
-		a = new RWHALE(29, 2, 10, 50, true);
+		a = new LDOLPHIN(29, 6, 11, 35, false);
 		arr.push_back(a);
-		a = new LWHALE(34, 4, 10, 40, true);
+		a = new RDOLPHIN(34, 5, 11, 35, false);
 		arr.push_back(a);
-		a = new RWHALE(39, 8, 10, 50, true);
+		a = new RDOLPHIN(39, 6, 11, 35, false);
 		arr.push_back(a);
 	}
 	else if (current == 3)
 	{
 		split();
 		OBJECT* a;
-		a = new LBEE(4, 5, 10, 20, true);
+		a = new LPIG(4, 5, 11, 30, true);
 		arr.push_back(a);
-		a = new RBEE(9, 2, 10, 25, true);
+		a = new LDOLPHIN(9, 5, 11, 35, true);
 		arr.push_back(a);
-		a = new LBEE(14, 4, 10, 30, true);
+		a = new LBEE(14, 5, 10, 25, true);
 		arr.push_back(a);
-		a = new RBEE(19, 8, 10, 15, true);
+		a = new LWHALE(19, 5, 11, 45, true);
 		arr.push_back(a);
-		a = new LBEE(24, 5, 10, 35, true);
+		a = new RWHALE(24, 5, 11, 40, true);
 		arr.push_back(a);
-		a = new RBEE(29, 2, 10, 20, true);
+		a = new RBEE(29, 5, 11, 25, true);
 		arr.push_back(a);
-		a = new LBEE(34, 4, 10, 25, true);
+		a = new RDOLPHIN(34, 5, 11, 35, true);
 		arr.push_back(a);
-		a = new RBEE(39, 8, 10, 25, true);
+		a = new RPIG(39, 5, 11, 30, true);
 		arr.push_back(a);
 	}
 	else if (current == 4)
 	{
 		split();
 		OBJECT* a;
-		a = new LPIG(4, 5, 10, 30, true);
+		a = new RPIG(4, 2, 11, 20, true);
 		arr.push_back(a);
-		a = new RPIG(9, 2, 10, 45, true);
+		a = new LPIG(9, 2, 11, 25, true);
 		arr.push_back(a);
-		a = new LPIG(14, 4, 10, 35, true);
+		a = new LPIG(14, 2, 11, 25, true);
 		arr.push_back(a);
-		a = new RPIG(19, 8, 10, 50, true);
+		a = new LPIG(19, 2, 11, 25, true);
 		arr.push_back(a);
-		a = new LPIG(24, 5, 10, 30, false);
+		a = new LPIG(24, 2, 11, 30, true);
 		arr.push_back(a);
-		a = new RPIG(29, 2, 10, 45, false);
+		a = new LPIG(29, 2, 11, 30, true);
 		arr.push_back(a);
-		a = new LPIG(34, 4, 10, 35, false);
+		a = new LPIG(34, 2, 11, 35, true);
 		arr.push_back(a);
-		a = new RPIG(39, 8, 10, 50, false);
+		a = new RPIG(39, 2, 11, 35, true);
 		arr.push_back(a);
 	}
 	else if (current == 5)
 	{
 		split();
+		OBJECT* a;
+		a = new LDUCK(4, 6, 11, 22, true);
+		arr.push_back(a);
+		a = new LDUCK(9, 6, 11, 22, true);
+		arr.push_back(a);
+		a = new LDUCK(14, 6, 11, 20, true);
+		arr.push_back(a);
+		a = new LDUCK(19, 6, 11, 20, true);
+		arr.push_back(a);
+		a = new RDUCK(24, 6, 11, 20, false);
+		arr.push_back(a);
+		a = new RDUCK(29, 6, 11, 20, false);
+		arr.push_back(a);
+		a = new RDUCK(34, 6, 11, 25, false);
+		arr.push_back(a);
+		a = new RDUCK(39, 6, 11, 25, false);
+		arr.push_back(a);
 	}
 	else if (current == 6)
 	{
 		split();
+		OBJECT* a;
+		a = new LWHALE(4, 0, 11, 26, false);
+		arr.push_back(a);
+		a = new LWHALE(9, 0, 11, 26, false);
+		arr.push_back(a);
+		a = new LWHALE(14, 0, 11, 26, false);
+		arr.push_back(a);
+		a = new LWHALE(19, 0, 11, 26, false);
+		arr.push_back(a);
+		a = new LWHALE(24, 0, 11, 26, false);
+		arr.push_back(a);
+		a = new LWHALE(29, 0, 11, 26, false);
+		arr.push_back(a);
+		a = new LWHALE(34, 0, 11, 26, false);
+		arr.push_back(a);
+		a = new LWHALE(39, 0, 11, 26, false);
+		arr.push_back(a);
 	}
 	else if (current == 7)
 	{
 		split();
+		OBJECT* a;
+		a = new RDOLPHIN(4, 0, 11, 18, true);
+		arr.push_back(a);
+		a = new RDOLPHIN(9, 0, 11, 18, true);
+		arr.push_back(a);
+		a = new RDOLPHIN(14, 0, 11, 18, false);
+		arr.push_back(a);
+		a = new RDOLPHIN(19, 0, 11, 18, false);
+		arr.push_back(a);
+		a = new RDOLPHIN(24, 0, 11, 18, true);
+		arr.push_back(a);
+		a = new RDOLPHIN(29, 0, 11, 18, false);
+		arr.push_back(a);
+		a = new RDOLPHIN(34, 0, 11, 18, false);
+		arr.push_back(a);
+		a = new RDOLPHIN(39, 0, 11, 18, true);
+		arr.push_back(a);
 	}
 	else if (current == 8)
 	{
 		split();
+		OBJECT* a;
+		a = new LBEE(4, 6, 11, 17, true);
+		arr.push_back(a);
+		a = new LBEE(9, 6, 11, 17, true);
+		arr.push_back(a);
+		a = new LPIG(14, 6, 11, 24, true);
+		arr.push_back(a);
+		a = new LBEE(19, 6, 11, 24, true);
+		arr.push_back(a);
+		a = new RBEE(24, 6, 11, 17, true);
+		arr.push_back(a);
+		a = new RPIG(29, 6, 11, 24, true);
+		arr.push_back(a);
+		a = new RBEE(34, 6, 11, 17, true);
+		arr.push_back(a);
+		a = new RPIG(39, 6, 11, 24, true);
+		arr.push_back(a);
 	}
 	else if (current == 9)
 	{
 		split();
+		OBJECT* a;
+		a = new LWHALE(4, 0, 11, 32, true);
+		arr.push_back(a);
+		a = new LDUCK(9, 0, 11, 22, true);
+		arr.push_back(a);
+		a = new RWHALE(14, 0, 11, 32, true);
+		arr.push_back(a);
+		a = new RDOLPHIN(19, 0, 11, 24, true);
+		arr.push_back(a);
+		a = new LDOLPHIN(24, 0, 11, 24, true);
+		arr.push_back(a);
+		a = new RPIG(29, 0, 11, 20, true);
+		arr.push_back(a);
+		a = new RDUCK(34, 0, 11, 23, true);
+		arr.push_back(a);
+		a = new RPIG(39, 0, 11, 20, true);
+		arr.push_back(a);
 	}
 	else if (current == 10)
 	{
 		split();
+		OBJECT* a;
+		for (int i = 0; i < 8; ++i)
+		{
+			int r = rand() % 5;
+		}
 	}
 	else if (current == 11)
 	{

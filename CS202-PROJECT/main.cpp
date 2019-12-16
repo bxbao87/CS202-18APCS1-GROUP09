@@ -1,5 +1,8 @@
 #pragma comment(lib, "winmm.lib")
 #include "Game.h"
+#include <stdio.h>
+#include <io.h>
+#include <fcntl.h>
 
 
 int main() {

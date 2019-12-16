@@ -58,13 +58,13 @@ void LDUCK::light_display() {
 
 void LDUCK::first_spawn() {
 	int s = BORDER - 1 - lenAni;
-	int count = 3;
+	int count = rand() % 3 + 2;
 	while (s > LBORDER) {
 		arr.push_back(s);
 		--count;
 		if (count == 0)
 		{
-			count = 3;
+			count = rand() % 3 + 2;
 			s -= closeness;
 		}
 		else s -= lenAni +1;
@@ -225,16 +225,16 @@ void RDUCK::light_display() {
 
 void RDUCK::first_spawn() {
 	int s = LBORDER + 1;
-	int count = 3;
+	int count = rand() & 3 + 2;
 	while (s < BORDER - lenAni) {
 		arr.push_back(s);
 		--count;
 		if (count == 0)
 		{
-			count = 3;
-			s += closeness;
+			count = rand() & 3 + 2;
+			s += closeness + lenAni;
 		}
-		else s += lenAni + 1;
+		else s += lenAni;
 	}
 	light = 1; green = 1000;
 }
