@@ -72,9 +72,9 @@ void LDUCK::first_spawn() {
 	light = 1; green = 1000;
 }
 
-void LDUCK::makeSound()
-{
-	//do something
+void LDUCK::makeSound() {
+	PlaySound(TEXT(string(soundPath + "duck.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
+
 }
 
 void LDUCK::spawn_rate(int n, int d) {
@@ -240,7 +240,8 @@ void RDUCK::first_spawn() {
 }
 
 void RDUCK::makeSound() {
-	//do something
+	PlaySound(TEXT(string(soundPath + "duck.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
+
 }
 
 void RDUCK::spawn_rate(int n, int d) {

@@ -1,9 +1,7 @@
 #include "Game.h"
 
-Game::Game() 
-{
+Game::Game() {
 	current_level = 1;
-	level = new LEVEL(1, 100);
 }
 
 Game::~Game()
@@ -12,101 +10,57 @@ Game::~Game()
 }
 
 void Game::menu() {
-	crossyZoo();
+	int choice = 0;
+	while (choice <= 3) {
+		system("cls");
+		_menu.display();
+		crossyZoo();
+		choice = _menu.choose();
+		
 
-	int t = 23;
-	int y = t+3;
-	int cursorColor = 176;
-	int colour = 11;
-	vector<std::string> command;
-	command.push_back("   Start New Game   ");
-	command.push_back("  Load Saved Game   ");
-	command.push_back("      Settings      ");
-	command.push_back("      About Us      ");
-	command.push_back("        Exit        ");
-	for (int i = 0; i < 5; ++i)
-	{
-		stringCentralization(command[i], t += 3, colour);
-	}
-	int line = 0;
-	stringCentralization(command[line], line*3+y, cursorColor);
-	int k = _getch();
-	while (k != 13) {
-		stringCentralization(command[line], 3*line+y, colour);
-		moveCursor(k,line);
-		stringCentralization(command[line], line*3+y, cursorColor);
-		k = _getch();
-	}
-	color(8);
-	if (line == 0)
-		cout << "New game" << endl;//startGame();
-	else if (line == 1)
-		cout << "Load Game" << endl;//loadGame();
-	else if (line == 2)
-		cout << "Settings" << endl;//settings();
-	else if (line == 3)
-		cout << "About Us" << endl;//aboutUs();
-	else if (line == 4)
-		cout << "Exit game" << endl;//exitGame();
+		if (choice == 0) {			// start new game
+			PlaySound(NULL, 0, 0);
+			system("cls");
+			main_run(1, 3);
 
-}
+			op.playMusic();
+		}
+		else if (choice == 1) {		//load saved game
+			PlaySound(NULL, 0, 0);
+			// here
+			system("cls");
+			crossyZoo();
 
-void Game::moveCursor(int key, int& y)
-{
-	if (y > 0 && (key == 'w' || key == 'W'))
-		y -= 1;
-	else if (y < 4 && (key == 's' || key == 'S'))
-		y += 1;
-	else if (key == 224)
-	{
-		key = _getch();
-		if (y > 0 && key==72)
-			y -= 1;
-		else if (y < 4 && key==80)
-			y += 1;
+			int leve=0, life=0;
+			loadOption(0, leve, life);
+			if (leve == 0 && life == 0)
+				continue;
+			main_run(leve, life);
+
+			op.playMusic();
+		}
+		else if (choice == 2) {		// setting
+			op.display();
+			op.change();
+		}
+		else if (choice == 3) {		// about
+
+		}
+		else {						// exit
+
+		}
 	}
 }
 
-void Game::stringCentralization(std::string str, int r, int colour)
-{
-	int len = str.length();
-	const int width = 210 - len;
-	int mid = width / 2;
-	go(mid, r+1);
-	color(colour);
-	std::cout << str;
-/*
-	int c = mid-1;
-	color(14);
-	go(c, r++);
-
-	cout << (char)201;
-	for (int i = 1; i < len; ++i)
-		cout << (char)205;
-	cout << (char)187;
-
-	go(c, r);
-	cout << (char)186;
-	go(c + len, r++);
-	cout << (char)186;
-
-	go(c, r);
-	cout << (char)200;
-	for (int i = 1; i < len; ++i)
-		cout << (char)205;
-	cout << (char)188;
-*/
-}
-
-string Game::inputFileName() {
-	go(BORDER + 2, 44);
+string Game::inputFileName(int x, int y) {
+	go(x, y);
 	cout << "Type file name: ";
 	string fileName = "";
 	char ch;
 	int index_ch = BORDER + 18;
 
 	ch = _getch();
-	string t;
+	string t = " ";
 	bool ok = true;
 	while (ch != 13) {
 		if (ch == 27) {
@@ -132,39 +86,56 @@ string Game::inputFileName() {
 			index_ch -= 2;
 		}
 		else {
-			if ((fileName.length() < 21) && (ch >= 32 && ch <= 126)) {
+			if ((fileName.length() < 19) && (ch >= 32 && ch <= 126)) {
 				fileName.push_back(ch);
 				ok = true;
 			}
 			else ok = false;
 		}
-		go(BORDER + 18, 44);
+		go(x + 16, y);
+		cout << "                     ";
+		go(x + 16, y);
 		cout << fileName;
 		if (ok)
 			index_ch++;
-		go(index_ch, 44);
+		go(index_ch, y);
 		ch = _getch();
 	}
 	return fileName;
 }
 
-void Game::loadOption() {
+void Game::loadOption(int p, int& leve, int& life) {
+	int x, y;
+	if (p == 0) {
+		x = BORDER / 2;
+		y = 27;
+	}
+	else {
+		x = BORDER + 2;
+		y = 44;
+	}
 	string fileName;
 	do {
-		go(BORDER + 2, 44);
+		go(x, y);
 		cout << "                               ";
-		fileName = inputFileName();
+		fileName = inputFileName(x, y);
 		if (fileName == "") break;
-	} while (!loadGame(fileName));
+	} while (!loadGame(fileName, x, y, leve, life));
 }
 
-bool Game::loadGame(string fileName) {
+bool Game::loadGame(string fileName, int x, int y, int& leve, int& life) {
 	ifstream file;
 	file.open(savedPath + fileName + ".bin", ios::binary);
-	if (!file.is_open())
+	if (!file.is_open()) {
+		go(x, y);
+		cout << "                               ";
+		go(x, y);
+		cout << "File not found!";
+		go(x, y);
+		int temp = _getch();
+		cout << "                               ";
 		return false;
-	int leve = level->getLevel();
-	int life = human.getLife();
+	}
 	file.read((char*)& leve, sizeof(leve));
 	file.read((char*)& life, sizeof(life));
 	file.close();
@@ -176,10 +147,9 @@ void Game::saveOption() {
 	do {
 		go(BORDER + 2, 44);
 		cout << "                               ";
-		fileName = inputFileName();
+		fileName = inputFileName(BORDER+2, 44);
 		if (fileName == "") break;
 	} while (!saveGame(fileName));
-	return;
 }
 
 bool Game::saveGame(string fileName) {
@@ -192,6 +162,10 @@ bool Game::saveGame(string fileName) {
 	file.write((char*)& leve, sizeof(leve));
 	file.write((char*)& life, sizeof(life));
 	file.close();
+	go(BORDER + 2, 44);
+	cout << "                               ";
+	go(BORDER + 2, 44);
+	cout << "Save successful!";
 	return true;
 }
 
@@ -219,7 +193,9 @@ thread Game::switchlevel(thread* t, LEVEL*& a, int level, int delay)
 
 void Game::displayWin()
 {
-	playSound(string(soundPath+"victory.wav").c_str());
+	int sleep = 0;
+	if (Option::playSound(soundPath + "victory.wav"))
+		sleep = 3500;
 	color(224);
 	ifstream fin(path + "victory.txt");
 	if (fin.is_open())
@@ -227,19 +203,21 @@ void Game::displayWin()
 		int x = BORDER/2-35, y = 15;
 		string line;
 		while (getline(fin, line, '\n')) {
-			Sleep(150);
+			Sleep(200);
 			go(x, y++);
 			cout << line;
 		}
 	}
 	fin.close();
-	color(8);
-	Sleep(800);
+	color(15);
+	Sleep(sleep);
 }
 
 void Game::displayLose()
 {
-	playSound(string(soundPath+"death.wav").c_str());
+	int sleep = 0;
+	if (Option::playSound(soundPath + "death.wav"))
+		sleep = 800;
 	color(192);
 	ifstream fin(path + "gameOver.txt");
 	if (fin.is_open())
@@ -253,8 +231,8 @@ void Game::displayLose()
 		}
 	}
 	fin.close();
-	color(8);
-	Sleep(800);
+	color(15);
+	Sleep(sleep);
 }
 
 void Game::displayLevel()
@@ -270,6 +248,13 @@ void Game::displayLives()
 {
 	go(BORDER + 23, 20);
 	cout << human.getLife();
+}
+
+void Game::settings()
+{
+	system("cls");
+	op.display();
+	op.change();
 }
 
 
@@ -308,10 +293,10 @@ void Game::crossyZoo() {
 		}
 	}
 	fin.close();
+	color(15);
 }
 
-void Game::instructor()
-{
+void Game::instructor() {
 	setcursor(0, 0); //hide cursor
 
 	int x = BORDER + 5, y = 3;
@@ -340,7 +325,7 @@ void Game::instructor()
 
 	x = BORDER + 15;
 	y = 17;
-	color(7);
+	color(15);
 	go(x, y);
 	cout << "LEVEL: ";
 	displayLevel();
@@ -376,14 +361,28 @@ void Game::instructor()
 
 }
 
-void Game::main_run()
-{
+void Game::main_run(int leve, int life) {
+	human.setLife(life);
+	level = new LEVEL(1, 100);
 	int k = 0, l = 1;
-	instructor();
+	
 	thread t1(&LEVEL::run, level, ref(human));
+	t1 = switchlevel(&t1, level, leve, 100);
+	while (!level->oktowrite());
+	instructor();
+	level->resume();
+
 	human.spawn();
 	while (k != 27)
-	{
+	{	
+		if (human.isDead()) {
+			level->pause();
+			while (!level->oktowrite());
+			displayLose();
+			Sleep(1500);
+			k = 27;
+			break;
+		}
 		k = _getch();
 		if (k == 'p' || k == 'P') {
 			while (!level->oktowrite());
@@ -392,23 +391,25 @@ void Game::main_run()
 			level->resume();
 		}
 		else if (k == 'l' || k == 'L') {
+			level->pause();
 			while (!level->oktowrite());
 			saveOption();
 			level->resume();
 		}
 		else if (k == 't' || k == 'T') {
+			level->pause();
 			while (!level->oktowrite());
-			loadOption();
-			//after loads new option and applies it to data member there should be this block of code
-
-			/*t1 = switchlevel(&t1, level, ++current_level, 100);
+			int leve = 0, life = 0;
+			loadOption(1, leve, life);
+			human.setLife(life);
+			t1 = switchlevel(&t1, level, leve, 100);
 			while (!level->oktowrite());
 			instructor();
 			level->resume();
-			human.spawn();*/
+			human.spawn();
 		}
 		//for testing only
-		else if (k == 'n' || k == 'N')
+		/*else if (k == 'n' || k == 'N')
 		{
 			if (current_level < 14)
 				t1 = switchlevel(&t1, level, ++current_level, 100 - current_level*3);
@@ -416,11 +417,12 @@ void Game::main_run()
 			instructor();
 			level->resume();
 			human.spawn();
-		}
+		}*/
 		else
 		{
 			bool keep = level->status();
 			while (!level->oktowrite());
+			
 			if (human.move(k))
 			{
 				level->resume();
@@ -434,8 +436,12 @@ void Game::main_run()
 					// check if player is dead
 					if (human.isDead()) {
 						//insert lose display
+						level->pause();
+						while (!level->oktowrite());
+						displayLose();
+						Sleep(1500);
 						k = 27;
-						continue;
+						break;//continue;
 					}
 					cout << "Press c to continue";
 					while (k != 'c' && k != 'C' && k != 27) k = _getch();
@@ -453,13 +459,18 @@ void Game::main_run()
 						level->resume();
 						human.spawn();
 					}
-					else
-					{
+					else {
 						//insert win display
+						level->pause();
+						while (!level->oktowrite());
+						displayWin();
+						Sleep(1500);
 						k = 27;
 					}
 				}
 			}
+			
+
 			if (keep) level->pause();
 			else level->resume();
 		}

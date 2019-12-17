@@ -34,7 +34,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -107,6 +107,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>Winmm.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,7 +134,9 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="Objects.cpp" />
+    <ClCompile Include="option.cpp" />
     <ClCompile Include="People.cpp" />
     <ClCompile Include="Pig.cpp" />
     <ClCompile Include="Settings.cpp" />
@@ -146,7 +149,9 @@
     <ClInclude Include="Duck.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="Objects.h" />
+    <ClInclude Include="option.h" />
     <ClInclude Include="People.h" />
     <ClInclude Include="Pig.h" />
     <ClInclude Include="Settings.h" />
@@ -156,6 +161,7 @@
     <Text Include="MAP\BOSS.txt" />
     <Text Include="MAP\crossy.txt" />
     <Text Include="MAP\crossyZoo.txt" />
+    <Text Include="MAP\gameOver.txt" />
     <Text Include="MAP\human.txt" />
     <Text Include="MAP\LBEE.txt" />
     <Text Include="MAP\LDOLPHIN.txt" />
@@ -167,6 +173,7 @@
     <Text Include="MAP\RDUCK.txt" />
     <Text Include="MAP\RPIG.txt" />
     <Text Include="MAP\RWHALE.txt" />
+    <Text Include="MAP\victory.txt" />
     <Text Include="MAP\zoo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

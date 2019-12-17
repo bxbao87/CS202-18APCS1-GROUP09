@@ -149,14 +149,17 @@ void People::decreaseLife() {
 		state = false;
 }
 
+void People::setLife(int life) {
+	this->live = life;
+	if (life > 0) state = true;
+}
+
 int People::getLife() {
 	return live;
 }
 
 bool People::isDead() {
-	if (state)
-		return false;
-	return true;
+	return state ? false : true;
 }
 
 void People::spawn() {
@@ -165,14 +168,12 @@ void People::spawn() {
 	Draw();
 }
 
-pair<int, int> People::getCoor()
-{
+pair<int, int> People::getCoor() {
 	pair<int, int> tmp;
 	tmp.first = pX, tmp.second = pY;
 	return tmp;
 }
 
-void People::setCoor(int x, int y)
-{
+void People::setCoor(int x, int y) {
 	pX = x; pY = y;
 }

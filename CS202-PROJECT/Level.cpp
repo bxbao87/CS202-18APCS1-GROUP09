@@ -382,6 +382,7 @@ void LEVEL::run(People& human)
 			for (int i = 0; i < n; i++)
 				if (human.isImpact(arr[i]->getY(), arr[i]->getARR(), arr[i]->getMAP()))
 				{
+					arr[i]->makeSound();
 					arr[i]->impact();
 					human.decreaseLife();
 					go(BORDER + 23, 20);

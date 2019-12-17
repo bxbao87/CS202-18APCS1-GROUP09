@@ -78,9 +78,8 @@ void LPIG::first_spawn()
 	light = 1; green = 1000;
 }
 
-void LPIG::makeSound()
-{
-	//do something
+void LPIG::makeSound() {
+	PlaySound(TEXT(string(soundPath + "pig.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
 }
 
 void LPIG::spawn_rate(int n, int d)
@@ -250,9 +249,9 @@ void RPIG::first_spawn()
 	light = 1; green = 1000;
 }
 
-void RPIG::makeSound()
-{
-	//do something
+void RPIG::makeSound(){
+	PlaySound(TEXT(string(soundPath + "pig.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
+
 }
 
 void RPIG::spawn_rate(int n, int d)

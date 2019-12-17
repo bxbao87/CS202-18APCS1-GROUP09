@@ -24,6 +24,7 @@ public:
 	bool isImpact(int objY, vector<int> objCoordX, vector<string> objMap);		// pass Object
 	bool isFinish();
 	void decreaseLife();
+	void setLife(int life);
 	int getLife();
 	bool isDead();
 	pair<int, int> getCoor();

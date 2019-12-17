@@ -17,12 +17,15 @@ using namespace std;
 
 
 //please change this path and create folder to run this program
-const string soundPath = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\sound\\";
-const string path = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\MAP\\";
-const string savedPath = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\saved\\";
+//const string soundPath = "D:\\school\\project\\CS202-18APCS1-GROUP09\\roadCrossing\\crossyRoad\\CS202-PROJECT\\sound\\";
+//const string path = "D:\\school\\project\\CS202-18APCS1-GROUP09\\roadCrossing\\crossyRoad\\CS202-PROJECT\\MAP\\";
+//const string savedPath = "D:\\school\\project\\CS202-18APCS1-GROUP09\\roadCrossing\\crossyRoad\\CS202-PROJECT\\Saved\\";
+const string path = "H:\\APCS\\2nd year\\CS202\\CS202-PROJECT\\CS202-PROJECT\\MAP\\";
+const string savedPath = "H:\\APCS\\2nd year\\CS202\\CS202-PROJECT\\CS202-PROJECT\\Saved\\";
+const string soundPath = "H:\\APCS\\2nd year\\CS202\\CS202-PROJECT\\CS202-PROJECT\\sound\\";
  // t.length()=140
-const string split_lane = "--------------------------------------------------------------------------------------------------------------------------------------------------------------";
-const int BORDER = 160;
+const string split_lane = "-------------------------------------------------------------------------------------------------------------------------------------------";
+const int BORDER = 140;//160
 const int LBORDER = 0;
 
 const int X_MOVE = 1;
@@ -37,6 +40,5 @@ void go(int column, int line);
 void color(const int& k);
 void Nocursortype();				// hide the cursor
 void setcursor(bool x, DWORD size);
-void playSound(const char* path);
 
 #endif

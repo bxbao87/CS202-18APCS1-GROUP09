@@ -1,3 +1,4 @@
+#pragma comment(lib, "winmm.lib")
 #include "Game.h"
 #include <stdio.h>
 #include <io.h>
@@ -5,12 +6,13 @@
 
 
 int main() {
+	//system("chcp 437");
 	FixConsoleWindow(); //fixed screen
+	Nocursortype();
 	Game g;
-	g.main_run();
+	g.menu();
 	setcursor(1, 10);
-	/*_setmode(_fileno(stdout), _O_U16TEXT);
-	wprintf(L"\x2665 \x2665 \x2665 hello world\n");
-	RDOLPHIN a(4, 1, 6, 11, true);*/
+	//g.menu();
+
 	return 0;
 }
