@@ -46,7 +46,18 @@ void Game::menu() {
 			op.change();
 		}
 		else if (choice == 3) {		// about
-
+			system("cls");
+			crossyZoo();
+			color(11);
+			go((210-23)/2, 35);
+			cout << "NGUYEN PHAN NHAT HOANG";
+			color(12);
+			go((210-14)/2, 37);
+			cout << "LE VIET THANH";
+			color(13);
+			go((210-13)/2, 39);
+			cout << "BUI XUAN BAO";
+			_getch();
 		}
 		else {						// exit
 
