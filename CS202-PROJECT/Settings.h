@@ -8,16 +8,18 @@
 #include <time.h>
 #include <thread>
 #include <fstream>
-#include <mutex>
-#include<iomanip>
-#include<cstring>
-#include<set>
+#include <iomanip>
+#include <cstring>
+#include <set>
+#include <stdio.h>
+#include <io.h>
+#include <fcntl.h>
 
 using namespace std;
 
 const string path = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\MAP\\";
-const string savedPath = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\MAP\\SAVED";
-const string soundPath = "D:\\CS202 - PROJECT\\CS202 - PROJECT\\CS202 - PROJECT\\MAP\\SOUND\\";
+const string savedPath = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\SAVED\\";
+const string soundPath = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\SOUND\\";
  // t.length()=140
 const string split_lane = "---------------------------------------------------------------------------------------------------------------------------------------------------------------";
 const int BORDER = 160;

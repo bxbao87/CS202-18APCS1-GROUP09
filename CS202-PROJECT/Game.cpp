@@ -115,7 +115,6 @@ void Game::loadOption(int p, int& leve, int& life) {
 		x = BORDER + 2;
 		y = 44;
 	}
-	setcursor(1, 10);
 	string fileName;
 	do {
 		go(x, y);
@@ -123,7 +122,6 @@ void Game::loadOption(int p, int& leve, int& life) {
 		fileName = inputFileName(x, y);
 		if (fileName == "") break;
 	} while (!loadGame(fileName, x, y, leve, life));
-	setcursor(0, 0);
 }
 
 bool Game::loadGame(string fileName, int x, int y, int& leve, int& life) {
@@ -146,7 +144,6 @@ bool Game::loadGame(string fileName, int x, int y, int& leve, int& life) {
 }
 
 void Game::saveOption() {
-	setcursor(1, 10);
 	string fileName;
 	do {
 		go(BORDER + 2, 44);
@@ -154,7 +151,6 @@ void Game::saveOption() {
 		fileName = inputFileName(BORDER+2, 44);
 		if (fileName == "") break;
 	} while (!saveGame(fileName));
-	setcursor(0, 0);
 }
 
 bool Game::saveGame(string fileName) {
@@ -171,16 +167,8 @@ bool Game::saveGame(string fileName) {
 	cout << "                               ";
 	go(BORDER + 2, 44);
 	cout << "Save successful!";
-	go(BORDER + 2, 46);
-	cout << "Press R to continue";
-	int k = _getch();
-	while (k != 'r' && k != 'R')
-		k = _getch();
 	go(BORDER + 2, 44);
 	cout << "                ";
-	go(BORDER + 2, 46);
-	cout << "                   ";
-
 	return true;
 }
 
@@ -392,21 +380,24 @@ void Game::main_run(int leve, int life) {
 	while (k != 27)
 	{
 		k = _getch();
-		if (k == 'p' || k == 'P') 
+		bool keep = level->status();
+		if (k == 'p' || k == 'P') //pause game
 		{
 			while (!level->oktowrite());
 		}
-		else if (k == 'r' || k == 'R')
+		else if (k == 'r' || k == 'R') //resume game
 		{
 			level->resume();
 		}
-		else if (k == 'l' || k == 'L') {
-			level->pause();
+		else if (k == 'l' || k == 'L') //save game
+		{
 			while (!level->oktowrite());
 			saveOption();
-			level->resume();
+			if (keep) level->pause();
+			else level->resume();
 		}
-		else if (k == 't' || k == 'T') {
+		else if (k == 't' || k == 'T') //load game
+		{
 			level->pause();
 			while (!level->oktowrite());
 			int leve = 0, life = 0;
@@ -415,7 +406,6 @@ void Game::main_run(int leve, int life) {
 			t1 = switchlevel(&t1, level, leve, 100-leve*3);
 			while (!level->oktowrite());
 			instructor();
-			level->resume();
 			human.spawn();
 		}
 		//for testing only
@@ -430,7 +420,6 @@ void Game::main_run(int leve, int life) {
 		}
 		else
 		{
-			bool keep = level->status();
 			if (keep) continue;
 			while (!level->oktowrite());
 			if (human.move(k))
@@ -477,7 +466,6 @@ void Game::main_run(int leve, int life) {
 					}
 				}
 			}
-			//remains the same if we only 
 			if (keep) level->pause();
 			else level->resume();
 		}
