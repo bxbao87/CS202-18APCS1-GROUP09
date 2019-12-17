@@ -335,7 +335,7 @@ void Game::instructor() {
 	displayLevel();
 	go(x, y+=3);
 	cout << "LIVES: ";
-	displayLives();
+	human.displayLives();
 	
 	go(BORDER, y += 3);
 	cout << (char)195;
@@ -425,7 +425,7 @@ void Game::main_run(int leve, int life) {
 			if (human.move(k))
 			{
 				level->resume();
-				Sleep(80); //delay human movement
+				Sleep(100); //delay human movement
 				//if there is an impact
 				if (level->freeze_main())
 				{

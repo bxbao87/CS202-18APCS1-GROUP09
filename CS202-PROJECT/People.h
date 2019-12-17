@@ -26,6 +26,7 @@ public:
 	void decreaseLife();
 	void setLife(int life);
 	int getLife();
+	void displayLives();
 	bool isDead();
 	pair<int, int> getCoor();
 	void setCoor(int x,int y);
