@@ -45,7 +45,18 @@ void Game::menu() {
 			op.change();
 		}
 		else if (choice == 3) {		// about
-
+			system("cls");
+			crossyZoo();
+			color(11);
+			go((210-23)/2, 35);
+			cout << "NGUYEN PHAN NHAT HOANG";
+			color(12);
+			go((210-14)/2, 37);
+			cout << "LE VIET THANH";
+			color(13);
+			go((210-13)/2, 39);
+			cout << "BUI XUAN BAO";
+			_getch();
 		}
 		else {						// exit
 
@@ -122,6 +133,8 @@ void Game::loadOption(int p, int& leve, int& life) {
 		fileName = inputFileName(x, y);
 		if (fileName == "") break;
 	} while (!loadGame(fileName, x, y, leve, life));
+	go(x, y);
+	cout << "                                     ";
 }
 
 bool Game::loadGame(string fileName, int x, int y, int& leve, int& life) {
@@ -151,6 +164,8 @@ void Game::saveOption() {
 		fileName = inputFileName(BORDER+2, 44);
 		if (fileName == "") break;
 	} while (!saveGame(fileName));
+	go(BORDER + 2, 44);
+	cout << "                ";
 }
 
 bool Game::saveGame(string fileName) {
@@ -167,8 +182,7 @@ bool Game::saveGame(string fileName) {
 	cout << "                               ";
 	go(BORDER + 2, 44);
 	cout << "Save successful!";
-	go(BORDER + 2, 44);
-	cout << "                ";
+	Sleep(500);
 	return true;
 }
 
@@ -391,17 +405,23 @@ void Game::main_run(int leve, int life) {
 		}
 		else if (k == 'l' || k == 'L') //save game
 		{
-			while (!level->oktowrite());
+			level->pause();
+			while(!level->oktowrite());
 			saveOption();
-			if (keep) level->pause();
-			else level->resume();
+			level->resume();
 		}
+		else if(k == 'r' || k == 'R')
+			level->resume();
 		else if (k == 't' || k == 'T') //load game
 		{
 			level->pause();
 			while (!level->oktowrite());
 			int leve = 0, life = 0;
 			loadOption(1, leve, life);
+			if (life == 0 && leve == 0) {
+				level->resume();
+				continue;
+			}
 			human.setLife(life);
 			t1 = switchlevel(&t1, level, leve, 100-leve*3);
 			while (!level->oktowrite());
@@ -420,6 +440,7 @@ void Game::main_run(int leve, int life) {
 		}
 		else
 		{
+			bool keep = level->status();
 			if (keep) continue;
 			while (!level->oktowrite());
 			if (human.move(k))
