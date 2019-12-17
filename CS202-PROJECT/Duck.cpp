@@ -225,13 +225,13 @@ void RDUCK::light_display() {
 
 void RDUCK::first_spawn() {
 	int s = LBORDER + 1;
-	int count = rand() & 3 + 2;
+	int count = rand() % 3 + 2;
 	while (s < BORDER - lenAni) {
 		arr.push_back(s);
 		--count;
 		if (count == 0)
 		{
-			count = rand() & 3 + 2;
+			count = rand() % 3 + 2;
 			s += closeness + lenAni;
 		}
 		else s += lenAni;
