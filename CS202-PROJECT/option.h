@@ -15,6 +15,7 @@ private:
 	void changeSound();
 public:
 	Option();
+	~Option();
 	void display();
 	void change();
 	static bool playSound(string path);

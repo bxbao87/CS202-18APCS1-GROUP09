@@ -67,8 +67,7 @@ void LBEE::first_spawn() {
 }
 
 void LBEE::makeSound() {
-	PlaySound(TEXT(string(soundPath + "bee.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
-
+	Option::playSound(soundPath + "bee.wav");
 }
 
 void LBEE::spawn_rate(int n, int d) {
@@ -208,7 +207,7 @@ void RBEE::first_spawn() {
 }
 
 void RBEE::makeSound() {
-	PlaySound(TEXT(string(soundPath + "bee.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
+	Option::playSound(soundPath + "bee.wav");
 }
 
 void RBEE::spawn_rate(int n, int d) {

@@ -79,7 +79,7 @@ void LPIG::first_spawn()
 }
 
 void LPIG::makeSound() {
-	PlaySound(TEXT(string(soundPath + "pig.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
+	Option::playSound(soundPath + "pig.wav");
 }
 
 void LPIG::spawn_rate(int n, int d)
@@ -250,7 +250,7 @@ void RPIG::first_spawn()
 }
 
 void RPIG::makeSound(){
-	PlaySound(TEXT(string(soundPath + "pig.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
+	Option::playSound(soundPath + "pig.wav");
 
 }
 

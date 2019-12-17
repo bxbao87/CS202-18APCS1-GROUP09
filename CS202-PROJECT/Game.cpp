@@ -20,6 +20,7 @@ void Game::menu() {
 		if (choice == 0) {			// start new game
 			PlaySound(NULL, 0, 0);
 			system("cls");
+			current_level = 1;
 			main_run(1, 3);
 
 			op.playMusic();
@@ -34,6 +35,7 @@ void Game::menu() {
 			loadOption(0, leve, life);
 			if (leve == 0 && life == 0)
 				continue;
+			current_level = leve;
 			main_run(leve, life);
 
 			op.playMusic();
@@ -160,7 +162,7 @@ bool Game::saveGame(string fileName) {
 	file.open(savedPath + fileName + ".bin", ios::binary);
 	if (!file.is_open())
 		return false;
-	int leve = level->getLevel();
+	int leve = current_level;
 	int life = human.getLife();
 	file.write((char*)& leve, sizeof(leve));
 	file.write((char*)& life, sizeof(life));
@@ -169,6 +171,16 @@ bool Game::saveGame(string fileName) {
 	cout << "                               ";
 	go(BORDER + 2, 44);
 	cout << "Save successful!";
+	go(BORDER + 2, 46);
+	cout << "Press R to continue";
+	int k = _getch();
+	while (k != 'r' && k != 'R')
+		k = _getch();
+	go(BORDER + 2, 44);
+	cout << "                ";
+	go(BORDER + 2, 46);
+	cout << "                   ";
+
 	return true;
 }
 
@@ -218,6 +230,7 @@ void Game::displayWin()
 
 void Game::displayLose()
 {
+	Sleep(1500);
 	int sleep = 0;
 	if (Option::playSound(soundPath + "death.wav"))
 		sleep = 800;
@@ -228,7 +241,7 @@ void Game::displayLose()
 		int x = BORDER/2-35, y = 15;
 		string line;
 		while (getline(fin, line, '\n')) {
-			Sleep(150);
+			Sleep(200);
 			go(x, y++);
 			cout << line;
 		}
@@ -381,8 +394,9 @@ void Game::main_run(int leve, int life) {
 		k = _getch();
 		if (k == 'p' || k == 'P') {
 			while (!level->oktowrite());
-		}
-		else if (k == 'r' || k == 'R') {
+			int key = _getch();
+			while (key != 'r' && key != 'R')
+				key = _getch();
 			level->resume();
 		}
 		else if (k == 'l' || k == 'L') {
@@ -420,7 +434,7 @@ void Game::main_run(int leve, int life) {
 			if (human.move(k))
 			{
 				level->resume();
-				Sleep(100); //delay human movement
+				Sleep(80); //delay human movement
 				//if there is an impact
 				if (level->freeze_main())
 				{

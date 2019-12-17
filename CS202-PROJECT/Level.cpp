@@ -6,7 +6,7 @@ LEVEL::LEVEL(int choice, int delay)
 	stop = false; tmp_stop = false; now = clock(); ok = true; this->delay = delay; freeze = false;
 	old_coor.first = 80; old_coor.second = 45;
 	current = choice;
-	ifstream in;
+	//ifstream in;
 	setLevel();
 }
 
@@ -261,7 +261,9 @@ LEVEL::~LEVEL()
 {
 	int n = arr.size();
 	for (int i = 0; i < n; ++i)
-		if (arr[i] != nullptr) delete arr[i];
+		if (arr[i] != nullptr) 
+			delete arr[i];
+	arr.clear();
 }
 
 int LEVEL::getLevel()
@@ -316,7 +318,8 @@ bool LEVEL::oktowrite()
 {
 	pause();
 	int i = 0;
-	while (!(ok && tmp_stop) && i++ < 500000);
+	while (!(ok && tmp_stop) && i < 500000) 
+		++i;
 	return true;
 }
 

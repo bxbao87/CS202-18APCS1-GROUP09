@@ -73,7 +73,7 @@ void LDUCK::first_spawn() {
 }
 
 void LDUCK::makeSound() {
-	PlaySound(TEXT(string(soundPath + "duck.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
+	Option::playSound(soundPath + "duck.wav");
 
 }
 
@@ -240,7 +240,7 @@ void RDUCK::first_spawn() {
 }
 
 void RDUCK::makeSound() {
-	PlaySound(TEXT(string(soundPath + "duck.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
+	Option::playSound(soundPath + "duck.wav");
 
 }
 

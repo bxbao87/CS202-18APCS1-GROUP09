@@ -1,7 +1,7 @@
 #ifndef _OBJECTS_H
 #define _OBJECTS_H
 #include "Settings.h"
-
+#include "option.h"
 using namespace std;
 
 class OBJECT {
