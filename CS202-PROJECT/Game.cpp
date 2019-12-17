@@ -392,11 +392,12 @@ void Game::main_run(int leve, int life) {
 	while (k != 27)
 	{
 		k = _getch();
-		if (k == 'p' || k == 'P') {
+		if (k == 'p' || k == 'P') 
+		{
 			while (!level->oktowrite());
-			int key = _getch();
-			while (key != 'r' && key != 'R')
-				key = _getch();
+		}
+		else if (k == 'r' || k == 'R')
+		{
 			level->resume();
 		}
 		else if (k == 'l' || k == 'L') {
@@ -430,6 +431,7 @@ void Game::main_run(int leve, int life) {
 		else
 		{
 			bool keep = level->status();
+			if (keep) continue;
 			while (!level->oktowrite());
 			if (human.move(k))
 			{
@@ -468,7 +470,6 @@ void Game::main_run(int leve, int life) {
 					}
 					else {
 						//insert win display
-						level->pause();
 						while (!level->oktowrite());
 						displayWin();
 						Sleep(1500);
