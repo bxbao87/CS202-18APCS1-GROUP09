@@ -1,9 +1,84 @@
-﻿  Game.cpp
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Level.h(47,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Game.cpp(72,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  Bee.cpp
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Bee.cpp(21,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Bee.cpp(26,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Bee.cpp(34,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Bee.cpp(92,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Bee.cpp(160,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Bee.cpp(165,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Bee.cpp(173,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Boss.cpp
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Bee.cpp(233,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Boss.cpp(19,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Boss.cpp(28,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Boss.cpp(38,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Boss.cpp(61,25): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Boss.cpp(63,26): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Boss.cpp(87,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Boss.cpp(97,37): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+  Dolphin.cpp
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Boss.cpp(98,30): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Dolphin.cpp(24,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Dolphin.cpp(30,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Dolphin.cpp(40,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Dolphin.cpp(109,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Dolphin.cpp(193,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Dolphin.cpp(199,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Dolphin.cpp(209,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Duck.cpp
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Dolphin.cpp(278,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Duck.cpp(20,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Duck.cpp(25,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Duck.cpp(33,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Duck.cpp(109,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Duck.cpp(114,16): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Duck.cpp(186,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Duck.cpp(191,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Duck.cpp(199,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Duck.cpp(277,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Game.cpp
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Duck.cpp(282,16): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+  Level.cpp
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Level.h(47,1): warning C4267:  'return': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Level.h(47,1): warning C4267:  'return': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Level.cpp(262,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Level.cpp(363,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+  main.cpp
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Level.cpp(379,23): warning C4244:  'argument': conversion from 'time_t' to 'int', possible loss of data
+  menu.cpp
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Level.h(47,1): warning C4267:  'return': conversion from 'size_t' to 'int', possible loss of data
+  Objects.cpp
+  option.cpp
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\menu.cpp(16,24): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+  People.cpp
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\option.cpp(26,24): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\People.cpp(25,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\People.cpp(27,28): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\People.cpp(39,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\People.cpp(109,31): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\People.cpp(110,28): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\People.cpp(112,37): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Pig.cpp
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\People.cpp(113,34): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Pig.cpp(24,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Pig.cpp(30,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Pig.cpp(40,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Pig.cpp(137,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Pig.cpp(195,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Pig.cpp(201,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Pig.cpp(211,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Settings.cpp
+  Whale.cpp
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Pig.cpp(309,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Whale.cpp(21,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Whale.cpp(26,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Whale.cpp(34,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Whale.cpp(92,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Whale.cpp(161,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Whale.cpp(166,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Whale.cpp(174,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\CS202-PROJECT\Whale.cpp(234,20): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
   Generating code
-  2 of 789 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB not found, fall back to full compilation.
+  All 823 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
-  CS202-PROJECT.vcxproj -> D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\x64\Release\CS202-PROJECT.exe
+  CS202-PROJECT.vcxproj -> D:\school\project\CS202-18APCS1-GROUP09\roadCrossing\crossyRoad\x64\Release\CS202-PROJECT.exe

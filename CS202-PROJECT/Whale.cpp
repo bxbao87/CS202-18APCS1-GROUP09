@@ -67,7 +67,7 @@ void LWHALE::first_spawn() {
 }
 
 void LWHALE::makeSound() {
-	PlaySound(TEXT(string(soundPath + "dolphin&whale.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
+	Option::playSound(soundPath + "dolphin&whale.wav");
 }
 
 void LWHALE::spawn_rate(int n, int d) {
@@ -208,7 +208,7 @@ void RWHALE::first_spawn() {
 }
 
 void RWHALE::makeSound() {
-	PlaySound(TEXT(string(soundPath + "dolphin&whale.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
+	Option::playSound(soundPath + "dolphin&whale.wav");
 }
 
 void RWHALE::spawn_rate(int n, int d) {

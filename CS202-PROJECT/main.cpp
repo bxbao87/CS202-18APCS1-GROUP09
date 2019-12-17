@@ -12,7 +12,6 @@ int main() {
 	Game g;
 	g.menu();
 	setcursor(1, 10);
-	//g.menu();
 
 	return 0;
 }
