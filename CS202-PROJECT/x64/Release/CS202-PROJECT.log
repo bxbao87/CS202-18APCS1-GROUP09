@@ -1,27 +1,8 @@
-﻿  Duck.cpp
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Duck.cpp(20,24): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Duck.cpp(25,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Duck.cpp(33,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Duck.cpp(109,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Duck.cpp(114,16): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Duck.cpp(186,24): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Duck.cpp(191,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Duck.cpp(199,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Duck.cpp(276,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Duck.cpp(281,16): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  Game.cpp
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Level.h(47,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Game.cpp(72,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Level.cpp
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Level.h(47,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Level.cpp(262,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Level.cpp(361,20): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Level.cpp(377,23): warning C4244: 'argument': conversion from 'time_t' to 'int', possible loss of data
-  main.cpp
+﻿  Game.cpp
 D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\Level.h(47,1): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   Generating code
-  7 of 789 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+  5 of 833 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    48 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   CS202-PROJECT.vcxproj -> D:\CS202-PROJECT\CS202-PROJECT\CS202-PROJECT\x64\Release\CS202-PROJECT.exe

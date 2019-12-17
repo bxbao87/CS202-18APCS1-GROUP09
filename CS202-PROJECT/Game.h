@@ -29,7 +29,6 @@ public:
 	void saveOption();
 	void pauseGame(LEVEL*& a);// pause thread
 	void resumeGame(LEVEL*& a);// resume thread
-	//void cooldown();
 
 	People getPeople();
 

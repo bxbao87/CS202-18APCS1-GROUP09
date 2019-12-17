@@ -21,9 +21,4 @@ public:
 	void playMusic();
 };
 
-
-
-
-
-
 #endif // !OpTION_H

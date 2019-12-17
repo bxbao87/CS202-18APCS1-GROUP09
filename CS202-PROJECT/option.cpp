@@ -67,7 +67,7 @@ void Option::change()
 	int key = _getch();
 	color(111);
 	while (key != 27) {
-		if (key == 13) {
+		if (key == 13 || key == 32) {
 			if (op == 0)
 			{
 				changeMusic();

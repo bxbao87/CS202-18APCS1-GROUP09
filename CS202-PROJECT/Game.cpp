@@ -17,7 +17,6 @@ void Game::menu() {
 		crossyZoo();
 		choice = _menu.choose();
 		
-
 		if (choice == 0) {			// start new game
 			PlaySound(NULL, 0, 0);
 			system("cls");
@@ -114,6 +113,7 @@ void Game::loadOption(int p, int& leve, int& life) {
 		x = BORDER + 2;
 		y = 44;
 	}
+	setcursor(1, 10);
 	string fileName;
 	do {
 		go(x, y);
@@ -121,6 +121,7 @@ void Game::loadOption(int p, int& leve, int& life) {
 		fileName = inputFileName(x, y);
 		if (fileName == "") break;
 	} while (!loadGame(fileName, x, y, leve, life));
+	setcursor(0, 0);
 }
 
 bool Game::loadGame(string fileName, int x, int y, int& leve, int& life) {
@@ -143,6 +144,7 @@ bool Game::loadGame(string fileName, int x, int y, int& leve, int& life) {
 }
 
 void Game::saveOption() {
+	setcursor(1, 10);
 	string fileName;
 	do {
 		go(BORDER + 2, 44);
@@ -150,6 +152,7 @@ void Game::saveOption() {
 		fileName = inputFileName(BORDER+2, 44);
 		if (fileName == "") break;
 	} while (!saveGame(fileName));
+	setcursor(0, 0);
 }
 
 bool Game::saveGame(string fileName) {
@@ -362,27 +365,19 @@ void Game::instructor() {
 }
 
 void Game::main_run(int leve, int life) {
+	//first initialization
 	human.setLife(life);
-	level = new LEVEL(1, 100);
+	level = new LEVEL(leve, 100 -leve*3);
 	int k = 0, l = 1;
-	
 	thread t1(&LEVEL::run, level, ref(human));
-	t1 = switchlevel(&t1, level, leve, 100);
 	while (!level->oktowrite());
 	instructor();
+	human.spawn();
 	level->resume();
 
-	human.spawn();
+	//game loop
 	while (k != 27)
-	{	
-		if (human.isDead()) {
-			level->pause();
-			while (!level->oktowrite());
-			displayLose();
-			Sleep(1500);
-			k = 27;
-			break;
-		}
+	{
 		k = _getch();
 		if (k == 'p' || k == 'P') {
 			while (!level->oktowrite());
@@ -402,14 +397,14 @@ void Game::main_run(int leve, int life) {
 			int leve = 0, life = 0;
 			loadOption(1, leve, life);
 			human.setLife(life);
-			t1 = switchlevel(&t1, level, leve, 100);
+			t1 = switchlevel(&t1, level, leve, 100-leve*3);
 			while (!level->oktowrite());
 			instructor();
 			level->resume();
 			human.spawn();
 		}
 		//for testing only
-		/*else if (k == 'n' || k == 'N')
+		else if (k == 'n' || k == 'N')
 		{
 			if (current_level < 14)
 				t1 = switchlevel(&t1, level, ++current_level, 100 - current_level*3);
@@ -417,12 +412,11 @@ void Game::main_run(int leve, int life) {
 			instructor();
 			level->resume();
 			human.spawn();
-		}*/
+		}
 		else
 		{
 			bool keep = level->status();
 			while (!level->oktowrite());
-			
 			if (human.move(k))
 			{
 				level->resume();
@@ -436,12 +430,11 @@ void Game::main_run(int leve, int life) {
 					// check if player is dead
 					if (human.isDead()) {
 						//insert lose display
-						level->pause();
 						while (!level->oktowrite());
 						displayLose();
 						Sleep(1500);
 						k = 27;
-						break;//continue;
+						continue;
 					}
 					cout << "Press c to continue";
 					while (k != 'c' && k != 'C' && k != 27) k = _getch();
@@ -453,7 +446,7 @@ void Game::main_run(int leve, int life) {
 				{
 					if (current_level < 14)
 					{
-						t1 = switchlevel(&t1, level, ++current_level, 100);
+						t1 = switchlevel(&t1, level, ++current_level, 100-current_level*3);
 						while (!level->oktowrite());
 						instructor();
 						level->resume();
@@ -469,15 +462,16 @@ void Game::main_run(int leve, int life) {
 					}
 				}
 			}
-			
-
+			//remains the same if we only 
 			if (keep) level->pause();
 			else level->resume();
 		}
 		if (human.isDead()) {
 			//insert lose display
+			while (!level->oktowrite());
+			displayLose();
+			Sleep(1500);
 			k = 27;
-			continue;
 		}
 	}
 	if (k == 27)

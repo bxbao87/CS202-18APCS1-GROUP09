@@ -6,13 +6,10 @@
 
 
 int main() {
-	//system("chcp 437");
 	FixConsoleWindow(); //fixed screen
 	Nocursortype();
 	Game g;
 	g.menu();
 	setcursor(1, 10);
-	//g.menu();
-
 	return 0;
 }
