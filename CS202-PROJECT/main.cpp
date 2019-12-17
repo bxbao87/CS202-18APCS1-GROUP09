@@ -1,4 +1,5 @@
 #pragma comment(lib, "winmm.lib")
+#pragma comment(lib,"user32.lib") 
 #include "Game.h"
 #include <stdio.h>
 #include <io.h>

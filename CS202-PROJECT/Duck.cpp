@@ -225,7 +225,7 @@ void RDUCK::light_display() {
 
 void RDUCK::first_spawn() {
 	int s = LBORDER + 1;
-	int count = rand() & 3 + 2;
+	int count = rand() % 3 + 2;
 	while (s < BORDER - lenAni) {
 		arr.push_back(s);
 		--count;

@@ -381,7 +381,7 @@ void Game::main_run(int leve, int life) {
 			displayLose();
 			Sleep(1500);
 			k = 27;
-			break;
+			continue;
 		}
 		k = _getch();
 		if (k == 'p' || k == 'P') {
@@ -409,7 +409,7 @@ void Game::main_run(int leve, int life) {
 			human.spawn();
 		}
 		//for testing only
-		/*else if (k == 'n' || k == 'N')
+		else if (k == 'n' || k == 'N')
 		{
 			if (current_level < 14)
 				t1 = switchlevel(&t1, level, ++current_level, 100 - current_level*3);
@@ -417,7 +417,7 @@ void Game::main_run(int leve, int life) {
 			instructor();
 			level->resume();
 			human.spawn();
-		}*/
+		}
 		else
 		{
 			bool keep = level->status();
@@ -441,7 +441,7 @@ void Game::main_run(int leve, int life) {
 						displayLose();
 						Sleep(1500);
 						k = 27;
-						break;//continue;
+						continue;
 					}
 					cout << "Press c to continue";
 					while (k != 'c' && k != 'C' && k != 27) k = _getch();
@@ -474,11 +474,11 @@ void Game::main_run(int leve, int life) {
 			if (keep) level->pause();
 			else level->resume();
 		}
-		if (human.isDead()) {
-			//insert lose display
-			k = 27;
-			continue;
-		}
+		//if (human.isDead()) {
+		//	//insert lose display
+		//	k = 27;
+		//	continue;
+		//}
 	}
 	if (k == 27)
 	{
