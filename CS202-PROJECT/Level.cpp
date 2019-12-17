@@ -6,7 +6,6 @@ LEVEL::LEVEL(int choice, int delay)
 	stop = false; tmp_stop = false; now = clock(); ok = true; this->delay = delay; freeze = false;
 	old_coor.first = 80; old_coor.second = 45;
 	current = choice;
-	ifstream in;
 	setLevel();
 }
 
@@ -261,7 +260,9 @@ LEVEL::~LEVEL()
 {
 	int n = arr.size();
 	for (int i = 0; i < n; ++i)
-		if (arr[i] != nullptr) delete arr[i];
+		if (arr[i] != nullptr) 
+			delete arr[i];
+	arr.clear();
 }
 
 int LEVEL::getLevel()
@@ -316,7 +317,8 @@ bool LEVEL::oktowrite()
 {
 	pause();
 	int i = 0;
-	while (!(ok && tmp_stop) && i++ < 500000);
+	while (!(ok && tmp_stop) && i < 500000) 
+		++i;
 	return true;
 }
 
@@ -332,10 +334,8 @@ bool LEVEL::freeze_main()
 
 void LEVEL::cooldown()
 {
-	//insert sound of an impact " triangle ! "
 	freeze = true;
 	int time = 0;
-	clock_t count = clock();
 	for (int i = 0; i < 3; ++i)
 	{
 		go(1, 45);
@@ -343,12 +343,7 @@ void LEVEL::cooldown()
 		else if (i == 1) color(14);
 		else if (i == 2) color(10);
 		cout << "Cooldown time: " << 3 - i;
-		while (time < 500)
-		{
-			time += clock() - count;
-			count = clock();
-		}
-		time = 0;
+		Sleep(500);
 		color(15);
 	}
 	go(1, 45);
@@ -385,9 +380,7 @@ void LEVEL::run(People& human)
 					arr[i]->makeSound();
 					arr[i]->impact();
 					human.decreaseLife();
-					go(BORDER + 23, 20);
-					cout << human.getLife();
-					//or insert sound here
+					human.displayLives();
 					cooldown();
 					human.delDraw(old_coor.first, old_coor.second);
 					human.spawn();

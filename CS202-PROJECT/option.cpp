@@ -5,6 +5,12 @@ bool Option::sound = true;
 Option::Option() {
 	x = 70, y = 7;
 	music = true;
+	ifstream set(savedPath + "settings.bin", ios::binary);
+	if (set.is_open()) {
+		set.read((char*)& music, sizeof(music));
+		set.read((char*)& sound, sizeof(sound));
+	}
+	set.close();
 	ifstream fin(path + "option.txt");
 	if (fin.is_open()) {
 		string line;
@@ -14,6 +20,16 @@ Option::Option() {
 	}
 	fin.close();
 	playMusic();
+}
+
+Option::~Option()
+{
+	ofstream fout(savedPath + "settings.bin", ios::binary);
+	if (fout.is_open()) {
+		fout.write((char*)& music, sizeof(music));
+		fout.write((char*)& sound, sizeof(sound));
+	}
+	fout.close();
 }
 
 void Option::display()
@@ -67,7 +83,7 @@ void Option::change()
 	int key = _getch();
 	color(111);
 	while (key != 27) {
-		if (key == 13) {
+		if (key == 13 || key == 32) {
 			if (op == 0)
 			{
 				changeMusic();

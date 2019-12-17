@@ -55,13 +55,15 @@ int Menu::choose() {
 	int line = 0;
 	stringCentralization(command[line], line * 3 + y, cursorColor);
 	int k = _getch();
-	while (k != 13) {
+	//enter or space to confirm, ESC to exit
+	while (k != 13 && k != 32 && k != 27) {
 		stringCentralization(command[line], 3 * line + y, colour);
 		moveCursor(k, line);
 		stringCentralization(command[line], line * 3 + y, cursorColor);
 		k = _getch();
 	}
 	color(15);
+	if (k == 27) return 4;
 	return line;
 }
 

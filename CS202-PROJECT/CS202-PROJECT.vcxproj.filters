@@ -92,61 +92,61 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{a39102e3-411a-4b47-8b7f-fe5fb5373da6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
+    <Filter Include="Header Files\Resource Files">
       <UniqueIdentifier>{2a6c363c-8b62-49fa-a890-2687d4c00cbc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="MAP\BOSS.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\crossy.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\crossyZoo.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\human.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\LBEE.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\LDOLPHIN.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\LDUCK.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\LPIG.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\LWHALE.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\RBEE.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\RDOLPHIN.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\RDUCK.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\RPIG.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\RWHALE.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\zoo.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\gameOver.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
     <Text Include="MAP\victory.txt">
-      <Filter>Resource Files</Filter>
+      <Filter>Header Files\Resource Files</Filter>
     </Text>
   </ItemGroup>
 </Project>

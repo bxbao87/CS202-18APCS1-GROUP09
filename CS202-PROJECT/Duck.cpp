@@ -73,7 +73,7 @@ void LDUCK::first_spawn() {
 }
 
 void LDUCK::makeSound() {
-	PlaySound(TEXT(string(soundPath + "duck.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
+	Option::playSound(soundPath + "duck.wav");
 
 }
 
@@ -231,7 +231,7 @@ void RDUCK::first_spawn() {
 		--count;
 		if (count == 0)
 		{
-			count = rand() & 3 + 2;
+			count = rand() % 3 + 2;
 			s += closeness + lenAni;
 		}
 		else s += lenAni;
@@ -240,7 +240,7 @@ void RDUCK::first_spawn() {
 }
 
 void RDUCK::makeSound() {
-	PlaySound(TEXT(string(soundPath + "duck.wav").c_str()), NULL, SND_FILENAME | SND_ASYNC);
+	Option::playSound(soundPath + "duck.wav");
 
 }
 

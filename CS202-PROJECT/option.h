@@ -15,15 +15,11 @@ private:
 	void changeSound();
 public:
 	Option();
+	~Option();
 	void display();
 	void change();
 	static bool playSound(string path);
 	void playMusic();
 };
-
-
-
-
-
 
 #endif // !OpTION_H

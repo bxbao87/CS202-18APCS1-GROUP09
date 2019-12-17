@@ -43,6 +43,12 @@ void People::Draw() const{
 	}
 }
 
+void People::displayLives()
+{
+	go(BORDER + 23, 20);
+	cout << live;
+}
+
 bool People::move(int key) {
 	bool ret = false;
 	int mov[] = { 'a','A','d','D','w','W','s','S' };
