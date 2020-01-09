@@ -3,20 +3,10 @@
 //class LBEE
 LBEE::LBEE(int y, int n, int d, int closeness, bool traffic) {
 	this->y = y;
-	ifstream in;
-	in.open(path + "LBEE.txt");
-	if (in.is_open()) {
-		string g;
-		while (!in.eof()) {
-			for (int i = 0; i < 4; i++) {
-				getline(in, g);
-				map.push_back(g);
-				g.clear();
-			}
-		}
-		in.close();
-	}
-
+	map.push_back("   __   ");
+	map.push_back("  (__\\_ ");
+	map.push_back("-{{_(|8)");
+	map.push_back("  (__/  ");
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6;
 	lenAni = map[0].size();
 	first_spawn();
@@ -143,19 +133,10 @@ bool LBEE::done(int second) {//check if is there any light on{
 //class RBEE
 RBEE::RBEE(int y, int n, int d, int closeness, bool traffic) {
 	this->y = y;
-	ifstream in;
-	in.open(path + "RBEE.txt");
-	if (in.is_open()) {
-		string g;
-		while (!in.eof()) {
-			for (int i = 0; i < 4; i++) {
-				getline(in, g);
-				map.push_back(g);
-				g.clear();
-			}
-		}
-		in.close();
-	}
+	map.push_back("   __   ");
+	map.push_back(" _/__)  ");
+	map.push_back("(8|)_}}-");
+	map.push_back(" `\\__)  ");
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6;
 	lenAni = map[0].size();
 	first_spawn();

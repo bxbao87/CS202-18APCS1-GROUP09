@@ -3,19 +3,10 @@
 //class LWHALE
 LWHALE::LWHALE(int y, int n, int d, int closeness, bool traffic) {
 	this->y = y;
-	ifstream in;
-	in.open(path + "LWHALE.txt");
-	if (in.is_open()) {
-		string g;
-		while (!in.eof()) {
-			for (int i = 0; i < 4; i++) {
-				getline(in, g);
-				map.push_back(g);
-				g.clear();
-			}
-		}
-		in.close();
-	}
+	map.push_back("|'/\\'|     ________    ");
+	map.push_back(" \\  /    .`        ',  ");
+	map.push_back(" |  \\___/        O  |  ");
+	map.push_back("~^~^~^~^~^~^~^~^~^~^~^~");
 
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
 	lenAni = map[0].size();
@@ -144,19 +135,11 @@ bool LWHALE::done(int second) {//check if is there any light on{
 //class RWHALE
 RWHALE::RWHALE(int y, int n, int d, int closeness, bool traffic) {
 	this->y = y;
-	ifstream in;
-	in.open(path + "RWHALE.txt");
-	if (in.is_open()) {
-		string g;
-		while (!in.eof()) {
-			for (int i = 0; i < 4; i++) {
-				getline(in, g);
-				map.push_back(g);
-				g.clear();
-			}
-		}
-		in.close();
-	}
+	map.push_back("    ________     |'\\/'|");
+	map.push_back("  ,'        `.    \\  / ");
+	map.push_back("  |  O        \\___/  | ");
+	map.push_back("~^~^~^~^~^~^~^~^~^~^~^~");
+
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
 	lenAni = map[0].size();
 	first_spawn();

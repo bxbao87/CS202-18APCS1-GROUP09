@@ -4,22 +4,10 @@
 LPIG::LPIG(int y, int n, int d, int closeness, bool traffic)
 {
 	this->y = y;
-	ifstream in;
-	in.open(path + "LPIG.txt");
-	if (in.is_open())
-	{
-		string g;
-		while (!in.eof())
-		{
-			for (int i = 0; i < 4; ++i)
-			{
-				getline(in, g);
-				map.push_back(g);
-				g.clear();
-			}
-		}
-		in.close();
-	}
+	map.push_back("  _____    ");
+	map.push_back(" /     ^..^");
+	map.push_back("6\\_____(oo)");
+	map.push_back("  WW  WW   ");
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6; stop = false;
 	lenAni = map[0].size();
 	first_spawn();
@@ -175,22 +163,11 @@ void LPIG::display()
 RPIG::RPIG(int y, int n, int d, int closeness, bool traffic)
 {
 	this->y = y;
-	ifstream in;
-	in.open(path + "RPIG.txt");
-	if (in.is_open())
-	{
-		string g;
-		while (!in.eof())
-		{
-			for (int i = 0; i < 4; ++i)
-			{
-				getline(in, g);
-				map.push_back(g);
-				g.clear();
-			}
-		}
-		in.close();
-	}
+	map.push_back("    _____  ");
+	map.push_back("^..^     \\9");
+	map.push_back("(oo)_____/ ");
+	map.push_back("   WW  WW  ");
+
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 6; stop = false;
 	lenAni = map[0].size();
 	first_spawn();

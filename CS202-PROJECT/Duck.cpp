@@ -3,19 +3,11 @@
 //class LDUCK
 LDUCK::LDUCK(int y, int n, int d, int closeness, bool traffic) {
 	this->y = y;
-	ifstream in;
-	in.open(path + "LDUCK.txt");
-	if (in.is_open()) {
-		string g;
-		while (!in.eof()) {
-			for (int i = 0; i < 4; i++) {
-				getline(in, g);
-				map.push_back(g);
-				g.clear();
-			}
-		}
-		in.close();
-	}
+	map.push_back("    __  ");
+	map.push_back("___( o)>");
+	map.push_back("\\ >_. ) ");
+	map.push_back(" ^   ^  ");
+
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 14; crowd_size = 0;
 	lenAni = map[0].size();
 	first_spawn();
@@ -169,19 +161,11 @@ bool LDUCK::done(int second) {//check if is there any light on{
 //class RDUCK
 RDUCK::RDUCK(int y, int n, int d, int closeness, bool traffic) {
 	this->y = y;
-	ifstream in;
-	in.open(path + "RDUCK.txt");
-	if (in.is_open()) {
-		string g;
-		while (!in.eof()) {
-			for (int i = 0; i < 4; i++) {
-				getline(in, g);
-				map.push_back(g);
-				g.clear();
-			}
-		}
-		in.close();
-	}
+	map.push_back("  __    ");
+	map.push_back("<(o )___");
+	map.push_back(" ( ._> /");
+	map.push_back("  ^   ^ ");
+
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 14; crowd_size = 0;
 	lenAni = map[0].size();
 	first_spawn();

@@ -17,12 +17,10 @@
 
 using namespace std;
 
-const string path = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\MAP\\";
-const string savedPath = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\SAVED\\";
-const string soundPath = "D:\\CS202-PROJECT\\CS202-PROJECT\\CS202-PROJECT\\SOUND\\";
- // t.length()=140
-const string split_lane = "---------------------------------------------------------------------------------------------------------------------------------------------------------------";
-const int BORDER = 160;
+const string savedPath = "SAVED\\";
+const string soundPath = "SOUND\\";
+const string split_lane = "---------------------------------------------------------------------------------------------------------------------------------------------------";
+const int BORDER = 148;
 const int LBORDER = 0;
 
 const int X_MOVE = 1;
@@ -37,5 +35,6 @@ void go(int column, int line);
 void color(const int& k);
 void Nocursortype();				// hide the cursor
 void setcursor(bool x, DWORD size);
+void splashscreen();
 
 #endif

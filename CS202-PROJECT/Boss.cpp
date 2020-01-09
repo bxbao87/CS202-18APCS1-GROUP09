@@ -3,19 +3,25 @@
 //class BOSS
 BOSS::BOSS(int y, int n, int d, int closeness, bool traffic)
 {
-	ifstream in;
-	in.open(path + "BOSS.txt");
-	if (in.is_open())
-	{
-		string g;
-		while (!in.eof())
-		{
-			getline(in, g);
-			map.push_back(g);
-			g.clear();
-		}
-		in.close();
-	}
+	map.push_back("                        A                             A                          ");
+	map.push_back("                        A                             A                          ");
+	map.push_back("                 A_..-'(                             )`-.._A                     ");
+	map.push_back("              ./'. '||\\\\.            (\\-_-/)        .//||` .`\\.                  ");
+	map.push_back("             ./'.... '||\\\\.          |     |       .//||` ....`\\.                ");
+	map.push_back("           ./'.|'.'|||||||\\\\|..      )A   A(    ..|//|||||||`.`|.`\\.             ");
+	map.push_back("        ./'..|'.|| ||||||||\\````````' VVVVV '''''''''/|||||||| ||.`|..`\\.        ");
+	map.push_back("      ./'.||'.|||| |||||||||||||||||.       .||||||||||||||||| |||||.`||.`\\.     ");
+	map.push_back("     /'|||'.|||||| |||||||||||||||||{BBBBBBB}||||||||||||||||| ||||||.`|||`\\     ");
+	map.push_back("    '.|||'.||||||| |||||||||||||||||{OOOOOOO}||||||||||||||||| |||||||.`|||.`    ");
+	map.push_back("  '.|||||'.||||||| |||||||||||||||||{SSSSSSS}||||||||||||||||| |||||||.`|||||.`  ");
+	map.push_back(" '.||||| ||||||||| |/'   ``\\|||||||``SSSSSSS''|||||||/''   `\\| ||||||||| |||||.` ");
+	map.push_back(" '.|||||'.|||||||| |||     |||||||||{       }|||||||||      ||| ||||||||.`|||||.`");
+	map.push_back("'.|||||| ||||||||| |/'      \\||||||``       ''||||||/      `\\| ||||||||| ||||||.`");
+	map.push_back("  |/'  \\./'     `\\./         \\!||||||\\     /||||||!/         \\./'     `\\./  `\\|  ");
+	map.push_back("  V     V         V          }' `     \\   /     ' `{          V         V     V  ");
+	map.push_back("  |     |         |                    \\ /                    |         |     |  ");
+	map.push_back("  `     `         `                     V                     '         '     '  ");
+
 	lenAni = map[0].size();
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; c = 1; count = 0;
 	reset_dir();
@@ -85,15 +91,14 @@ bool BOSS::spawn()
 void BOSS::human(pair<int, int> tmp)
 {
 	int n = dir.size();
-	if ((n == 0 || (n != 0 && tmp != dir[n - 1])) && tmp.second != 45)
+	if (((n == 0 && tmp != last) || (n != 0 && tmp != dir[n - 1])) && tmp.second != 45)
 		dir.push_back(tmp);
 }
 
 void BOSS::reset_dir()
 {
 	dir.clear();
-	pair <int, int> tmp(80, 45);
-	dir.push_back(tmp);
+	last.first = 0, last.second = 0;
 	bx = BORDER / 2 - map[0].size() / 2;
 	by = 43 / 2 - map.size() / 2;
 }
@@ -105,21 +110,31 @@ void BOSS::impact()
 
 void BOSS::change_dir()
 {
-	if (dir.size() == 4)
+	if (dir.size() == 3)
 	{
-		int tx = dir[3].first - dir[0].first, ty = dir[3].second - dir[0].second;
-		hx = dir[3].first; hy = dir[3].second;
+		int tx, ty;
+		if (dir[0] != dir[2])
+		{
+			tx = dir[2].first - dir[0].first;
+			ty = dir[2].second - dir[0].second;
+		}
+		else
+		{
+			tx = dir[2].first - dir[1].first;
+			ty = dir[2].second - dir[1].second;
+		}
+		hx = dir[2].first; hy = dir[2].second;
 		if (tx > 0)
 		{
 			if (ty > 0)
 			{
 				bx = hx + 3;
-				by = hy + 3;
+				by = hy + 20;
 			}
 			else if (ty < 0)
 			{
 				bx = hx + 3;
-				by = hy - 17;
+				by = hy - 20;
 			}
 			else
 			{
@@ -131,12 +146,12 @@ void BOSS::change_dir()
 			if (ty > 0)
 			{
 				bx = hx - 81;
-				by = hy + 3;
+				by = hy + 20;
 			}
 			else if (ty < 0)
 			{
 				bx = hx - 81;
-				by = hy - 3;
+				by = hy - 20;
 			}
 			else
 			{
@@ -148,17 +163,16 @@ void BOSS::change_dir()
 			if (ty > 0)
 			{
 				bx = hx - 40;
-				by = hy + 19; 
+				by = hy + 20; 
 			}
 			else if (ty < 0)
 			{
 				bx = hx - 40;
-				by = hy - 19;
+				by = hy - 20;
 			}
 		}
-		pair <int, int> tmp = dir[3];
+		last = dir[2];
 		dir.clear();
-		dir.push_back(tmp);
 	}
 }
 

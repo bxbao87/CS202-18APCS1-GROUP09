@@ -1,6 +1,7 @@
 #include "Game.h"
 
 Game::Game() {
+	cheatmode = op.getcheatmode();
 	current_level = 1;
 }
 
@@ -44,13 +45,117 @@ void Game::menu() {
 			op.display();
 			op.change();
 		}
-		else if (choice == 3) {		// about
-
+		else if (choice == 3) {		// about us
+			aboutus();
 		}
 		else {						// exit
 
 		}
 	}
+}
+
+void Game::aboutus()
+{
+	std::system("cls");
+	color(15);
+	string a = "    LE VIET THANH      - 18125023 - HCMUS -  CHAOTIC ZOOKEEPER ";
+	string b = "NGUYEN PHAN NHAT HOANG - 18125050 - HCMUS -  ANIMAL SPECIALIST ";
+	string c = "    BUI XUAN BAO       - 18125063 - HCMUS -   RUNNING VISITOR  ";
+	string contact = "Any feedback :), please email me at lvthanh18@apcs.vn, thanks for playing our game!";
+	string prank = "(positive only =)) )";
+	vector <string> block = { a, "\n", b,"\n",c };
+	vector <pair<int, int>> coor;
+	time_t timing = 5000;
+	int x, y, maxx = 212, maxy = 50, cx = 0, cy = 0;
+
+	while (maxx > 60 && maxy > 5)
+	{
+		srand(clock() + rand() % 31);
+		pair<int, int> tmp;
+		while (timing > 0)
+		{
+			time_t ttmp = clock();
+			//srand(clock() + rand() % 31);
+			x = rand() % maxx;
+			y = rand() % maxy;
+			tmp.first = x;
+			tmp.second = y;
+			coor.push_back(tmp);
+			//create
+			go(x + cx, y + cy);
+			int c = rand() % 37;
+			if (c < 11) cout << char(rand() % 10 + 48); //random 0-9
+			else if (c < 19) cout << char(rand() % 26 + 97); //random a-z
+			else cout << char(rand() % 26 + 65); //random A-Z
+			//delete
+			if (rand() % 101 < 90 && coor.size() != 0)
+			{
+				int r = rand() % coor.size();
+				go(coor[r].first, coor[r].second);
+				cout << ' ';
+			}
+			timing -= clock() - ttmp;
+		}
+		timing = 1500;
+		maxx *= 0.9;
+		if (maxx > 100) cx += 7;
+		else cx += 6;
+		maxy *= 0.875; 
+		if (maxy > 30) cy += 2;
+		else cy += 1;
+	}
+	Sleep(500);
+	x = 71, y = 15;
+	for (int i = 0; i < block.size()+2; ++i)
+	{
+		go(x, y++);
+		cout << "                                                                 ";
+	}
+	x = 72, y = 16;
+	for (int i = 0; i < block.size(); ++i)
+	{
+		go(x, y++);
+		cout << block[i];
+	}
+	Sleep(500);
+	system("cls");
+	x = 72, y = 16;
+	for (int i = 0; i < block.size(); ++i)
+	{
+		go(x, y++);
+		cout << block[i];
+	}
+	go(x - 9, ++y);
+	setcursor(1, 10);
+	int i = contact.size(), j = prank.size(), k = 0, m = 0, n = 0;
+	while (k < i)
+	{
+		if (contact[m] == '32') Sleep(200);
+		else Sleep(120);
+		cout << contact[m++];
+		if (m == 12)
+		{
+			Sleep(500);
+			while (n < j)
+			{
+				cout << prank[n++];
+				Sleep(100);
+			}
+			n = 0;
+			Sleep(500);
+			while (n < j)
+			{
+				cout << '\b' << ' ' << '\b';
+				Sleep(100);
+				++n;
+			}
+		}
+		++k;
+	}
+	setcursor(0, 0);
+	go(0, ++y);
+	cout << "PRESS ANY KEY TO GO BACK..";
+	int q = _getch();
 }
 
 string Game::inputFileName(int x, int y) {
@@ -65,12 +170,11 @@ string Game::inputFileName(int x, int y) {
 	bool ok = true;
 	while (ch != 13) {
 		if (ch == 27) {
-			ch = _getch();
-			if (ch == 27) {
-				fileName.clear();
-				fileName.push_back(27);
-				return fileName;
-			}
+			fileName.clear();
+			fileName.push_back(27);
+			go(x, y);
+			cout << "                                   ";
+			return fileName;
 		}
 		if (ch == -32) {
 			ch = _getch();
@@ -117,11 +221,19 @@ void Game::loadOption(int p, int& leve, int& life) {
 	}
 	string fileName;
 	do {
+		go(x, y-1);
+		cout << "                               ";
+		go(x, y-1);
+		cout << "Loading process..";
 		go(x, y);
 		cout << "                               ";
 		fileName = inputFileName(x, y);
-		if (fileName == "") break;
+		if (fileName == "" || (fileName.size() == 1 && fileName[0] == 27)) break;
 	} while (!loadGame(fileName, x, y, leve, life));
+	go(x, y-1);
+	cout << "                                     ";
+	go(x, y);
+	cout << "                                     ";
 }
 
 bool Game::loadGame(string fileName, int x, int y, int& leve, int& life) {
@@ -139,6 +251,7 @@ bool Game::loadGame(string fileName, int x, int y, int& leve, int& life) {
 	}
 	file.read((char*)& leve, sizeof(leve));
 	file.read((char*)& life, sizeof(life));
+	file.read((char*)& cheatmode, sizeof(cheatmode));
 	file.close();
 	return true;
 }
@@ -146,15 +259,44 @@ bool Game::loadGame(string fileName, int x, int y, int& leve, int& life) {
 void Game::saveOption() {
 	string fileName;
 	do {
+		go(BORDER + 2, 43);
+		cout << "                               ";
+		go(BORDER + 2, 43);
+		cout << "Saving process..";
 		go(BORDER + 2, 44);
 		cout << "                               ";
 		fileName = inputFileName(BORDER+2, 44);
-		if (fileName == "") break;
+		if (fileName == "" || (fileName.size() == 1 && fileName[0] == 27)) break;
 	} while (!saveGame(fileName));
+	go(BORDER + 2, 43);
+	cout << "                               ";
+	go(BORDER + 2, 44);
+	cout << "                               ";
 }
 
 bool Game::saveGame(string fileName) {
 	ofstream file;
+	ifstream check;
+	check.open(savedPath + fileName + ".bin", ios::binary);
+	//confirmation
+	if (check.is_open())
+	{
+		check.close();
+		go(BORDER + 2, 45);
+		cout << "File already exists...";
+		go(BORDER + 2, 46);
+		cout << "this process will overwrite it";
+		go(BORDER + 2, 47);
+		cout << "Y to proceed or ESC to exit";
+		int k = 0;
+		while (k != 'y' && k != 'Y' && k != 27) k = _getch();
+		for (int i = 0; i < 3; ++i)
+		{
+			go(BORDER + 2, 45 + i);
+			cout << "                              ";
+		}
+		if (k == 27) return false;
+	}
 	file.open(savedPath + fileName + ".bin", ios::binary);
 	if (!file.is_open())
 		return false;
@@ -162,11 +304,13 @@ bool Game::saveGame(string fileName) {
 	int life = human.getLife();
 	file.write((char*)& leve, sizeof(leve));
 	file.write((char*)& life, sizeof(life));
+	file.write((char*)& cheatmode, sizeof(cheatmode));
 	file.close();
 	go(BORDER + 2, 44);
 	cout << "                               ";
 	go(BORDER + 2, 44);
 	cout << "Save successful!";
+	Sleep(500);
 	go(BORDER + 2, 44);
 	cout << "                ";
 	return true;
@@ -200,41 +344,53 @@ void Game::displayWin()
 	if (Option::playSound(soundPath + "victory.wav"))
 		sleep = 3500;
 	color(224);
-	ifstream fin(path + "victory.txt");
-	if (fin.is_open())
+	vector <string> win;
+	win.push_back("..........................................................................................");
+	win.push_back("'##::::'##:'####::'######::'########::'#######::'########::'##:::'##::::'####:'####:'####:");
+	win.push_back(" ##:::: ##:. ##::'##... ##:... ##..::'##.... ##: ##.... ##:. ##:'##::::: ####: ####: ####:");
+	win.push_back(" ##:::: ##:: ##:: ##:::..::::: ##:::: ##:::: ##: ##:::: ##::. ####:::::: ####: ####: ####:");
+	win.push_back(" ##:::: ##:: ##:: ##:::::::::: ##:::: ##:::: ##: ########::::. ##:::::::: ##::: ##::: ##::");
+	win.push_back(". ##:: ##::: ##:: ##:::::::::: ##:::: ##:::: ##: ##.. ##:::::: ##::::::::..::::..::::..:::");
+	win.push_back(":. ## ##:::: ##:: ##::: ##:::: ##:::: ##:::: ##: ##::. ##::::: ##:::::::'####:'####:'####:");
+	win.push_back("::. ###::::'####:. ######::::: ##::::. #######:: ##:::. ##:::: ##::::::: ####: ####: ####:");
+	win.push_back(":::...:::::....:::......::::::..::::::.......:::..:::::..:::::..::::::::....::....::....::");
+
+	int x = BORDER / 2 - 35, y = 15, n = win.size();
+	for (int i = 0; i < n; ++i)
 	{
-		int x = BORDER/2-35, y = 15;
-		string line;
-		while (getline(fin, line, '\n')) {
-			Sleep(200);
-			go(x, y++);
-			cout << line;
-		}
+		Sleep(200);
+		go(x, y++);
+		cout << win[i];
 	}
-	fin.close();
 	color(15);
 	Sleep(sleep);
 }
 
 void Game::displayLose()
 {
-	Sleep(1500);
+	Sleep(500);
 	int sleep = 0;
 	if (Option::playSound(soundPath + "death.wav"))
 		sleep = 800;
 	color(192);
-	ifstream fin(path + "gameOver.txt");
-	if (fin.is_open())
+	vector <string> lose;
+	lose.push_back(".........................................................................................");
+	lose.push_back(":'######::::::'###::::'##::::'##:'########:::::'#######::'##::::'##:'########:'########::");
+	lose.push_back("'##... ##::::'## ##::: ###::'###: ##.....:::::'##.... ##: ##:::: ##: ##.....:: ##.... ##:");
+	lose.push_back(" ##:::..::::'##:. ##:: ####'####: ##:::::::::: ##:::: ##: ##:::: ##: ##::::::: ##:::: ##:");
+	lose.push_back(" ##::'####:'##:::. ##: ## ### ##: ######:::::: ##:::: ##: ##:::: ##: ######::: ########::");
+	lose.push_back(" ##::: ##:: #########: ##. #: ##: ##...::::::: ##:::: ##:. ##:: ##:: ##...:::: ##.. ##:::");
+	lose.push_back(" ##::: ##:: ##.... ##: ##:.:: ##: ##:::::::::: ##:::: ##::. ## ##::: ##::::::: ##::. ##::");
+	lose.push_back(". ######::: ##:::: ##: ##:::: ##: ########::::. #######::::. ###:::: ########: ##:::. ##:");
+	lose.push_back(":......::::..:::::..::..:::::..::........::::::.......::::::...:::::........::..:::::..::");
+
+	int x = BORDER / 2 - 35, y = 15, n = lose.size();
+	for (int i = 0; i < n; ++i)
 	{
-		int x = BORDER/2-35, y = 15;
-		string line;
-		while (getline(fin, line, '\n')) {
-			Sleep(200);
-			go(x, y++);
-			cout << line;
-		}
+		Sleep(200);
+		go(x, y++);
+		cout << lose[i];
 	}
-	fin.close();
 	color(15);
 	Sleep(sleep);
 }
@@ -281,22 +437,35 @@ thread Game::startGame(thread* t) {
 	return tmp;
 }
 
-
 void Game::crossyZoo() {
-	ifstream fin(path + "crossyZoo.txt");
-	if (fin.is_open()) {
-		int n;
-		fin >> n;
-		int x = 50, y = 5;
-		color(14);
-		for (int i = 0; i < n; ++i) {
-			string str;
-			getline(fin, str, '\n');
-			go(x, y++);
-			cout << str;
-		}
+	vector <string> tmp;
+	tmp.push_back("      # ###                                                            /###           /                     x");
+	tmp.push_back("    /  /###  /                                                        /  ############/                      ");
+	tmp.push_back("   /  /  ###/                                                        /     ##########                       ");
+	tmp.push_back("  /  ##   ##                                                         #             /                        ");
+	tmp.push_back(" /  ###                                                               ##          /                         ");
+	tmp.push_back("##   ##     ###  /###     /###     /###     /###   ##   ####                     /         /###     /###    ");
+	tmp.push_back("##   ##      ###/ #### / / ###  / / #### / / #### / ##    ###  /                /         / ###  / / ###  / ");
+	tmp.push_back("##   ##       ##   ###/ /   ###/ ##  ###/ ##  ###/  ##     ###/                /         /   ###/ /   ###/  ");
+	tmp.push_back("##   ##       ##       ##    ## ####     ####       ##      ##                /         ##    ## ##    ##   ");
+	tmp.push_back("##   ##       ##       ##    ##   ###      ###      ##      ##               /          ##    ## ##    ##   ");
+	tmp.push_back(" ##  ##       ##       ##    ##     ###      ###    ##      ##              /           ##    ## ##    ##   ");
+	tmp.push_back("  ## #      / ##       ##    ##       ###      ###  ##      ##             /            ##    ## ##    ##   ");
+	tmp.push_back("   ###     /  ##       ##    ##  /###  ## /###  ##  ##      ##         /##/           / ##    ## ##    ##   ");
+	tmp.push_back("    ######/   ###       ######  / #### / / #### /    #########        /  ############/   ######   ######    ");
+	tmp.push_back("      ###      ###       ####      ###/     ###/       #### ###      /     ##########     ####     ####     ");
+	tmp.push_back("                                                             ###                                            ");
+	tmp.push_back("                                                      #####   ###                                           ");
+	tmp.push_back("                                                    /#######  /#                                            ");
+	tmp.push_back("                                                   /      ###/                                              ");
+
+	int n = tmp.size();
+	int x = 50, y = 5;
+	color(14);
+	for (int i = 0; i < n; ++i) {
+		go(x, y++);
+		cout << tmp[i];
 	}
-	fin.close();
 	color(15);
 }
 
@@ -304,28 +473,37 @@ void Game::instructor() {
 	setcursor(0, 0); //hide cursor
 
 	int x = BORDER + 5, y = 3;
+	vector <string> crossy;
+	crossy.push_back("  ___________  ____  ______ _________.__.");
+	crossy.push_back("_/ ___\\_  __ \\/  _ \\/  ___//  ___<   |  |");
+	crossy.push_back("\\  \\___|  | \\(  <_> )___ \\ \\___ \\ \\___  |");
+	crossy.push_back(" \\___  >__|   \\____/____  >____  >/ ____|");
+	crossy.push_back("     \\/                 \\/     \\/ \\/     ");
+
 	color(4);
-	ifstream fin( path + "crossy.txt");
-	if (fin.is_open()) {
-		string line;
-		while (getline(fin, line, '\n')) {
-			go(x, y++);
-			cout << line;
-		}
+	int n = crossy.size();
+	for (int i =0;i<n;++i)
+	{
+		go(x, y++);
+		cout << crossy[i];
 	}
-	fin.close();
+
+	vector <string> zoo;
+	zoo.push_back("____________   ____  ");
+	zoo.push_back("\\___   /  _ \\ /  _ \\ ");
+	zoo.push_back(" /    (  <_> |  <_> )");
+	zoo.push_back("/_____ \\____/ \\____/ ");
+	zoo.push_back("      \\/             ");
 
 	x += 10;
 	color(11);
-	fin.open(path + "zoo.txt");
-	if (fin.is_open()) {
-		string line;
-		while (getline(fin, line, '\n')) {
-			go(x, ++y);
-			cout << line;
-		}
+	
+	n = zoo.size();
+	for (int i = 0; i < n; ++i)
+	{
+		go(x, y++);
+		cout << zoo[i];
 	}
-	fin.close();
 
 	x = BORDER + 15;
 	y = 17;
@@ -357,9 +535,9 @@ void Game::instructor() {
 	go(x, y += 2);
 	cout << setw(20) << "Press R to RESUME";
 	go(x, y += 2);
-	cout << setw(20) << "Press L to SAVE";
+	cout << setw(20) << "Press K to SAVE";
 	go(x, y += 2);
-	cout << setw(20) << "Press T to LOAD";
+	cout << setw(20) << "Press L to LOAD";
 	go(x, y += 2);
 	cout << setw(20) << "Press ESC to EXIT";
 
@@ -367,6 +545,7 @@ void Game::instructor() {
 
 void Game::main_run(int leve, int life) {
 	//first initialization
+	cheatmode = op.getcheatmode();
 	human.setLife(life);
 	level = new LEVEL(leve, 100 -leve*3);
 	int k = 0, l = 1;
@@ -389,34 +568,38 @@ void Game::main_run(int leve, int life) {
 		{
 			level->resume();
 		}
-		else if (k == 'l' || k == 'L') //save game
+		else if (k == 'k' || k == 'K') //save game
 		{
 			while (!level->oktowrite());
 			saveOption();
 			if (keep) level->pause();
 			else level->resume();
 		}
-		else if (k == 't' || k == 'T') //load game
+		else if (k == 'l' || k == 'L') //load game
 		{
-			level->pause();
 			while (!level->oktowrite());
 			int leve = 0, life = 0;
 			loadOption(1, leve, life);
 			human.setLife(life);
-			t1 = switchlevel(&t1, level, leve, 100-leve*3);
-			while (!level->oktowrite());
-			instructor();
-			human.spawn();
+			if (leve != 0 && life != 0)
+			{
+				t1 = switchlevel(&t1, level, leve, 100 - leve * 3);
+				while (!level->oktowrite());
+				instructor();
+				human.spawn();
+			}
+			if (keep) level->pause();
+			else level->resume();
 		}
 		//for testing only
-		else if (k == 'n' || k == 'N')
+		else if ((k == 'n' || k == 'N')&& cheatmode)
 		{
 			if (current_level < 14)
 				t1 = switchlevel(&t1, level, ++current_level, 100 - current_level*3);
 			while (!level->oktowrite());
 			instructor();
-			level->resume();
 			human.spawn();
+			level->resume();
 		}
 		else
 		{

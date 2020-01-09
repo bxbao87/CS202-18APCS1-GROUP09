@@ -18,6 +18,7 @@ private:
 	Option op;
 	Menu _menu;
 	int current_level;
+	bool cheatmode;
 public:
 	Game();
 	~Game();
@@ -42,6 +43,7 @@ public:
 	void displayLose();
 	void displayLevel();
 	void displayLives();
+	void aboutus();
 
 	void settings();
 };

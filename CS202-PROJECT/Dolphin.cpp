@@ -4,22 +4,11 @@
 LDOLPHIN::LDOLPHIN(int y, int n, int d, int closeness, bool traffic)
 {
 	this->y = y;
-	ifstream in;
-	in.open(path+ "LDOLPHIN.txt");
-	if (in.is_open())
-	{
-		string g;
-		while (!in.eof())
-		{
-			for (int i = 0; i < 4; ++i)
-			{
-				getline(in, g);
-				map.push_back(g);
-				g.clear();
-			}
-		}
-		in.close();
-	}
+	map.push_back("        ,     ");
+	map.push_back("      __)\\_   ");
+	map.push_back("(\\_.-'    a`-.");
+	map.push_back("(/~~````(/~^^`");
+
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
 	lenAni = map[0].size();
 	first_spawn();
@@ -173,22 +162,11 @@ bool LDOLPHIN::done(int second) //check if is there any light on
 RDOLPHIN::RDOLPHIN(int y, int n, int d, int closeness, bool traffic)
 {
 	this->y = y;
-	ifstream in;
-	in.open(path + "RDOLPHIN.txt");
-	if (in.is_open())
-	{
-		string g;
-		while (!in.eof())
-		{
-			for (int i = 0; i < 4; ++i)
-			{
-				getline(in, g);
-				map.push_back(g);
-				g.clear();
-			}
-		}
-		in.close();
-	}
+	map.push_back("     ,        ");
+	map.push_back("   _/(__      ");
+	map.push_back(".-`a    '-._/)");
+	map.push_back("`^^~(/````~~\\)");
+
 	this->n = n; this->d = d; this->closeness = closeness;  this->traffic = traffic; co = 3;
 	lenAni = map[0].size();
 	first_spawn();

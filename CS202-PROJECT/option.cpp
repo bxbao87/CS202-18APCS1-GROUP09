@@ -5,20 +5,24 @@ bool Option::sound = true;
 Option::Option() {
 	x = 70, y = 7;
 	music = true;
+	sound = true;
+	cheatmode = false;
 	ifstream set(savedPath + "settings.bin", ios::binary);
 	if (set.is_open()) {
 		set.read((char*)& music, sizeof(music));
 		set.read((char*)& sound, sizeof(sound));
+		set.read((char*)& cheatmode, sizeof(cheatmode));
 	}
 	set.close();
-	ifstream fin(path + "option.txt");
-	if (fin.is_open()) {
-		string line;
-		while (getline(fin, line, '\n')) {
-			logo.push_back(line);
-		}
-	}
-	fin.close();
+
+	logo.push_back(" ________  ________  _________  ___  ________  _________      ");
+	logo.push_back("|\\   __  \\|\\   __  \\|\\___   ___\\\\  \\|\\   __  \\|\\   ___  \\    ");
+	logo.push_back("\\ \\  \\|\\  \\ \\  \\|\\  \\|___ \\  \\_\\ \\  \\ \\  \\|\\  \\ \\  \\ \\\\  \\   ");
+	logo.push_back(" \\ \\  \\\\\\  \\ \\   ____\\   \\ \\  \\ \\ \\  \\ \\  \\\\\\  \\ \\  \\ \\\\  \\  ");
+	logo.push_back("  \\ \\  \\\\\\  \\\ \\  \\___|    \\ \\  \\ \\ \\  \\ \\  \\\\\\  \\ \\  \\ \\\\  \\ ");
+	logo.push_back("   \\ \\_______\\ \\__\\        \\ \\__\\ \\ \\__\\ \\_______\\ \\__\\ \\\\__\\");
+	logo.push_back("    \\|_______|\\|__|         \\|__|  \\|__|\\|_______|\\|__|  \\|__|");
+
 	playMusic();
 }
 
@@ -28,8 +32,19 @@ Option::~Option()
 	if (fout.is_open()) {
 		fout.write((char*)& music, sizeof(music));
 		fout.write((char*)& sound, sizeof(sound));
+		fout.write((char*)& cheatmode, sizeof(cheatmode));
 	}
 	fout.close();
+}
+
+bool Option::getcheatmode()
+{
+	return cheatmode;
+}
+
+void Option::setcheatmode(const bool& cheatmode)
+{
+	this->cheatmode = cheatmode;
 }
 
 void Option::display()
@@ -49,10 +64,14 @@ void Option::display()
 	cout << "MUSIC:  ";
 	go(x, y += 3);
 	cout << "SOUND:  ";
+	go(x, y += 3);
+	cout << "CHEAT:  ";
+	y -= 3;
 	color(111);
 	displayMusic();
 	color(15);
 	displaySound();
+	displayCheat();
 }
 
 void Option::displayMusic()
@@ -72,6 +91,15 @@ void Option::displaySound()
 	else cout << "OFF";
 }
 
+void Option::displayCheat()
+{
+	go(x + 10, y+=3);
+	if (cheatmode)
+		cout << " ON";
+	else cout << "OFF";
+	y -= 3;
+}
+
 void Option::change()
 {
 	int op = 0;
@@ -89,10 +117,15 @@ void Option::change()
 				changeMusic();
 				displayMusic();
 			}
-			else {
+			else if (op == 1) {
 				changeSound();
 				displaySound();
-			}			
+			}
+			else 
+			{
+				changeCheat();
+				displayCheat();
+			}
 		}
 		else if (key == 'w' || key == 'W' || key == 's' || key == 'S' || key == 224)
 		{
@@ -110,15 +143,28 @@ void Option::change()
 				cout << "  ";
 				if (op == 0)
 					displayMusic();
-				else displaySound();
-				op = (++op) % 2;
+				else if (op == 1)
+					displaySound();
+				else
+					displayCheat();
 				color(12);
+				if (key == 'w' || key == 'W' || (key == 224 && ex == 72))
+				{
+					--op; if (op < 0) op = 2;
+				}
+				else
+				{
+					++op; if (op > 2) op = 0;
+				}
 				go(a, b + op * 3);
 				cout << ">>";
 				color(111);
 				if (op == 0)
 					displayMusic();
-				else displaySound();
+				else if (op == 1)
+					displaySound();
+				else
+					displayCheat();
 			}
 		}
 		key = _getch();
@@ -135,6 +181,11 @@ void Option::changeMusic() {
 
 void Option::changeSound() {
 	sound = !sound;
+}
+
+void Option::changeCheat()
+{
+	cheatmode = !cheatmode;
 }
 
 bool Option::playSound(string path) {

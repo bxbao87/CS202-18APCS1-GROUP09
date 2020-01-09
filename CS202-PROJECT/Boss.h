@@ -10,6 +10,7 @@ private:
 	int count;
 	int c; //color of boss
 	vector <pair<int, int>> dir;
+	pair<int, int> last = { 0,0 };
 	int bx, by; //base coordinate
 public:
 	BOSS(int y, int n, int d, int closeness, bool traffic); //line, spawn rate, closeness, traffic

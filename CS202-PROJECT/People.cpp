@@ -5,16 +5,9 @@ People::People() {
 	pY = 45;
 	pX = 80;
 	state = true;
-	ifstream fin(path + "human.txt");
-	if (fin.is_open()) {
-		map.clear();
-		while(!fin.eof()){
-			string line;
-			getline(fin, line, '\n');
-			map.push_back(line);
-		}
-	}
-	fin.close();
+	map.push_back(" A ");
+	map.push_back("-|-");
+	map.push_back("/ \\");
 	spawn();
 }
 

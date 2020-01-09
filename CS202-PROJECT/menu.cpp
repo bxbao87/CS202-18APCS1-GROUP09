@@ -4,7 +4,7 @@ Menu::Menu() {
 	y = 26;
 	cursorColor = 176;
 	colour = 11;
-	command.push_back("   Start New Game   ");
+	command.push_back("  Start Challenges  ");
 	command.push_back("  Load Saved Game   ");
 	command.push_back("      Settings      ");
 	command.push_back("      About Us      ");

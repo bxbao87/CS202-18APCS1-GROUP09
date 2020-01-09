@@ -41,4 +41,40 @@ void setcursor(bool x, DWORD size) // x = 0 : invisible, x = 1 : visible, usuall
 	SetConsoleCursorInfo(console, &lpCursor);
 }
 
-
+void splashscreen()
+{
+	color(11);
+	vector <pair<int, int>> coor;
+	time_t timing = 3000, now;
+	int x, y, maxx, maxy;
+	pair<int, int> t;
+	while (timing > 0)
+	{
+		now = clock();
+		srand(clock() % 101);
+		int s, e;
+		for (int i = 0; i < 1000; ++i)
+		{
+			x = rand() % 212;
+			y = rand() % 50;
+			t.first = x; t.second = y;
+			coor.push_back(t);
+			go(x, y); 
+			if (rand() % 2 == 0) cout << '/';
+			else cout << '#';
+			Sleep(20);
+			s = coor.size();
+			if (rand() % 101 < 80 && s != 0)
+			{
+				e = rand() % s;
+				go(coor[e].first, coor[e].second); cout << ' ';
+				coor.erase(coor.begin() + e);
+			}
+		}
+		coor.clear();
+		timing -= clock() - now;
+	}
+	Sleep(500);
+	system("cls");
+	color(15);
+}
